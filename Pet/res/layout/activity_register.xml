@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/zhuce_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:background="@color/zhutise" >
+
+        <LinearLayout
+            android:id="@+id/register_back_quyu"
+            android:layout_width="40dp"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:src="@drawable/fanhui" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/zhuce"
+            android:textColor="@color/ziti_main"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/register_denglu"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18dp"
+            android:gravity="center"
+            android:text="@string/denglu"
+            android:textColor="@color/ziti_main"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="110dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/baise"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="55dp"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/shoujihao"
+                android:textColor="@color/zhuce_yindao_ziti"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/register_shoujihao"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="31dp"
+                android:background="@null"
+                android:hint="请输入手机号"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColor="@color/heise"
+                android:textColorHint="@color/hintziti"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/zhuce_bg" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="55dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yanzhengma"
+                android:textColor="@color/zhuce_yindao_ziti"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/register_yanzhengma"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="31dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入验证码"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColor="@color/heise"
+                android:textColorHint="@color/hintziti"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/register_huoquyanzhengma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/zhutise_button_bg"
+                android:paddingBottom="6dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="6dp"
+                android:text="@string/huoquyanzhengma"
+                android:textColor="@color/ziti_main"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="110dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/baise"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="55dp"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/shezhimima"
+                android:textColor="@color/zhuce_yindao_ziti"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/register_shezhimima"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="@null"
+                android:hint="6-20位数字/字母"
+                android:singleLine="true"
+                android:textColor="@color/heise"
+                android:textColorHint="@color/hintziti"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/zhuce_bg" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="55dp"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yaoqingma"
+                android:textColor="@color/zhuce_yindao_ziti"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/register_yaoqingma"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="31dp"
+                android:background="@null"
+                android:hint="如无可不填"
+                android:singleLine="true"
+                android:textColor="@color/heise"
+                android:textColorHint="@color/hintziti"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/register_tongyixieyi_quyu"
+            android:layout_width="39dp"
+            android:layout_height="fill_parent"
+            android:gravity="right|center_vertical" >
+
+            <CheckBox
+                android:id="@+id/register_xieyi_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:button="@null"
+                android:checked="true"
+                android:drawableRight="@drawable/register_tongyixieyi_selector" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/register_xieyi_neirong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tongyi_xieyi"
+            android:textColor="@color/ziti_main"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/register_lijijiaru"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/zhutise_button_bg"
+        android:gravity="center"
+        android:text="@string/lijijiaru"
+        android:textColor="@color/ziti_main"
+        android:textSize="16sp" />
+
+</LinearLayout>
