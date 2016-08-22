@@ -131,6 +131,7 @@ public class GuideActivity extends Activity implements OnClickListener {
 		case R.id.guide_start_pet:
 			Intent intent =new Intent(getApplicationContext(), LoginActivity.class);
 			startActivity(intent);
+			GuideActivity.this.finish();
 			break;
 		default:
 			break;

@@ -1,17 +1,17 @@
 package com.example.pet;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class LoginActivity extends Activity implements OnClickListener {
+public class LoginActivity extends Activity  implements OnClickListener {
 	EditText userName, mima;
 	Button zhuce, denglu;
 	ImageView qq, wb, wx;
@@ -20,7 +20,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+		//getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		setContentView(R.layout.activity_login);
 		initView();
 	}
@@ -51,8 +51,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.login_zhuce:
-			/*Intent intent=new Intent(getApplicationContext(), register.class);
-			startActivity(intent);*/
+			Intent intent=new Intent(getApplicationContext(), RegisterActivity.class);
+			startActivity(intent);
 			break;
 		case R.id.login_denglu:
 			if(checkedEditText()){
@@ -98,15 +98,24 @@ public class LoginActivity extends Activity implements OnClickListener {
 	 */
 	OnFocusChangeListener focusChangeListener=new OnFocusChangeListener() {
 		public void onFocusChange(View v, boolean hasFocus) {
-			if(!hasFocus){
-				String str=userName.getText().toString();
-				String str2=mima.getText().toString();
-				if(userName.getText()==null||str.trim().length()==0){
-					Toast.makeText(getApplicationContext(), "用户名不能为空！",
-							Toast.LENGTH_SHORT).show();
-				}else if(mima.getText()==null||str2.trim().length()==0){
-					Toast.makeText(getApplicationContext(), "密码不能为空！",
-							Toast.LENGTH_SHORT).show();
+			if (!hasFocus) {
+				String str = userName.getText().toString();
+				String str2 = mima.getText().toString();
+				switch (v.getId()) {
+				case R.id.login_userName:
+					if(userName.getText()==null||str.trim().length()==0){
+						Toast.makeText(getApplicationContext(), "用户名不能为空！",
+								Toast.LENGTH_SHORT).show();
+					}
+					break;
+				case R.id.login_password:
+					if(mima.getText()==null||str2.trim().length()==0){
+						Toast.makeText(getApplicationContext(), "密码不能为空！",
+								Toast.LENGTH_SHORT).show();
+					}
+					break;
+				default:
+					break;
 				}
 			}
 		}

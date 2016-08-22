@@ -3,8 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/baise"
-    android:orientation="vertical" >
-    
+ >
+    <ScrollView 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:background="@color/baise">
     <RelativeLayout 
         android:layout_width="fill_parent"
         android:layout_height="220dp"
@@ -100,19 +107,9 @@
                 android:textColor="@color/ziti_main"/>
         </LinearLayout>
         
-        <EditText 
-            android:id="@+id/login_jujiao"
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:hint="123"
-                android:textColorHint="@color/baise"
-                android:focusableInTouchMode="true"
-                android:focusable="true"
-                android:textColor="@color/baise"
-                android:background="@null"/>
         <RelativeLayout 
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="160dp">
         <LinearLayout 
             android:id="@+id/login_disanfang"
             android:layout_width="fill_parent"
@@ -165,4 +162,7 @@
         </RelativeLayout>
     </LinearLayout>
 
+    </LinearLayout>
+    </ScrollView>
+    
 </LinearLayout>
