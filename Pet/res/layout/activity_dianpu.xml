@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/gray"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:background="@color/yellow" >
+
+        <ImageView
+            android:id="@+id/imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/leftjt" />
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="161dp"
+            android:text="店铺详情"
+            android:textColor="#3C3C3C"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textview2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="14dp"
+            android:text="发布"
+            android:textColor="#3C3C3C"
+            android:textSize="15sp" />
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/pet" >
+        
+        <ImageView 
+            android:src="@drawable/xiaoxi"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_height="wrap_content"/>
+        
+        </LinearLayout>
+         <LinearLayout 
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:background="@color/baise"
+        android:layout_height="55dp">
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:textSize="16sp"
+        android:layout_marginLeft="22dp"
+        android:gravity="center"
+        android:textColor="#262222"
+        android:text="店名："/>
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="比盲宠物"
+        android:gravity="center"
+        android:textColor="#858585"
+        android:textSize="19sp"
+        android:layout_marginLeft="12dp"/>
+    
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp">
+    
+    <View 
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="fill_parent"
+        android:background="@color/baise"/>
+    <View 
+        android:layout_width="0dp"
+        android:layout_weight="18"
+        android:layout_height="fill_parent"
+        android:background="@color/gray"/>
+    
+    <View 
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="fill_parent"
+        android:background="@color/baise"/>
+    
+    </LinearLayout>
+     <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:background="@color/baise"
+        android:layout_height="55dp">
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:textSize="16sp"
+        android:layout_marginLeft="22dp"
+        android:gravity="center"
+        android:textColor="#262222"
+        android:text="地址："/>
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="重庆市渝中区上清寺路28号"
+        android:gravity="center"
+        android:textColor="#858585"
+        android:textSize="19sp"
+        android:layout_marginLeft="12dp"/>
+    
+    </LinearLayout>
+      <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp">
+    
+    <View 
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="fill_parent"
+        android:background="@color/baise"/>
+    <View 
+        android:layout_width="0dp"
+        android:layout_weight="18"
+        android:layout_height="fill_parent"
+        android:background="@color/gray"/>
+    
+    <View 
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="fill_parent"
+        android:background="@color/baise"/>
+    
+    </LinearLayout>
+    
+      <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:background="@color/baise"
+        android:layout_height="55dp">
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:textSize="16sp"
+        android:layout_marginLeft="22dp"
+        android:gravity="center"
+        android:textColor="#262222"
+        android:text="宠物种类："/>
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="猫丶狗丶鼠丶香猪"
+        android:gravity="center"
+        android:textColor="#858585"
+        android:textSize="19sp"
+        android:layout_marginLeft="12dp"/>
+    
+    </LinearLayout>
+    
+	
+</LinearLayout>

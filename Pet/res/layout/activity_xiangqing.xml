@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/baise"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:background="@color/yellow" >
+
+        <ImageView
+            android:id="@+id/imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/leftjt" />
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="161dp"
+            android:text="详情"
+            android:textColor="#3C3C3C"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/jinmao2" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/baise"
+        android:gravity="center"
+        android:text="金毛寻回犬"
+        android:textColor="#4E4E4E"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="22dp"
+        android:layout_marginTop="23dp"
+        android:background="@color/baise"
+        android:orientation="horizontal" >
+
+        <RatingBar
+            android:id="@+id/ratingbar"
+            style="@style/roomRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="99dp"
+            android:rating="5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:text="5.0分" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="11dp"
+            android:src="@drawable/qian" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2000"
+            android:textColor="#616161" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="特点；友良，热情，积极，自信"
+        android:textColor="#686868"
+        android:textSize="10sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/gray" />
+    
+    <TextView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:textSize="12sp"
+        android:textColor="#696969"
+        android:text="		极为聪明，是一个均称、有力、活泼的犬种。金毛寻回犬以其可爱，温顺，聪明伶俐的特质受到了广泛的欢迎。而且很容易驯养，对小孩温和并有耐心，忠诚，自信，可爱，喜欢取悦于人，是一种喜欢户外活动的家庭犬。"/>
+
+</LinearLayout>
