@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <color name="baise">#ffffff</color>
+     <color name="heise">#000000</color>
+     <color name="ziti_main">#333333</color>
+     <color name="zhuce_yindao_ziti">#454545</color>
+     <color name="hintziti">#c9c3bd</color>
+     <color name="zhutise">#ffda44</color>
+     <color name="denglu_dingbuse">#83c9ea</color>
+     <color name="zhuce_bg">#E8E7E4</color>
+
+</resources>
