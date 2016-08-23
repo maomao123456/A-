@@ -12,4 +12,12 @@
     <color name="gray">#E8E7E4</color>
      <color name="yellow">#FFDA44</color>
 
+    <color name="title_bar">#FFDA44</color>
+    <color name="background_gray">#EEEEEE</color>
+    <color name="white">#FFFFFF</color>
+    <color name="mine">#58B7E3</color>
+    <color name="mine_user_word_color">#454545</color>
+    <color name="mine_word_color">#333333</color>
+    <color name="hint_word_color">#C9C38D</color>
+    <color name="cancel_share_rectangle">#FFDA44</color>
 </resources>
