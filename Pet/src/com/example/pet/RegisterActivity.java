@@ -8,6 +8,7 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -15,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	LinearLayout backQuyu, xieyiQuyu;
 	EditText shoujihao, yanzhengma, shezhimima, yaoqingma;
 	CheckBox xieyiCb;
+	ScrollView sc;
 	/**
 	 * 获得用户输入的手机号
 	 */
@@ -44,7 +47,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN|
+				WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		setContentView(R.layout.activity_register);
 		initView();
 
@@ -54,6 +58,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	 * 通过id找到控件
 	 */
 	public void initView() {
+		sc=(ScrollView)findViewById(R.id.register_scroll);
 		denglu = (TextView) findViewById(R.id.register_denglu);
 		getYangzhengma = (TextView) findViewById(R.id.register_huoquyanzhengma);
 		xieyiNeirong = (TextView) findViewById(R.id.register_xieyi_neirong);
@@ -71,9 +76,19 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		comeing.setOnClickListener(this);
 		backQuyu.setOnClickListener(this);
 		xieyiQuyu.setOnClickListener(this);
+		shoujihao.setOnClickListener(this);
 		shoujihao.setOnFocusChangeListener(focusChangeListener);
 		yanzhengma.setOnFocusChangeListener(focusChangeListener);
 		shezhimima.setOnFocusChangeListener(focusChangeListener);
+	}
+	/**
+	 * 布局尺寸的调整
+	 */
+	public void changeSize(){
+		Handler mHandler = new Handler(); 
+		mHandler.postDelayed(new Runnable() {
+			 @Override public void run() { 
+			sc.fullScroll(ScrollView.FOCUS_DOWN); } },300); 
 	}
 	public final String format = "^([A-Za-z]|[0-9])+$";//密码格式
 	public final String format2 = "^([A-Za-z0-9])+$";//密码格式
@@ -156,6 +171,9 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	 */
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.register_shoujihao:
+			changeSize();
+			break;
 		case R.id.register_back_quyu:// 返回区域
 			Intent intent = new Intent(getApplicationContext(),
 					LoginActivity.class);

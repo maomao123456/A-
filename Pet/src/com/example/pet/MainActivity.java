@@ -1,6 +1,9 @@
 package com.example.pet;
 
+import com.tencent.tauth.Tencent;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 public class MainActivity extends Activity {
@@ -10,5 +13,5 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 	}
-
+	
 }

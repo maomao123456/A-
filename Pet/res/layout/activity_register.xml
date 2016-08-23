@@ -5,6 +5,16 @@
     android:background="@color/zhuce_bg"
     android:orientation="vertical" >
 
+    <ScrollView 
+        android:id="@+id/register_scroll"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="10dp">
+            
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="48dp"
@@ -234,4 +244,6 @@
         android:textColor="@color/ziti_main"
         android:textSize="16sp" />
 
+     </LinearLayout>
+    </ScrollView>
 </LinearLayout>

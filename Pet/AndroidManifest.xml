@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="13"
-        android:targetSdkVersion="23" />
+        android:targetSdkVersion="24" />
 
     <!-- sd卡读取权限 -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -16,8 +16,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <!-- 粘性消息权限 -->
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <!-- 调用浏览器权限 -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 调用浏览器权限及网络权限 -->
     <!-- 调用微博的权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -38,7 +37,6 @@
         android:theme="@android:style/Theme.Holo.Light.NoActionBar">
         <activity
             android:name=".LoginActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" 
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,7 +46,6 @@
         </activity>
         <activity android:name="com.example.pet.GuideActivity"/>
         <!-- <activity android:name="com.example.pet.LoginActivity"/> -->
-           <!--  android:windowSoftInputMode="stateUnchanged" -->
         <activity android:name="com.example.pet.RegisterActivity"/>
         <activity android:name="com.example.pet.XieYiActivity"/>
         
@@ -65,7 +62,23 @@
             android:exported="false" >
         </service>
 
-        <!-- 短信验证注册 -->
+        <!-- QQ登录界面 -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1105564187" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
     </application>
 
 </manifest>
