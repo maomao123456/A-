@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_gray"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:alpha="0.1" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/wechat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_weight="1"
+                android:drawablePadding="6dp"
+                android:drawableTop="@drawable/weixin"
+                android:gravity="center"
+                android:text="@string/wechat"
+                android:textColor="@color/mine_word_color"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/QQ"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="6dp"
+                android:drawableTop="@drawable/qq_q"
+                android:gravity="center"
+                android:text="@string/QQ"
+                android:textColor="@color/mine_word_color"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/sina"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="6dp"
+                android:drawableTop="@drawable/wbw"
+                android:gravity="center"
+                android:text="@string/sina_weibo"
+                android:textColor="@color/mine_word_color"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/qqZone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="6dp"
+                android:drawableTop="@drawable/qqkongjian"
+                android:gravity="center"
+                android:text="@string/qq_zone"
+                android:textColor="@color/mine_word_color"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/friends"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="17dp"
+                android:layout_weight="1"
+                android:drawablePadding="6dp"
+                android:drawableTop="@drawable/friend"
+                android:gravity="center"
+                android:text="@string/friends_group"
+                android:textColor="@color/mine_word_color"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/cancel_share"
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="17.5dp"
+            android:layout_marginRight="17.5dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/cancel_share"
+            android:text="@string/cancel"
+            android:layout_marginBottom="10dp" />
+    </LinearLayout>
+
+</LinearLayout>

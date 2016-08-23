@@ -1,0 +1,313 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_gray"
+    android:orientation="vertical"
+    tools:context="com.example.pet.MineActivity" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:background="@color/title_bar" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12.5dp"
+            android:text="@string/mine"
+            android:textColor="@color/mine_user_word_color"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="180dp"
+        android:background="@color/background_gray" >
+
+        <ImageView
+            android:id="@+id/mine_user_icon"
+            android:layout_width="69dp"
+            android:layout_height="69dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="13dp"
+            android:src="@drawable/portrait" />
+
+        <TextView
+            android:id="@+id/mine_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mine_user_icon"
+            android:layout_marginTop="6dp"
+            android:layout_toLeftOf="@+id/mine_user_icon"
+            android:layout_toStartOf="@+id/mine_user_icon"
+            android:text="@string/nickname"
+            android:textColor="@color/mine_user_word_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/mine_user_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mine_user_icon"
+            android:layout_marginTop="6dp"
+            android:layout_toEndOf="@+id/mine_user_icon"
+            android:layout_toRightOf="@+id/mine_user_icon"
+            android:text="@string/user_nickname"
+            android:textColor="@color/mine_user_word_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/mine_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mine_nickname"
+            android:layout_marginTop="8dp"
+            android:layout_toLeftOf="@+id/mine_user_icon"
+            android:layout_toStartOf="@+id/mine_user_icon"
+            android:text="@string/id"
+            android:textColor="@color/mine_user_word_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/mine_user_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mine_user_nickname"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/mine_user_icon"
+            android:layout_toRightOf="@+id/mine_user_icon"
+            android:text="@string/user_id"
+            android:textColor="@color/mine_user_word_color"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:layout_below="@+id/mine_user_id"
+            android:layout_marginTop="15dp"
+            android:alpha="0.8"
+            android:background="@color/mine" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginStart="25dp"
+                    android:text="@string/concern"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/concern_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/concern_num"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/white" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginStart="25dp"
+                    android:text="@string/fans"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/fans_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/fans_num"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/white" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginStart="25dp"
+                    android:text="@string/collection"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/collection_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/collection_num"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/information_next"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/white" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:drawableLeft="@drawable/informations"
+            android:drawablePadding="13dp"
+            android:drawableStart="@drawable/informations"
+            android:text="@string/data_information"
+            android:textColor="@color/mine_word_color"
+            android:textSize="14sp" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:src="@drawable/youyou" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/account_manager_next"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:drawableLeft="@drawable/user"
+            android:drawablePadding="13dp"
+            android:drawableStart="@drawable/user"
+            android:text="@string/account_manager"
+            android:textColor="@color/mine_word_color"
+            android:textSize="14sp" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:src="@drawable/youyou" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/about_pets_next"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/white" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:drawableLeft="@drawable/loog"
+            android:drawablePadding="13dp"
+            android:drawableStart="@drawable/loog"
+            android:text="@string/about_lovely_pets"
+            android:textColor="@color/mine_word_color"
+            android:textSize="14sp" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:src="@drawable/youyou" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/settings_next"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/white" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:drawableLeft="@drawable/settings"
+            android:drawablePadding="13dp"
+            android:drawableStart="@drawable/settings"
+            android:text="@string/set"
+            android:textColor="@color/mine_word_color"
+            android:textSize="14sp" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:src="@drawable/youyou" />
+    </RelativeLayout>
+
+</LinearLayout>

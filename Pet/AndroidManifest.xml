@@ -8,6 +8,8 @@
         android:minSdkVersion="13"
         android:targetSdkVersion="24" />
 
+    <!-- 退出账号的权限 -->
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
     <!-- sd卡读取权限 -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
@@ -29,12 +31,12 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar">
+        android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name" >
@@ -44,11 +46,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.pet.GuideActivity"/>
+        <activity android:name="com.example.pet.GuideActivity" />
         <!-- <activity android:name="com.example.pet.LoginActivity"/> -->
-        <activity android:name="com.example.pet.RegisterActivity"/>
-        <activity android:name="com.example.pet.XieYiActivity"/>
-        
+        <activity android:name="com.example.pet.RegisterActivity" />
+        <activity android:name="com.example.pet.XieYiActivity" />
+
+        <!-- 我的界面 -->
+        <activity android:name="com.example.pet.MineActivity" />
+        <!-- 资料信息界面 -->
+        <activity
+            android:name="com.example.pet.DataInformationActivity"
+            android:launchMode="singleTop" />
+        <!-- 账户管理界面 -->
+        <activity
+            android:name="com.example.pet.AccountManagerActivity"
+            android:launchMode="singleTop" />
+        <!-- 关于萌宠界面 -->
+        <activity
+            android:name="com.example.pet.AboutPetsActivity"
+            android:launchMode="singleTop" />
+        <!-- 设置界面 -->
+        <activity
+            android:name="com.example.pet.SetActivity"
+            android:launchMode="singleTop" />
+
         <!-- 跳转到微博的页面 -->
         <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
@@ -69,8 +90,10 @@
             android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="tencent1105564187" />
             </intent-filter>
         </activity>
@@ -78,7 +101,6 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
     </application>
 
 </manifest>

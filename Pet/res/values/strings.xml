@@ -21,6 +21,72 @@
     <string name="dianping">点评</string>
     <string name="tijiao">提交</string>
     <string name="fabu">发布</string>
-    
+
+    <!-- 我  -->
+    <string name="beamon_pet">比蒙宠物</string>
+    <string name="mine">我的</string>
+    <string name="nickname">昵称</string>
+    <string name="id">ID</string>
+    <string name="user_nickname">天使守护添</string>
+    <string name="user_id">5623511</string>
+    <string name="concern">关注</string>
+    <string name="concern_num">226</string>
+    <string name="fans">粉丝</string>
+    <string name="fans_num">186</string>
+    <string name="collection">收藏</string>
+    <string name="collection_num">166</string>
+    <string name="data_information">资料信息</string>
+    <string name="account_manager">账户管理</string>
+    <string name="about_lovely_pets">关于萌宠</string>
+    <string name="set">设置</string>
+    <!-- 关于萌宠  -->
+    <string name="version">萌宠Android版</string>
+    <string name="version_num">1.0.0.1</string>
+    <string name="to_rating">去评分</string>
+    <string name="function_introduction">功能介绍</string>
+    <string name="system_notification">系统通知</string>
+    <string name="report_complaint">举报与投诉</string>
+    <string name="check_new_version">检查新版本</string>
+    <!-- 设置  -->
+    <string name="lock_screen_password">锁屏密码</string>
+    <string name="lovely_pet_to_share_to_friends">把萌宠分享给朋友</string>
+    <string name="feedback">意见反馈</string>
+    <string name="user_help">用户帮助</string>
+    <string name="latest_announcement">最新公告</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="exit_login">退出登录</string>
+    <!-- 分享  -->
+    <string name="wechat">微信</string>
+    <string name="QQ">QQ</string>
+    <string name="sina_weibo">新浪微博</string>
+    <string name="qq_zone">QQ空间</string>
+    <string name="friends_group">朋友圈</string>
+    <string name="cancel">取消</string>
+    <!-- 账户管理  -->
+    <string name="save">保存</string>
+    <string name="reset_password">修改密码</string>
+    <string name="reset_telephone_number">修改手机号</string>
+    <string name="reset_mailbox">修改邮箱</string>
+    <string name="security_set">密保设置</string>
+    <!-- 资料信息 -->
+    <string name="input_nickname">请输入名字</string>
+    <string name="gender">性别</string>
+    <string name="boy">男</string>
+    <string name="girl">女</string>
+    <string name="birth">出生</string>
+    <string name="input_birthday">请输入日期</string>
+    <string name="star_sign">星座</string>
+    <string name="input_star_sign">请输入星座</string>
+    <string name="occupation">职业</string>
+    <string name="input_occupation">请输入职业</string>
+    <string name="company">公司</string>
+    <string name="input_company">请填写公司</string>
+    <string name="address">地址</string>
+    <string name="input_address">请输入地址</string>
+    <string name="hometown">故乡</string>
+    <string name="email">邮箱</string>
+    <string name="input_email">13426345676@qq.com</string>
+    <string name="personality_desdcript">个性说明</string>
+    <string name="input_personality_desdcript">请输入个性说明</string>
 
 </resources>
