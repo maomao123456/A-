@@ -45,7 +45,7 @@
         android:layout_width="fill_parent"
         android:layout_height="231dp"
       	android:scaleType="fitXY"
-       android:src="@drawable/fabu"/>
+       android:src="@drawable/fabu1"/>
     <LinearLayout 
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
