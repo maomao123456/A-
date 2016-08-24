@@ -54,13 +54,11 @@
         android:background="@color/baise"
         android:orientation="horizontal" >
 
-        <RatingBar
-            android:id="@+id/ratingbar"
-            style="@style/roomRatingBar"
+        <ImageView 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="99dp"
-            android:rating="5" />
+            android:layout_marginLeft="98dp"
+            android:src="@drawable/rating"/>
 
         <TextView
             android:layout_width="wrap_content"
