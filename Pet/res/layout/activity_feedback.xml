@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_gray"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:background="@color/title_bar" >
+
+        <ImageButton
+            android:id="@+id/back_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:background="@null"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/feedback"
+            android:textColor="@color/mine_user_word_color"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/close_feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:text="@string/close"
+            android:textColor="@color/mine_user_word_color"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="180dp"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:padding="20dp" >
+
+            <EditText
+                android:id="@+id/input_question"
+                android:layout_width="fill_parent"
+                android:layout_height="25dp"
+                android:background="@null"
+                android:hint="@string/input_question"
+                android:textColorHint="@color/hint_word_color"
+                android:minLines="3"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/max_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/max_num"
+                android:textColor="@color/hint_word_color"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="20dp" >
+
+            <ImageView
+                android:id="@+id/add_pictrue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/add_pictrue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_toRightOf="@+id/add_pictrue"
+                android:text="@string/add_picture"
+                android:textColor="@color/hint_word_color"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:gravity="center_vertical"
+            android:text="@string/contant_phone"
+            android:textColor="@color/mine_word_color"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/input_contant_phone"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            android:hint="@string/use_to_contant"
+            android:inputType="phone"
+            android:textColorHint="@color/hint_word_color"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/text_prompt_color"
+        android:textSize="8sp" />
+
+    <Button
+        android:id="@+id/submit_feedback"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="17.5dp"
+        android:layout_marginRight="17.5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/cancel_share"
+        android:text="@string/submit" />
+
+</LinearLayout>

@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 public class SetActivity extends Activity {
 
 	ImageButton backMine;
 	RelativeLayout share, feedback, help, annoouncement, clear, exitLogin;
+	PopupWindow popupWindow;//自定义对话框
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,6 +55,10 @@ public class SetActivity extends Activity {
 				backMine();
 				break;
 
+			case R.id.feedback_next:
+				toFeedback();
+				break;
+				
 			case R.id.clear_cache_next:
 				new AlertDialog.Builder(SetActivity.this)
 						.setMessage("确定清除缓存吗？").setPositiveButton("确定", null)
@@ -68,6 +74,13 @@ public class SetActivity extends Activity {
 			}
 		}
 	};
+	
+	//跳转到意见反馈界面
+	private void toFeedback(){
+		Intent intent = new Intent();
+		intent.setClass(getApplicationContext(), FeedbackActivity.class);
+		startActivity(intent);
+	}
 
 	// 返回我的界面
 	private void backMine() {
@@ -76,10 +89,11 @@ public class SetActivity extends Activity {
 		startActivity(intent);
 	}
 
+
 	// 退出登录
 	private void exitLogin() {
 		new AlertDialog.Builder(this)
-				.setTitle("退出当前账号？")
+				.setTitle("退出当前账号")
 				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
 					@Override
