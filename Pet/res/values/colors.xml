@@ -20,4 +20,5 @@
     <color name="mine_word_color">#333333</color>
     <color name="hint_word_color">#C9C38D</color>
     <color name="cancel_share_rectangle">#FFDA44</color>
+    <color name="text_prompt_color">#E8988B</color>
 </resources>
