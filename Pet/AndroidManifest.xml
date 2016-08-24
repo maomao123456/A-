@@ -19,7 +19,8 @@
     <!-- 粘性消息权限 -->
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <!-- 调用浏览器权限及网络权限 -->
-    <!-- 调用微博的权限 -->
+    <!-- 调用微博的权限 QQ WX -->
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/> 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -28,7 +29,6 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -70,19 +70,26 @@
             android:name="com.example.pet.SetActivity"
             android:launchMode="singleTop" />
 
-        <!-- 跳转到微博的页面 -->
+        
+        
+        
+        <!-- 跳转到微博的页面及微博服务注册 -->
         <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" >
+            android:windowSoftInputMode="stateHidden|adjustResize" >
         </activity>
-        <!-- 微博服务注册 -->
         <service
             android:name="com.sina.weibo.sdk.net.DownloadService"
             android:exported="false" >
         </service>
-
+        <!--微信登录界面  -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoDisplay" />
         <!-- QQ登录界面 -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
