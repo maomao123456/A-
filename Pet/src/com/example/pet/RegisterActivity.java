@@ -201,7 +201,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.register_lijijiaru://立即加入
 			if(!checked()){
-				checked();
+				//自动检测 错误  不用再调用方法
 			}else{
 				if(xieyiCb.isChecked()){
 					Toast.makeText(getApplicationContext(), "正在开发中！",

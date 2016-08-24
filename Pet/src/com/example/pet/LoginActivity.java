@@ -185,7 +185,6 @@ public class LoginActivity extends Activity  implements OnClickListener {
         mAppid = AppConstant.APP_ID;
         //第一个参数就是上面所说的申请的APPID，第二个是全局的Context上下文，这句话实现了调用QQ登录
         mTencent = Tencent.createInstance(mAppid,getApplicationContext());
-		mTencent = Tencent.createInstance(mAppid, this.getApplicationContext());
 		if (!mTencent.isSessionValid()){
 			/**
 			 * 通过这句代码，SDK实现了QQ的登录，这个方法有三个参数， 第一个参数是context上下文，
@@ -212,9 +211,9 @@ public class LoginActivity extends Activity  implements OnClickListener {
 			 try {
 	                //获得的数据是JSON格式的，获得你想获得的内容
 	                //如果你不知道你能获得什么，看一下下面的LOG
-	                Log.e(TAG, "-------------"+arg0.toString());
+	                Log.e(TAG+"登录后获得的所用数据", "-------------"+arg0.toString());
 	                openidString = ((JSONObject) arg0).getString("openid");
-	                Log.e(TAG, "-------------"+openidString);
+	                Log.e(TAG+"得到的openID", "-------------"+openidString);
 	                //access_token= ((JSONObject) response).getString("access_token");              //expires_in = ((JSONObject) response).getString("expires_in");
 	            } catch (JSONException e) {
 	                e.printStackTrace();
@@ -225,12 +224,12 @@ public class LoginActivity extends Activity  implements OnClickListener {
 	            //这样我们就拿到这个类了，之后的操作就跟上面的一样了，同样是解析JSON           
 	            info.getUserInfo(new IUiListener() {
 	                public void onComplete(final Object response) {
-	                    Log.e(TAG, "---------------111111");
+	                    Log.e(TAG, "进入info类 解析数据---------------111111");
 	                    Message msg = new Message();
 	                    msg.obj = response;
 	                    msg.what = 0;
 	                    mHandler.sendMessage(msg);
-	                    Log.e(TAG, "-----111---"+response.toString());
+	                    Log.e(TAG, "返回的所有数据-----111---"+response.toString());
 	                    /**
 	                     * 由于图片需要下载所以这里使用了线程，如果是想获得其他文字信息直接
 	                     * 在mHandler里进行操作
@@ -238,10 +237,9 @@ public class LoginActivity extends Activity  implements OnClickListener {
 	                    new Thread(){
 	                        @Override
 	                        public void run() {
-	                            // TODO Auto-generated method stub
 	                            JSONObject json = (JSONObject)response;
 	                            try {
-	                                bitmap =Util.getbitmap(json.getString("figureurl"));
+	                                bitmap =Util.getbitmap(json.getString("figureurl_qq_2"));
 	                            } catch (JSONException e) {
 	                                // TODO Auto-generated catch block
 	                                e.printStackTrace();
