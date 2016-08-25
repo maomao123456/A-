@@ -88,32 +88,39 @@
             android:textColor="@color/mine_word_color"
             android:textSize="14sp" />
 
-        <RadioButton
-            android:id="@+id/boy"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/gender"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:button="@null"
-            android:checked="true"
-            android:drawableEnd="@android:drawable/btn_radio"
-            android:drawableRight="@android:drawable/btn_radio"
-            android:text="@string/boy"
-            android:textColor="@color/mine_word_color"
-            android:textSize="14sp" />
+            android:orientation="horizontal" >
 
-        <RadioButton
-            android:id="@+id/girl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:button="@null"
-            android:drawableEnd="@android:drawable/btn_radio"
-            android:drawableRight="@android:drawable/btn_radio"
-            android:text="@string/girl"
-            android:textColor="@color/mine_word_color"
-            android:textSize="14sp" />
+            <RadioButton
+                android:id="@+id/boy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:button="@null"
+                android:checked="true"
+                android:drawableEnd="@android:drawable/btn_radio"
+                android:drawableRight="@android:drawable/btn_radio"
+                android:text="@string/boy"
+                android:textColor="@color/mine_word_color"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/girl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:button="@null"
+                android:drawableEnd="@android:drawable/btn_radio"
+                android:drawableRight="@android:drawable/btn_radio"
+                android:text="@string/girl"
+                android:textColor="@color/mine_word_color"
+                android:textSize="14sp" />
+        </RadioGroup>
     </LinearLayout>
 
     <LinearLayout
@@ -257,7 +264,8 @@
             android:layout_marginStart="10dp"
             android:background="@null"
             android:hint="@string/input_address"
-            android:textColorHint="@color/hint_word_color" />
+            android:textColorHint="@color/hint_word_color"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
