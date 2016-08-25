@@ -30,7 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pet.classes.PhoneNum;
+import com.example.pet.classes.Utils;
 
 public class FeedbackActivity extends Activity {
 
@@ -117,7 +117,7 @@ public class FeedbackActivity extends Activity {
 	public boolean checkEdit() {
 		String conPhone = contantPhone.getText().toString();
 		String feedback = inputFeedback.getText().toString();
-		boolean rightPhone = PhoneNum.isRightPhoneNumber(conPhone);
+		boolean rightPhone = Utils.isRightPhoneNumber(conPhone);
 		if (feedback.isEmpty()) {
 			textPrompt.setText("提交失败，请填写问题或建议");
 		} else if (!conPhone.isEmpty()) {

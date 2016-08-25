@@ -89,6 +89,10 @@ public class SetActivity extends Activity {
 		startActivity(intent);
 	}
 
+	//popupwindow
+	public void createExitLoginPopupWindow(){
+		//初始化一个popupWindow的对象并给以长和宽
+	}
 
 	// 退出登录
 	private void exitLogin() {
