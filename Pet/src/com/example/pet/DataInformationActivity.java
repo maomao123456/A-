@@ -16,6 +16,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import com.example.pet.classes.Utils;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -104,8 +106,14 @@ public class DataInformationActivity extends Activity {
 	//保存数据时昵称不能为空
 	public boolean checkEdit(){
 		String nickName = nickname.getText().toString();
+		String e_mail = email.getText().toString();
+		boolean rightEmail = Utils.isRightEmail(e_mail);
 		if(nickName.isEmpty()){
 			Toast.makeText(getApplicationContext(), "保存失败，请输入昵称", Toast.LENGTH_SHORT).show();
+		} else if(!e_mail.isEmpty()){
+			if(rightEmail == false){
+				Toast.makeText(getApplicationContext(), "请输入正确的邮箱地址", Toast.LENGTH_SHORT).show();
+			}
 		} else {
 			return true;
 		}
