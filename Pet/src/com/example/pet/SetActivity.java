@@ -1,13 +1,18 @@
 package com.example.pet;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
@@ -18,6 +23,7 @@ public class SetActivity extends Activity {
 	ImageButton backMine;
 	RelativeLayout share, feedback, help, annoouncement, clear, exitLogin;
 	PopupWindow popupWindow;//自定义对话框
+	View windView;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -90,8 +96,22 @@ public class SetActivity extends Activity {
 	}
 
 	//popupwindow
+	@SuppressLint("ClickableViewAccessibility")
+	@SuppressWarnings("deprecation")
 	public void createExitLoginPopupWindow(){
 		//初始化一个popupWindow的对象并给以长和宽
+		popupWindow = new PopupWindow(windView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
+		//设置popupWindow背景，不设置则无法监听(背景设置为全透明)
+		popupWindow.setBackgroundDrawable(new BitmapDrawable());
+		//设置popupWindow窗口外布局是否可以点击
+		popupWindow.setOutsideTouchable(true);
+		popupWindow.setTouchable(true);
+		//设置是否可以点击
+		popupWindow.setTouchInterceptor(new OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				return false;
+			}
+		});
 	}
 
 	// 退出登录
@@ -134,7 +154,7 @@ public class SetActivity extends Activity {
 	// 判断退出登录对话框的点击事件
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-			exitLogin();
+			backMine();
 			return false;
 		}
 		return super.onKeyDown(keyCode, event);
