@@ -321,6 +321,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:background="@null"
+            android:inputType="textEmailAddress"
             android:hint="@string/input_email"
             android:textColorHint="@color/hint_word_color"
             android:textSize="14sp" />

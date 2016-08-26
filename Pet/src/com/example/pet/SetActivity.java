@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -215,12 +214,12 @@ public class SetActivity extends Activity {
 	}
 
 	// 判断退出登录对话框的点击事件
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	/*public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 			backMine();
 			return false;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-
+*/
 }

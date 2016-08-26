@@ -6,13 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 public class AccountManagerActivity extends Activity {
 
-	Button saveSet;//保存修改设置
 	ImageButton backMine;
 	RelativeLayout password, telephone, email, set;//修改密码，修改电话号码，修改邮箱，密保设置
 
@@ -26,7 +24,6 @@ public class AccountManagerActivity extends Activity {
 	
 	//初始化视图
 	private void initView(){
-		saveSet = (Button) findViewById(R.id.save_set);
 		backMine = (ImageButton) findViewById(R.id.back_mine);
 		password = (RelativeLayout) findViewById(R.id.reset_password_next);
 		telephone = (RelativeLayout) findViewById(R.id.reset_phone_next);

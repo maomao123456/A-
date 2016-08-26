@@ -99,6 +99,15 @@
     <string name="contant_phone">联系电话</string>
     <string name="use_to_contant">选项，便于我们联系你</string>
     <string name="submit">提交</string>
-    
+    <!-- 账号管理 修改邮箱 -->
+    <string name="input_new_eamil">新邮箱地址</string>
+    <string name="confirm_email">确认新邮箱地址</string>
+    <string name="ensure">确定</string>
+    <!-- 账号管理 修改密码 -->
+    <string name="input_new_password">新密码</string>
+    <string name="confirm_password">确认新密码</string>
+    <!-- 账号管理 修改电话号码 -->
+    <string name="input_new_telephone">手机号码</string>
+    <string name="confirm_telephone">确认新手机号码</string>
 
 </resources>
