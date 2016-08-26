@@ -15,15 +15,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 public class GonglueFragment extends Fragment {
 	ListView listView;
+	View headView;
 	SimpleAdapter simpleadapter;
 	public  View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view=inflater.inflate(R.layout.activity_gonglue, null);
 		listView = (ListView) view.findViewById(R.id.listview);
+		headView=(View)inflater.inflate(R.layout.activity_head, null);
+		
+		listView.addHeaderView(headView);
 		getdata();
 		String[] from = { "imag", "title1", "title2", "title3", "imagJt" };
 		int[] to = { R.id.imageview, R.id.textview1, R.id.textview2,
