@@ -57,7 +57,7 @@ public class AccountManagerActivity extends Activity {
 	//返回我的界面
 	private void backMine(){
 		Intent intent = new Intent();
-		intent.setClass(AccountManagerActivity.this, MineActivity.class);
+		intent.setClass(AccountManagerActivity.this, MainActivity.class);
 		startActivity(intent);
 	}
 }
