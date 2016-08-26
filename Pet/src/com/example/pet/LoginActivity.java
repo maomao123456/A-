@@ -15,15 +15,18 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -126,23 +129,40 @@ public class LoginActivity extends Activity  implements OnClickListener {
 			changeSize();
 			break;
 		case R.id.login_denglu:
-			if(checkedEditText()){
-				toast("正在登录....");
-				loging(userName.getText().toString(), mima.getText().toString());
-			}else{
-				toast("输入格式不正确，请重新输入");
+			if (!checkNetwork()) {
+				toast("网络未连接，请检查网络设置！");
+			} else {
+				if (checkedEditText()) {
+					toast("正在登录....");
+					loging(userName.getText().toString(), mima.getText()
+							.toString());
+				} else {
+					toast("输入格式不正确，请重新输入");
+				}
 			}
 			break;
 		case R.id.login_qq:
-			loginQQ();
+			if (!checkNetwork()) {
+				toast("网络未连接，请检查网络设置！");
+			} else {
+				loginQQ();
+			}
 			break;
 		case R.id.login_wb:
-			toast("稍等片刻，微博接入中....");
-			loginWb();
+			if (!checkNetwork()) {
+				toast("网络未连接，请检查网络设置！");
+			} else {
+				toast("稍等片刻，微博接入中....");
+				loginWb();
+			}
 			break;
 		case R.id.login_wx:
-			toast("稍等片刻，微信接入中....");
-			loginWx();
+			if (!checkNetwork()) {
+				toast("网络未连接，请检查网络设置！");
+			} else {
+				toast("稍等片刻，微信接入中....");
+				loginWx();
+			}
 			break;
 		default:
 			break;
@@ -211,12 +231,6 @@ public class LoginActivity extends Activity  implements OnClickListener {
 		mHandler.postDelayed(new Runnable() {
 			 @Override public void run() { 
 			sc.fullScroll(ScrollView.FOCUS_DOWN); } },300); 
-	}
-	/**
-	 * 提示全局通用
-	 */
-	public void toast(String string) {
-		Toast.makeText(LoginActivity.this, string, Toast.LENGTH_SHORT).show();
 	}
 	/**
 	 * 登录前判断用户输入是否正确
@@ -646,5 +660,22 @@ public class LoginActivity extends Activity  implements OnClickListener {
 		setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);        
 		startActivity(setIntent);    
 	}
-
+	/**
+	 * 验证网络状态
+	 */
+	private boolean checkNetwork() {
+		ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		if (connManager.getActiveNetworkInfo() != null) {
+			return connManager.getActiveNetworkInfo().isAvailable();
+		}
+		return false;
+	}
+	/**
+	 * 提示全局通用
+	 */
+	public void toast(String string) {
+		Toast toast=Toast.makeText(LoginActivity.this, string, Toast.LENGTH_SHORT);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.show();
+	}
 }
