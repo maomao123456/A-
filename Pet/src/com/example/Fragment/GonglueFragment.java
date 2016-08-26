@@ -1,33 +1,40 @@
-package com.example.pet;
+package com.example.fragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
+import com.example.pet.R;
+import com.example.pet.R.drawable;
+import com.example.pet.R.id;
+import com.example.pet.R.layout;
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-public class GonglueActivity extends Activity {
+public class GonglueFragment extends Fragment {
 	ListView listView;
 	SimpleAdapter simpleadapter;
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_gonglue);
-		listView = (ListView) findViewById(R.id.listview);
+	public  View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view=inflater.inflate(R.layout.activity_gonglue, null);
+		listView = (ListView) view.findViewById(R.id.listview);
 		getdata();
 		String[] from = { "imag", "title1", "title2", "title3", "imagJt" };
 		int[] to = { R.id.imageview, R.id.textview1, R.id.textview2,
 				R.id.textview3, R.id.imageviewJt };
-		simpleadapter = new SimpleAdapter(GonglueActivity.this, getdata(),
+		simpleadapter = new SimpleAdapter(getActivity(), getdata(),
 				R.layout.activity_simpleadapter_gonglue, from, to);
 		listView.setAdapter(simpleadapter);
-	}
+		return view;
+	};
+	
+		
 
 	public List<? extends Map<String, ?>> getdata() {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -67,6 +74,7 @@ public class GonglueActivity extends Activity {
 		map.put("imag", R.drawable.dog5);
 		map.put("title1", "比雄犬");
 		map.put("title2", "Bichon Frise");
+		
 		map.put("title3", " ");
 		map.put("imagJt", R.drawable.rightjt);
 		list.add(map);
