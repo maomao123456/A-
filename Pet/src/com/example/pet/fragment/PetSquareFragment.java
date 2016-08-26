@@ -178,6 +178,8 @@ public class PetSquareFragment extends Fragment implements OnTouchListener{
 		}
 	};
 	int[] imgs={R.drawable.pet_2,R.drawable.pet_3,R.drawable.pet_4,R.drawable.pet_5};
+	int l=imgs.length;
+	int numb=l;
 	OnClickListener clickListener=new OnClickListener() {
 		
 		@Override
@@ -185,15 +187,11 @@ public class PetSquareFragment extends Fragment implements OnTouchListener{
 			// TODO Auto-generated method stub
 			switch(v.getId()){
 			case R.id.image_next_square:
-				for(int i=0;i<imgs.length;i++){
-					if(i+2==imgs.length){
-						return;
-					}
-					pet2.setImageResource(imgs[i]);
-					pet3.setImageResource(imgs[i+1]);
-					pet4.setImageResource(imgs[i+2]);
-					
-				}
+				int a=numb%l;
+					pet2.setImageResource(imgs[a%l]);
+					pet3.setImageResource(imgs[(a+1)%l]);
+					pet4.setImageResource(imgs[(a+2)%l]);
+					numb++;
 				break;
 			}
 		}

@@ -20,11 +20,14 @@ import org.apache.http.util.EntityUtils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -128,23 +131,19 @@ public class RegisterActivity extends Activity implements OnClickListener {
 				switch (v.getId()) {
 				case R.id.register_shoujihao:
 					if(!phone){
-						Toast.makeText(getApplicationContext(), "请输入正确的手机号！",
-								Toast.LENGTH_SHORT).show();
+						toast("请输入正确的手机号！");
 					}
 					break;
 				case R.id.register_yanzhengma:
 					if(yanzhengCd.length()<4||yanzhengCd.length()>6){
-						Toast.makeText(getApplicationContext(), "验证码长度为4~6位",
-								Toast.LENGTH_SHORT).show();
+						toast("验证码长度为4~6位");
 					} 
 					break;
 				case R.id.register_shezhimima:
 					if(password.length()<6||password.length()>20){
-						Toast.makeText(getApplicationContext(), "密码为6-20位数字或字母!",
-								Toast.LENGTH_SHORT).show();
+						toast("密码为6-20位数字或字母!");
 					}else if(!password.matches(format2)){
-						Toast.makeText(getApplicationContext(), "密码为6-20位数字或字母!",
-								Toast.LENGTH_SHORT).show();
+						toast("密码为6-20位数字或字母!");
 					}
 					break;
 
@@ -164,24 +163,19 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		password=shezhimima.getText().toString();
 		inviteCd=yaoqingma.getText().toString();
 		if(!phone){
-			Toast.makeText(getApplicationContext(), "请输入正确的手机号！",
-					Toast.LENGTH_SHORT).show();
+			toast("请输入正确的手机号！");
 			return false;
 		}else if(yanzhengCd.length()<4||yanzhengCd.length()>6){
-			Toast.makeText(getApplicationContext(), "格式错误：验证码长度4~6位",
-					Toast.LENGTH_SHORT).show();
+			toast("格式错误：验证码长度4~6位");
 			return false;
 		}else if(password.length()<6||password.length()>20){
-			Toast.makeText(getApplicationContext(), "密码只能是6-20位数字或字母!",
-					Toast.LENGTH_SHORT).show();
+			toast("密码只能是6-20位数字或字母!");
 			return false;
 		}else if(!password.matches(format2)){
-			Toast.makeText(getApplicationContext(), "密码只能是数字或字母!",
-					Toast.LENGTH_SHORT).show();
+			toast("密码只能是数字或字母!");
 			return false;
 		}else if(yaoqingma.getText()==null||yaoqingma.getText().toString().trim().length()!=0){
-			Toast.makeText(getApplicationContext(), "邀请码不正确！"+yaoqingma.getText().toString(),
-					Toast.LENGTH_SHORT).show();
+			toast("邀请码不正确！");
 			return false;
 		}else{
 			return true;
@@ -229,20 +223,26 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.register_lijijiaru://立即加入
-			if(!checked()){
-				//自动检测 错误  不用再调用方法
-			}else{
-				if(xieyiCb.isChecked()){
-					complete();
-				}else{
-					Builder builder=new AlertDialog.Builder(RegisterActivity.this);
-					builder.setTitle("你还未同意《隐私与服务协议》！");
-					builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							
-						}
-					});
-					builder.show();
+			if (!checkNetwork()) {
+				toast("网络未连接，请检查网络设置！");
+			} else {
+				if (!checked()) {
+					// 自动检测 错误 不用再调用方法
+				} else {
+					if (xieyiCb.isChecked()) {
+						complete();
+					} else {
+						Builder builder = new AlertDialog.Builder(
+								RegisterActivity.this);
+						builder.setTitle("你还未同意《隐私与服务协议》！");
+						builder.setPositiveButton("确定",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int which) {
+									}
+								});
+						builder.show();
+					}
 				}
 			}
 			break;
@@ -255,7 +255,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	 * 用户信息存到数据库中
 	 */
 	public void complete() {
-		Toast.makeText(RegisterActivity.this, "正在为你注册...", Toast.LENGTH_LONG).show();
+		toast("正在为你注册...");
 		new Thread(new Runnable() {
 			public void run() {
 				String httpUrl = "http://192.168.1.192/index.php/Home/Api/add";//PHP接口地址
@@ -300,16 +300,32 @@ public class RegisterActivity extends Activity implements OnClickListener {
 					startActivity(intent);
 					RegisterActivity.this.finish();
 					Looper.prepare();
-					Toast.makeText(RegisterActivity.this, strResult + "注册成功！启宠资源大门以为你敞开。",
-							Toast.LENGTH_SHORT).show();
+					toast("注册成功！启宠资源大门以为你敞开。");
 					Looper.loop();
 				} else {
 					Looper.prepare();
-					Toast.makeText(RegisterActivity.this, "注册失败或用户已存在！",
-							Toast.LENGTH_SHORT).show();
+					toast("注册失败或用户已存在！");
 					Looper.loop();
 				}
 			}
 		}).start();
+	}
+	/**
+	 * 验证网络状态
+	 */
+	private boolean checkNetwork() {
+		ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		if (connManager.getActiveNetworkInfo() != null) {
+			return connManager.getActiveNetworkInfo().isAvailable();
+		}
+		return false;
+	}
+	/**
+	 * 提示全局通用
+	 */
+	public void toast(String string) {
+		Toast toast=Toast.makeText(RegisterActivity.this, string, Toast.LENGTH_SHORT);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.show();
 	}
 }
