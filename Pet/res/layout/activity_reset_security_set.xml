@@ -28,7 +28,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/save_password"
+            android:id="@+id/save_security_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
