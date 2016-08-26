@@ -5,11 +5,15 @@ import com.tencent.tauth.Tencent;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.example.fragment.DongTaiFragment;
+import com.example.fragment.GonglueFragment;
+import com.example.fragment.MineFragment;
 import com.example.fragment.PetSquareFragment;
+import com.example.fragment.ResourceFragment;
 import com.example.fragmentadapter.MainFragmentAdapter;
 
 import android.os.Bundle;
@@ -221,9 +225,15 @@ public class MainActivity extends FragmentActivity {
 	 */
 	public void getData(){
 		fragmentList = new ArrayList<Fragment>();
+		ResourceFragment resourceFragment=new ResourceFragment();
+		fragmentList.add(resourceFragment);
+		GonglueFragment gonglueFragment=new GonglueFragment();
+		fragmentList.add(gonglueFragment);
 		PetSquareFragment petSquareFragment=new PetSquareFragment();
 		fragmentList.add(petSquareFragment);
 		DongTaiFragment dongTaiFragment=new DongTaiFragment();
 		fragmentList.add(dongTaiFragment);
+		MineFragment mineFragment=new MineFragment();
+		fragmentList.add(mineFragment);
 	}
 }
