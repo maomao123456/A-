@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.baseadapter.SquareDetailsListviewAdapter;
-import com.example.lei.SquareDetailsListview;
+import com.example.pet.baseadapter.SquareDetailsListviewAdapter;
+import com.example.pet.lei.SquareDetailsListview;
 
 public class SquareDetailsActivity extends Activity{
 	LayoutInflater inflater;

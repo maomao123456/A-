@@ -1,4 +1,4 @@
-package com.example.pet.classes;
+package com.example.pet.lei;
 
 import java.util.Date;
 

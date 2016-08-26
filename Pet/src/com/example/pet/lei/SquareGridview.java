@@ -1,4 +1,4 @@
-package com.example.lei;
+package com.example.pet.lei;
 
 public class SquareGridview {
 	int image;

@@ -37,7 +37,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pet.classes.PhoneTy;
+import com.example.pet.lei.PhoneTy;
 
 
 public class RegisterActivity extends Activity implements OnClickListener {

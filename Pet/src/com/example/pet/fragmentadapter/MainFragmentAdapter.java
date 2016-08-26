@@ -1,4 +1,4 @@
-package com.example.fragmentadapter;
+package com.example.pet.fragmentadapter;
 
 import java.util.List;
 

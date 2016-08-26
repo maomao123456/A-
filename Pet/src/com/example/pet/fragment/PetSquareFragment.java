@@ -1,4 +1,4 @@
-package com.example.fragment;
+package com.example.pet.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +25,12 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
-import com.example.baseadapter.SquareAdapter;
-import com.example.lei.SquareGridview;
-import com.example.lei.SquareListview;
+
 import com.example.pet.R;
 import com.example.pet.SquareDetailsActivity;
+import com.example.pet.baseadapter.SquareAdapter;
+import com.example.pet.lei.SquareGridview;
+import com.example.pet.lei.SquareListview;
 
 public class PetSquareFragment extends Fragment implements OnTouchListener{
 	View view;

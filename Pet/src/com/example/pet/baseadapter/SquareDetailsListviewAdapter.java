@@ -1,9 +1,9 @@
-package com.example.baseadapter;
+package com.example.pet.baseadapter;
 
 import java.util.List;
 
-import com.example.lei.SquareDetailsListview;
 import com.example.pet.R;
+import com.example.pet.lei.SquareDetailsListview;
 
 import android.content.Context;
 import android.view.LayoutInflater;

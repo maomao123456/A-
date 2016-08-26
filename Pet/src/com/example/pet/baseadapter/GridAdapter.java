@@ -1,4 +1,4 @@
-package com.example.baseadapter;
+package com.example.pet.baseadapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +14,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.lei.SquareGridview;
-import com.example.lei.SquareListview;
+import com.example.pet.lei.SquareGridview;
+import com.example.pet.lei.SquareListview;
 
 
 public class GridAdapter extends BaseAdapter{

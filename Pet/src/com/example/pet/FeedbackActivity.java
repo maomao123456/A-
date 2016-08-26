@@ -30,7 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pet.classes.Utils;
+import com.example.pet.lei.Utils;
 
 public class FeedbackActivity extends Activity {
 

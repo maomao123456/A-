@@ -16,7 +16,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import com.example.pet.classes.Utils;
+import com.example.pet.lei.Utils;
 
 import android.app.Activity;
 import android.content.Intent;

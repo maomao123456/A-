@@ -64,7 +64,9 @@
         <activity
             android:name="com.example.pet.AboutPetsActivity"
             android:launchMode="singleTop" />
-        <!-- 设置 意见反馈界面 -->
+        <!-- 设置界面 -->
+         <activity android:name="com.example.pet.SetActivity"/>
+        <!--意见反馈界面 -->
         <activity
             android:name="com.example.pet.FeedbackActivity"
             android:launchMode="singleTop" />

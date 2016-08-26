@@ -1,4 +1,4 @@
-package com.example.myview;
+package com.example.pet.myview;
 
 import android.content.Context;
 import android.util.AttributeSet;
