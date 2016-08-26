@@ -38,7 +38,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         <activity
-            android:name=".GuideActivity"
+            android:name=".SetActivity"
             android:icon="@drawable/logo"
             android:label="@string/app_name" >
             <intent-filter>
@@ -67,7 +67,7 @@
             android:launchMode="singleTop" />
         <!-- 设置界面 -->
         <activity
-            android:name="com.example.pet.SetActivity"
+            android:name="com.example.pet.GuideActivity"
             android:launchMode="singleTop" />
 
         <!-- 跳转到微博的页面及微博服务注册 -->

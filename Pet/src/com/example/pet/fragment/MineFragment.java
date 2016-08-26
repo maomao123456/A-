@@ -106,6 +106,5 @@ public class MineFragment extends Fragment {
 		Intent intent = new Intent();
 		intent.setClass(getActivity(), SetActivity.class);
 		startActivity(intent);
-		Toast.makeText(getActivity(), "1231", Toast.LENGTH_LONG).show();
 	}
 }
