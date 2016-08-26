@@ -17,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MineFragment extends Fragment {
 
@@ -105,5 +106,6 @@ public class MineFragment extends Fragment {
 		Intent intent = new Intent();
 		intent.setClass(getActivity(), SetActivity.class);
 		startActivity(intent);
+		Toast.makeText(getActivity(), "1231", Toast.LENGTH_LONG).show();
 	}
 }
