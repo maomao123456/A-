@@ -420,7 +420,6 @@ public class LoginActivity extends Activity  implements OnClickListener {
 						 getQQuserInfo();
 					}
 				});
-				 
 	}
 	/**
 	 * 获得qq用户信息
