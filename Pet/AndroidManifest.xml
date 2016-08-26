@@ -45,8 +45,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity android:name="com.example.pet.LoginActivity"/>
+        <activity android:name="com.example.pet.SquareDetailsActivity"/>
+        <!--广场详情页面  -->
+        <activity android:name="com.example.pet.MainActivity"
+            android:launchMode="singleTask"/>
+        <!-- <activity android:name="com.example.pet.MainActivity"
+            android:launchMode="singleTask"/> -->
            <!--  android:windowSoftInputMode="stateUnchanged" -->
         
         

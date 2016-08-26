@@ -8,5 +8,24 @@
      <color name="zhutise">#ffda44</color>
      <color name="denglu_dingbuse">#83c9ea</color>
      <color name="zhuce_bg">#E8E7E4</color>
-
+     
+	 <color name="black">#000000</color>
+	 <color name="white">#ffffff</color>
+	 <color name="text_33">#333333</color>
+	 <color name="bg_zhuti">#ffda44</color>
+	 <color name="bg_whole">#f0f0f0</color>
+	 <color name="text_2b">#2b2b2b</color>
+	 <color name="text_3c">#3c3c3c</color>
+	 <color name="text_61">#616161</color>
+	 <color name="text_68">#686868</color>
+	 <color name="text_91">#919191</color>
+	 <color name="text_b8">#b8b8b8</color>
+	 <color name="text_blue">#58b7e3</color>
+	 <color name="bg_square">#fcfaec</color>
+	 <color name="text_c7">#c7c7c7</color>
+	 <color name="text_45">#454545</color>
+	 <color name="bg_shadow">#060405</color>
+	 <color name="bg_text_shadow">#f6f6f6</color>
+	 <color name="bg_add">#f2ebd9</color>
+	 <color name="bg_bottom">#e4e4e4</color>
 </resources>

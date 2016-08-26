@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white" >
+    <RelativeLayout 
+        android:layout_width="96dp"
+        android:layout_height="90dp">
+        <ImageView 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/album_dongtai"
+            android:src="@drawable/album1_dongtai"
+            android:scaleType="fitXY"/>
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="14dp"
+            android:id="@+id/album_text_dongtai"
+            android:layout_alignParentBottom="true"
+            android:background="@color/bg_text_shadow"
+            android:alpha="0.5"
+            android:text="我和你"
+            android:textColor="@color/text_33"
+            android:textSize="10sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="2.5dp"/>
+    </RelativeLayout>
+
+</LinearLayout>
