@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/bg_whole">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/bg_zhuti" >
+
+        <RelativeLayout
+            android:id="@+id/back_xiangqing_square"
+            android:layout_width="50dp"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/back_button1" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="详情"
+            android:textColor="@color/text_33"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:text="发布"
+            android:textColor="@color/text_33"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <ListView 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/listview_xiangqing_square"
+        android:dividerHeight="1dp"
+        android:divider="@color/bg_whole">
+        
+    </ListView>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_marginTop="1dp">
+        <RelativeLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="38dp"
+	        android:background="@color/text_91"
+	        android:layout_margin="12dp">
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="37dp"
+	            android:orientation="horizontal"
+	            android:layout_margin="0.5dp"
+	            android:background="@color/white">
+	            <EditText 
+	                android:layout_width="0dp"
+	                android:layout_height="match_parent"
+	                android:layout_weight="1"
+	                android:hint="我也说一句"
+	                android:textColor="@color/text_33"
+	                android:textSize="12sp"
+	                android:padding="12dp"
+	                android:background="@null"/>
+	            <ImageView 
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:src="@drawable/smile_face"
+	                android:layout_gravity="center_vertical"
+	                android:layout_marginRight="9dp"/>
+        	</LinearLayout>
+    	</RelativeLayout>
+    </LinearLayout>
+    
+</LinearLayout>

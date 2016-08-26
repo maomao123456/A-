@@ -75,6 +75,15 @@
         <activity
             android:name="com.example.pet.FeedbackActivity"
             android:launchMode="singleTop" />
+        <activity android:name="com.example.pet.SquareDetailsActivity"/>
+        <!--广场详情页面  -->
+        <activity android:name="com.example.pet.MainActivity"
+            android:launchMode="singleTask"/>
+        <!-- <activity android:name="com.example.pet.MainActivity"
+            android:launchMode="singleTask"/> -->
+           <!--  android:windowSoftInputMode="stateUnchanged" -->
+        
+        
         <!-- 跳转到微博的页面 -->
         <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"

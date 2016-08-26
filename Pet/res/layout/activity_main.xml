@@ -1,36 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#ffffff" >
- 
-    <View 
-        android:layout_width="360dp"
+    android:background="@color/gray"
+    android:orientation="vertical" >
+    <RelativeLayout 
+        android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="#00ff00"/>
-    <View 
-        android:layout_width="360dp"
-        android:layout_height="132dp"
-        android:background="#ff0000"/>
-<View 
-        android:layout_width="360dp"
-        android:layout_height="48dp"
-        android:background="#0000ff"/>
-<LinearLayout 
-    android:layout_width="wrap_content"
-    android:layout_height="100dp"
-    android:background="#ffffff"
-    android:gravity="center"
-    android:orientation="vertical">
-    <TextView 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="50sp"
-        android:text="124"/>
-    <View 
-        android:layout_width="20dp"
-        android:layout_height="10dp"
-        android:background="#ff0000"/>
-</LinearLayout>
+        android:background="@color/bg_zhuti">
+        <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/text_title1_main"
+	        android:text="资源"
+	        android:textColor="@color/text_33"
+	        android:textSize="18sp"
+	        android:layout_marginLeft="125dp"
+	        android:layout_centerVertical="true"/>     
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_title2_main"
+            android:text="攻略"
+            android:textColor="@color/text_33"
+            android:textSize="18sp"
+            android:layout_marginRight="125dp"
+            android:layout_alignParentRight="true" 
+            android:layout_centerVertical="true"/>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_tilte3_main"
+            android:text="我的"
+            android:visibility="gone"
+            android:textColor="@color/text_33"
+            android:textSize="18sp"
+            android:layout_centerInParent="true" 
+            android:layout_centerVertical="true"/>
+        <View 
+	        android:layout_width="32dp"
+	        android:layout_height="4dp"
+	        android:id="@+id/line1_main"
+	        android:background="@color/black"
+	        android:layout_alignParentBottom="true"
+	        android:layout_marginLeft="2dp"
+	        android:layout_alignLeft="@id/text_title1_main"/> 
+	    <View 
+	        android:layout_width="32dp"
+	        android:layout_height="4dp"
+	        android:id="@+id/line2_main"
+	        android:visibility="gone"
+	        android:background="@color/black"
+	        android:layout_alignParentBottom="true"
+	        android:layout_marginLeft="2dp"
+	        android:layout_alignLeft="@id/text_title2_main"/>    
+    </RelativeLayout>
+	<android.support.v4.view.ViewPager
+	    android:id="@+id/viewpager_main"
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="1"
+	    android:background="@color/white" >
+	</android.support.v4.view.ViewPager>
+	<RadioGroup 
+	    android:layout_width="match_parent"
+	    android:layout_height="48dp"
+	    android:id="@+id/radio_group_main"
+	    android:orientation="horizontal"
+	    android:background="@color/bg_whole"
+	    android:paddingTop="9dp"
+	    android:paddingBottom="6dp"
+	    android:paddingLeft="20dp"
+	    android:paddingRight="20dp">
+
+		<RadioButton
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:id="@+id/radio_button_shouye_main"
+		    android:button="@null"
+		    android:checked="true"
+		    android:drawablePadding="2.5dp"
+		    android:drawableTop="@drawable/shouye_selector"
+		    android:gravity="center"
+		    android:text="首页"
+		    android:textColor="@color/text_45"
+		    android:textSize="9sp" />
+
+		<RadioButton
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:id="@+id/radio_button_pet_main"
+		    android:button="@null"
+		    android:gravity="center"
+		    android:drawableTop="@drawable/pet_selector"
+		    android:drawablePadding="2.5dp"
+		    android:text="宠物圈"
+		    android:textColor="@color/text_45"
+		    android:textSize="9sp" />
+		<RadioButton
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:id="@+id/radio_button_mine_main"
+		    android:button="@null"
+		    android:gravity="center"
+		    android:drawableTop="@drawable/mine_selector"
+		    android:drawablePadding="2.5dp"
+		    android:text="我的"
+		    android:textColor="@color/text_45"
+		    android:textSize="9sp" />
+	</RadioGroup>
+
 </LinearLayout>
