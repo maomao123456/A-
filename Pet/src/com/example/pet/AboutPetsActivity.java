@@ -52,7 +52,7 @@ public class AboutPetsActivity extends Activity {
 	//返回我的界面
 	private void backMine(){
 		Intent intent = new Intent();
-		intent.setClass(AboutPetsActivity.this, MineActivity.class);
+		intent.setClass(AboutPetsActivity.this, MainActivity.class);
 		startActivity(intent);
 	}
 }

@@ -99,7 +99,7 @@ public class DataInformationActivity extends Activity {
 	//返回我的界面
 	private void backMine(){
 		Intent intent = new Intent();
-		intent.setClass(DataInformationActivity.this, MineActivity.class);
+		intent.setClass(DataInformationActivity.this, MainActivity.class);
 		startActivity(intent);
 	}
 	
