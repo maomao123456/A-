@@ -60,6 +60,14 @@
         <activity
             android:name="com.example.pet.AccountManagerActivity"
             android:launchMode="singleTop" />
+        <!-- 修改密码界面 -->
+        <activity android:name="com.example.pet.ResetPasswordActivity" />
+        <!-- 修改手机号界面 -->
+        <activity android:name="com.example.pet.ResetTelephoneActivity" />
+        <!-- 修改邮箱界面 -->
+        <activity android:name="com.example.pet.ResetEmailActivity" />
+        <!-- 修改密保设置界面 -->
+        <activity android:name="com.example.pet.ResetSecuritySetActivity" />
         <!-- 关于萌宠界面 -->
         <activity
             android:name="com.example.pet.AboutPetsActivity"
