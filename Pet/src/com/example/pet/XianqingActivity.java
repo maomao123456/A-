@@ -23,6 +23,8 @@ public class XianqingActivity extends Activity {
 		tetview.setOnClickListener(onClickListener);
 	}
 	OnClickListener onClickListener=new OnClickListener() {
+	
+		
 		
 		@Override
 		public void onClick(View v) {
@@ -31,7 +33,7 @@ public class XianqingActivity extends Activity {
 			case R.id.dianping:
 				Intent intent=new Intent(XianqingActivity.this, DianpingActivity.class);
 				startActivity(intent);
-				
+			
 				break;
 
 			default:
