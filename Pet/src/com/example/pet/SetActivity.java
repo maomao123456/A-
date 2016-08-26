@@ -91,7 +91,11 @@ public class SetActivity extends Activity {
 
 			case R.id.clear_cache_next:
 				new AlertDialog.Builder(SetActivity.this)
-						.setMessage("确定清除缓存吗？").setPositiveButton("确定", null)
+						.setMessage("确定清除缓存吗？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int whitch) {
+								
+							}
+						})
 						.setNegativeButton("取消", null).show();
 				break;
 
