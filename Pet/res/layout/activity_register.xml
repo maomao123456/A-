@@ -76,7 +76,8 @@
             <EditText
                 android:id="@+id/register_shoujihao"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
                 android:layout_marginLeft="31dp"
                 android:background="@null"
                 android:hint="请输入手机号"
@@ -108,7 +109,8 @@
             <EditText
                 android:id="@+id/register_yanzhengma"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
                 android:layout_marginLeft="31dp"
                 android:layout_weight="1"
                 android:background="@null"
@@ -157,15 +159,25 @@
 
             <EditText
                 android:id="@+id/register_shezhimima"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                 android:layout_height="fill_parent"
+                android:gravity="center_vertical"
                 android:layout_marginLeft="15dp"
                 android:background="@null"
                 android:hint="6-20位数字/字母"
+                android:inputType="textWebPassword"
                 android:singleLine="true"
                 android:textColor="@color/heise"
                 android:textColorHint="@color/hintziti"
                 android:textSize="16sp" />
+            <CheckBox 
+                android:id="@+id/register_show_mima"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:drawableRight="@drawable/register_selector_mima_show"
+                android:checked="false"/>
         </LinearLayout>
 
         <View

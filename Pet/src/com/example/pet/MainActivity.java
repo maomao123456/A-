@@ -1,9 +1,6 @@
 package com.example.pet;
 
-import com.tencent.tauth.Tencent;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import java.util.ArrayList;

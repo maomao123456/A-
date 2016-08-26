@@ -1,6 +1,21 @@
 package com.example.pet;
 
-import com.example.pet.classes.PhoneTy;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.ParseException;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,10 +24,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -20,11 +37,14 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pet.classes.PhoneTy;
+
+
 public class RegisterActivity extends Activity implements OnClickListener {
 	TextView denglu, getYangzhengma, xieyiNeirong, comeing;
 	LinearLayout backQuyu, xieyiQuyu;
 	EditText shoujihao, yanzhengma, shezhimima, yaoqingma;
-	CheckBox xieyiCb;
+	CheckBox xieyiCb,showMima;
 	ScrollView sc;
 	/**
 	 * 获得用户输入的手机号
@@ -70,6 +90,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		shezhimima = (EditText) findViewById(R.id.register_shezhimima);
 		yaoqingma = (EditText) findViewById(R.id.register_yaoqingma);
 		xieyiCb = (CheckBox) findViewById(R.id.register_xieyi_cb);
+		showMima=(CheckBox)findViewById(R.id.register_show_mima);
+		showMima.setOnClickListener(this);
 		denglu.setOnClickListener(this);
 		getYangzhengma.setOnClickListener(this);
 		xieyiNeirong.setOnClickListener(this);
@@ -174,6 +196,13 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		case R.id.register_shoujihao:
 			changeSize();
 			break;
+		case R.id.register_show_mima://是否显示密码图标
+			if(showMima.isChecked()){
+				shezhimima.setInputType(EditorInfo.TYPE_CLASS_TEXT |EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+			}else{
+				shezhimima.setInputType(EditorInfo.TYPE_CLASS_TEXT |EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD);
+			}
+			break;
 		case R.id.register_back_quyu:// 返回区域
 			Intent intent = new Intent(getApplicationContext(),
 					LoginActivity.class);
@@ -204,10 +233,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 				//自动检测 错误  不用再调用方法
 			}else{
 				if(xieyiCb.isChecked()){
-					Toast.makeText(getApplicationContext(), "正在开发中！",
-							Toast.LENGTH_SHORT).show();
-					// intent=new Intent(getApplicationContext(), cls);
-					// startActivity(intent);
+					complete();
 				}else{
 					Builder builder=new AlertDialog.Builder(RegisterActivity.this);
 					builder.setTitle("你还未同意《隐私与服务协议》！");
@@ -223,5 +249,67 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		default:
 			break;
 		}
+	}
+	int tiaozhuan=0;
+	/**
+	 * 用户信息存到数据库中
+	 */
+	public void complete() {
+		Toast.makeText(RegisterActivity.this, "正在为你注册...", Toast.LENGTH_LONG).show();
+		new Thread(new Runnable() {
+			public void run() {
+				String httpUrl = "http://192.168.1.192/index.php/Home/Api/add";//PHP接口地址
+				HttpPost httpRequest = new HttpPost(httpUrl);//http用post方法请求数据
+				List<NameValuePair> params = new ArrayList<NameValuePair>();//建立一个列表用于添加数据
+				params.add(new BasicNameValuePair("useraccount", shoujihao
+						.getText().toString().trim()));//添加用户的用户名
+				params.add(new BasicNameValuePair("userpassword", shezhimima
+						.getText().toString().trim()));//添加用户的密码
+				HttpEntity httpentity = null;
+				try {
+					httpentity = new UrlEncodedFormEntity(params, "utf8");//设置用户字符集的格式
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				httpRequest.setEntity(httpentity);
+				HttpClient httpClient = new DefaultHttpClient();
+				HttpResponse httpResponse = null;
+				try {
+					httpResponse = httpClient.execute(httpRequest);
+				} catch (ClientProtocolException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+
+					e.printStackTrace();
+				}
+				if (httpResponse.getStatusLine().getStatusCode() == 200) {
+					String strResult = null;
+					try {
+						strResult = EntityUtils.toString(httpResponse
+								.getEntity());
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					Intent intent=new Intent(RegisterActivity.this, MainActivity.class);
+					startActivity(intent);
+					RegisterActivity.this.finish();
+					Looper.prepare();
+					Toast.makeText(RegisterActivity.this, strResult + "注册成功！启宠资源大门以为你敞开。",
+							Toast.LENGTH_SHORT).show();
+					Looper.loop();
+				} else {
+					Looper.prepare();
+					Toast.makeText(RegisterActivity.this, "注册失败或用户已存在！",
+							Toast.LENGTH_SHORT).show();
+					Looper.loop();
+				}
+			}
+		}).start();
 	}
 }
