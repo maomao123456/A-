@@ -1,6 +1,6 @@
 package com.example.pet;
 
-import com.example.pet.lei.PhoneTy;
+import com.example.pet.classes.PhoneTy;
 
 import android.app.Activity;
 import android.app.AlertDialog;
