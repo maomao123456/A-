@@ -1,23 +1,22 @@
 package com.example.pet.fragment;
 
-import com.example.pet.AboutPetsActivity;
-import com.example.pet.AccountManagerActivity;
-import com.example.pet.DataInformationActivity;
-import com.example.pet.R;
-import com.example.pet.SetActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.pet.AboutPetsActivity;
+import com.example.pet.AccountManagerActivity;
+import com.example.pet.DataInformationActivity;
+import com.example.pet.R;
+import com.example.pet.SetActivity;
 
 public class MineFragment extends Fragment {
 
