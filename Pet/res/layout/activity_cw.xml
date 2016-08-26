@@ -10,7 +10,6 @@
         android:background="@color/yellow" >
 
         <ImageView
-            android:id="@+id/imageview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -19,7 +18,6 @@
             android:background="@drawable/leftjt" />
 
         <TextView
-            android:id="@+id/textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

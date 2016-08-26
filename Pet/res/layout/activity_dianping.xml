@@ -11,7 +11,7 @@
         android:background="@color/yellow" >
 
         <ImageView
-            android:id="@+id/imageview"
+            android:id="@+id/imageviewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -30,7 +30,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textview2"
+            android:id="@+id/textviewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

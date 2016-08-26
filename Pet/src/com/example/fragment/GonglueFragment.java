@@ -5,19 +5,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.example.pet.R;
-import com.example.pet.R.drawable;
-import com.example.pet.R.id;
-import com.example.pet.R.layout;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
+import com.example.lei.MysimpleAdapter;
+import com.example.pet.R;
+import com.example.pet.XianqingActivity;
 
 public class GonglueFragment extends Fragment {
 	ListView listView;
@@ -33,11 +34,14 @@ public class GonglueFragment extends Fragment {
 		String[] from = { "imag", "title1", "title2", "title3", "imagJt" };
 		int[] to = { R.id.imageview, R.id.textview1, R.id.textview2,
 				R.id.textview3, R.id.imageviewJt };
-		simpleadapter = new SimpleAdapter(getActivity(), getdata(),
+		simpleadapter = new MysimpleAdapter(getActivity(), getdata(),
 				R.layout.activity_simpleadapter_gonglue, from, to);
 		listView.setAdapter(simpleadapter);
+		listView.setOnItemClickListener(onItemClickListener);
 		return view;
 	};
+	
+	
 	
 		
 
@@ -85,5 +89,25 @@ public class GonglueFragment extends Fragment {
 		list.add(map);
 		return list;
 	}
+	
+	OnItemClickListener onItemClickListener=new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			// TODO Auto-generated method stub
+			switch (position) {
+			case 1:
+				Intent intent=new Intent(getActivity(), XianqingActivity.class);
+				startActivity(intent);
+				break;
+
+			default:
+				break;
+			}
+		}
+	};
+	
+
 
 }
