@@ -38,7 +38,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         <activity
-            android:name=".MineActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -77,7 +77,7 @@
             android:launchMode="singleTop" />
         <activity android:name="com.example.pet.SquareDetailsActivity"/>
         <!--广场详情页面  -->
-        <activity android:name="com.example.pet.MainActivity"
+        <activity android:name="com.example.pet.MineActivity"
             android:launchMode="singleTask"/>
         <!-- <activity android:name="com.example.pet.MainActivity"
             android:launchMode="singleTask"/> -->
