@@ -54,11 +54,11 @@
         android:background="@color/baise"
         android:orientation="horizontal" >
 
-        <ImageView 
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="98dp"
-            android:src="@drawable/rating"/>
+            android:src="@drawable/rating" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -93,14 +93,60 @@
         android:layout_height="1dp"
         android:layout_marginTop="20dp"
         android:background="@color/gray" />
-    
-    <TextView 
+
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="18dp"
         android:paddingRight="18dp"
-        android:textSize="12sp"
+        android:text="		极为聪明，是一个均称、有力、活泼的犬种。金毛寻回犬以其可爱，温顺，聪明伶俐的特质受到了广泛的欢迎。而且很容易驯养，对小孩温和并有耐心，忠诚，自信，可爱，喜欢取悦于人，是一种喜欢户外活动的家庭犬。"
         android:textColor="#696969"
-        android:text="		极为聪明，是一个均称、有力、活泼的犬种。金毛寻回犬以其可爱，温顺，聪明伶俐的特质受到了广泛的欢迎。而且很容易驯养，对小孩温和并有耐心，忠诚，自信，可爱，喜欢取悦于人，是一种喜欢户外活动的家庭犬。"/>
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#E8988B" >
+
+            <TextView
+                android:id="@+id/sc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ratingbarshixin"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:drawablePadding="5dp"
+				android:layout_centerInParent="true"
+				android:layout_centerHorizontal="true"
+                android:text="收藏" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#58B7E3" >
+
+            <TextView
+				android:id="@+id/dianping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/dianping"
+                android:drawablePadding="5dp"
+				android:layout_centerInParent="true"
+				android:textColor="#ffffff"
+				android:textSize="12sp"
+				android:layout_centerHorizontal="true"
+                android:text="点评" />
+        </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

@@ -20,7 +20,7 @@
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <!-- 调用浏览器权限及网络权限 -->
     <!-- 调用微博的权限 QQ WX -->
-	<uses-permission android:name="android.permission.READ_PHONE_STATE"/> 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -69,25 +69,42 @@
             android:name="com.example.pet.AboutPetsActivity"
             android:launchMode="singleTop" />
         <!-- 设置界面 -->
+
+        <!-- 跳转到微博的页面及微博服务注册 -->
+        <!-- 设置 意见反馈界面 -->
         <activity
-            android:name="com.example.pet.SetActivity"
+            android:name="com.example.pet.FeedbackActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="com.example.pet.DianpingActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="com.example.pet.XianqingActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="com.example.pet.FabuActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="com.example.pet.DianpuActivity"
             android:launchMode="singleTop" />
 
-        
-        
-        
-        <!-- 跳转到微博的页面及微博服务注册 -->
+        <!-- android:windowSoftInputMode="stateUnchanged" -->
+
+
+        <!-- 跳转到微博的页面 -->
+
         <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
             android:windowSoftInputMode="stateHidden|adjustResize" >
         </activity>
+
         <service
             android:name="com.sina.weibo.sdk.net.DownloadService"
             android:exported="false" >
         </service>
-        <!--微信登录界面  -->
+        <!-- 微信登录界面 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"

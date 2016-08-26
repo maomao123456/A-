@@ -88,5 +88,17 @@
     <string name="input_email">13426345676@qq.com</string>
     <string name="personality_desdcript">个性说明</string>
     <string name="input_personality_desdcript">请输入个性说明</string>
+    <!-- 设置 登录退出 -->
+    <string name="exit_login_account">退出当前账号</string>
+    <string name="close_pet">关闭宠物</string>
+    <!-- 设置 意见反馈  -->
+    <string name="close">关闭</string>
+    <string name="max_num">400</string>
+    <string name="input_question">请输入遇到的问题或建议</string>
+    <string name="add_picture">添加图片说明</string>
+    <string name="contant_phone">联系电话</string>
+    <string name="use_to_contant">选项，便于我们联系你</string>
+    <string name="submit">提交</string>
+    
 
 </resources>

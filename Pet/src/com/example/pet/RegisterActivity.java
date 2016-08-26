@@ -37,7 +37,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pet.lei.PhoneTy;
+import com.example.pet.classes.PhoneTy;
+
 
 public class RegisterActivity extends Activity implements OnClickListener {
 	TextView denglu, getYangzhengma, xieyiNeirong, comeing;
