@@ -36,9 +36,10 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        android:theme="@android:style/Theme.Holo.Light.NoActionBar">
         <activity
-            android:name=".LoginActivity"
+            android:name=".GuideActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,11 +47,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.pet.GuideActivity" />
-        <!-- <activity android:name="com.example.pet.LoginActivity"/> -->
+       <!--  <activity android:name="com.example.pet.GuideActivity" /> -->
+        <activity android:name="com.example.pet.LoginActivity"/>
         <activity android:name="com.example.pet.RegisterActivity" />
         <activity android:name="com.example.pet.XieYiActivity" />
 
+        <!--主页面  -->
+        <activity android:name="com.example.pet.MainActivity"/>
         <!-- 我的界面 -->
         <activity android:name="com.example.pet.MineActivity" />
         <!-- 资料信息界面 -->
@@ -92,22 +95,25 @@
             android:theme="@android:style/Theme.NoDisplay" />
         <!-- QQ登录界面 -->
         <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".ReturnActivity">
+        </activity>
+        <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
             android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data android:scheme="tencent1105564187" />
+ 				<!-- 100380359 100381104 222222 -->
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.tencent.connect.common.AssistActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
     </application>
 
 </manifest>

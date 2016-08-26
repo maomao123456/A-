@@ -3,7 +3,6 @@ package com.example.pet.classes;
 import java.util.Date;
 
 public class UserInfor {
-
 	String nickname;
 	String gender;
 	Date birthday;

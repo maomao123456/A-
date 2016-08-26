@@ -10,7 +10,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class XieYiActivity extends Activity{
 	LinearLayout backQuyu;
@@ -27,7 +26,7 @@ public class XieYiActivity extends Activity{
 		backQuyu.setOnClickListener(listener);
 		wb.setWebViewClient(client);// 设置webview的client相当于监听
 		wb.getSettings().setJavaScriptEnabled(true);
-		String url = "http://www.8888pet.com/about/copyright.html";
+		String url = "http://www.bagong.cn/%E9%9A%90%E7%A7%81%E6%9D%A1%E6%AC%BE.html";
 		wb.loadUrl(url);
 	}
 	WebViewClient client = new WebViewClient() {

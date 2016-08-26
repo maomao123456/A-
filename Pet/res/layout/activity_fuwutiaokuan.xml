@@ -3,24 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+         <WebView 
+        android:id="@+id/xieyi_webview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="48dp"
+        android:layout_height="58dp"
         android:background="@color/zhutise" >
-
         <LinearLayout
             android:id="@+id/xieyi_back_quyu"
             android:layout_width="40dp"
             android:layout_height="fill_parent"
             android:gravity="center_vertical" >
-
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
                 android:src="@drawable/fanhui" />
         </LinearLayout>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,20 +32,16 @@
             android:text="《隐私与服务协议》"
             android:textColor="@color/ziti_main"
             android:textSize="20sp" />
-
     </RelativeLayout>
     <TextView 
         android:id="@+id/xieyi_tishi"
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:background="#ffffff"
+        android:layout_centerInParent="true"
         android:text="数据正在加载中......"
         android:textColor="#000000"
         android:textSize="16sp"/>
-    <WebView 
-        android:id="@+id/xieyi_webview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
+    </RelativeLayout>
 
 </LinearLayout>

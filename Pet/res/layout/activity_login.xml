@@ -18,13 +18,13 @@
         android:layout_width="fill_parent"
         android:layout_height="220dp"
         android:background="@color/denglu_dingbuse">
-        <ImageView 
+        <com.example.pet.lei.CircularImage 
             android:id="@+id/login_logo"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/logo"/>
+            android:layout_centerInParent="true"/>
         <TextView 
+            android:id="@+id/login_logo_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
