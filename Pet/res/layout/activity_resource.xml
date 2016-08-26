@@ -14,12 +14,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
-            <ImageView
+             <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="80dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/homepage_logo" />
+
+           
 
             <LinearLayout
                
@@ -223,15 +224,61 @@
                         android:src="@drawable/homepage_personage_pic1" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="185dp"
                         android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
                         android:src="@drawable/homepage_personage_pic2" />
                 </LinearLayout>
                 
-                <TextView 
+               <TextView 
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:text="		哈士奇性格多变，有的极端胆小，有的极端暴力，进入大陆和家庭的哈士奇，都已经没有了这种极端的性格，比较温顺，是一种流行于全球的宠物犬。与金毛犬、拉布拉多并列为三大无攻击型犬类。"/>
+                    android:padding="5dp"
+                    android:text="哈士奇性格多变，有的极端胆小，有的极端暴力，进入大陆和家庭的哈士奇，都已经没有了这种极端的性格，比较温顺."/>
+               
+               <TextView 
+                   android:layout_width="fill_parent"
+                   android:layout_height="1dp"
+                   android:background="@color/gray"
+                   android:paddingLeft="10dp"
+                   android:paddingRight="10dp"/>
+                <LinearLayout 
+                    android:orientation="horizontal"
+                    android:background="@color/baise"
+                    android:layout_width="fill_parent"
+                    android:padding="5dp"
+                    android:layout_height="wrap_content">
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="#5ab7e3"
+                    android:drawableLeft="@drawable/address"
+                    android:text="来自重庆  渝中区|上清寺"/>
+                
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:drawableLeft="@drawable/message"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:drawablePadding="5dp"
+                    android:textSize="10sp"
+                    android:textColor="#333333"
+                    android:layout_marginLeft="80dp"
+                    android:text="留言"/>
+                
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="#333333"
+                    android:textSize="10sp"
+                    android:drawableLeft="@drawable/like"
+                    android:drawablePadding="5dp"
+                    android:text="2"/>
+                
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

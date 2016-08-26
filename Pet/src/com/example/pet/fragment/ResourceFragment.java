@@ -1,7 +1,8 @@
 package com.example.pet.fragment;
 
+import com.example.pet.DianpingActivity;
+import com.example.pet.DianpuActivity;
 import com.example.pet.R;
-
 import com.example.pet.XianqingActivity;
 
 import android.content.Intent;
@@ -29,7 +30,7 @@ OnClickListener onClickListener=new OnClickListener() {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		Intent intent=new Intent(getActivity(), XianqingActivity.class);
+		Intent intent=new Intent(getActivity(), DianpuActivity.class);
 		startActivity(intent);
 	}
 };

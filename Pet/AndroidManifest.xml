@@ -51,7 +51,13 @@
         <activity android:name="com.example.pet.RegisterActivity" />
         <activity android:name="com.example.pet.XieYiActivity" />
         <!--主页面  -->
+
         <activity android:name="com.example.pet.GuideActivity"/>
+
+
+        <!-- 我的界面 -->
+        <activity android:name="com.example.pet.MineActivity" />
+
         <!-- 资料信息界面 -->
         <activity
             android:name="com.example.pet.DataInformationActivity"
