@@ -31,6 +31,11 @@
             android:textSize="20sp" />
 
     </RelativeLayout>
-    
+    <ListView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/timeshaft_listview"
+        android:layout_margin="10dp"
+        android:background="@color/white"/>
 
 </LinearLayout>
