@@ -17,6 +17,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,6 +26,8 @@ public class SetActivity extends Activity {
 
 	ImageButton backMine;
 	RelativeLayout share, feedback, help, annoouncement, clear, exitLogin;
+	ImageView lockScreen;
+	boolean state = false;// 锁屏密码是否打开，默认不打开
 	PopupWindow popupWindow;// 自定义对话框
 	View windView;
 	LayoutInflater inflater;
@@ -34,9 +37,10 @@ public class SetActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);// 取消标题栏
 		setContentView(R.layout.activity_set);
-		initView();
+
 		inflater = this.getLayoutInflater();
 		windView = inflater.inflate(R.layout.activity_exit, null);
+		initView();
 	}
 
 	// 初始化视图
@@ -48,6 +52,7 @@ public class SetActivity extends Activity {
 		annoouncement = (RelativeLayout) findViewById(R.id.new_announcement);
 		clear = (RelativeLayout) findViewById(R.id.clear_cache_next);
 		exitLogin = (RelativeLayout) findViewById(R.id.exit_login);
+		lockScreen = (ImageView) findViewById(R.id.lock_screen_off);
 		// 触发点击
 		share.setOnClickListener(clickListener);
 		feedback.setOnClickListener(clickListener);
@@ -55,6 +60,7 @@ public class SetActivity extends Activity {
 		backMine.setOnClickListener(clickListener);
 		clear.setOnClickListener(clickListener);
 		exitLogin.setOnClickListener(clickListener);
+		lockScreen.setOnClickListener(clickListener);
 	}
 
 	// 点击按钮方法
@@ -66,6 +72,17 @@ public class SetActivity extends Activity {
 			switch (v.getId()) {
 			case R.id.back_mine:
 				backMine();
+				break;
+			case R.id.lock_screen_off:
+				if (state == false) {
+					lockScreen.setImageDrawable(getResources().getDrawable(
+							R.drawable.on));
+					state = true;
+				} else if (state == true) {
+					lockScreen.setImageDrawable(getResources().getDrawable(
+							R.drawable.off));
+					state = false;
+				}
 				break;
 
 			case R.id.feedback_next:
@@ -89,6 +106,8 @@ public class SetActivity extends Activity {
 		}
 	};
 
+	// 锁屏密码
+
 	// 跳转到意见反馈界面
 	private void toFeedback() {
 		Intent intent = new Intent();
@@ -99,7 +118,7 @@ public class SetActivity extends Activity {
 	// 返回我的界面
 	private void backMine() {
 		Intent intent = new Intent();
-		intent.setClass(SetActivity.this, MineActivity.class);
+		intent.setClass(SetActivity.this, MainActivity.class);
 		startActivity(intent);
 	}
 
@@ -148,9 +167,9 @@ public class SetActivity extends Activity {
 		new AlertDialog.Builder(this)
 				.setTitle("退出当前账号")
 				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
 					public void onClick(DialogInterface dialog, int whitch) {
 						// 点击"确定"后操作
+						popupWindow.dismiss();
 						Intent intent = new Intent();
 						intent.setClass(getApplicationContext(),
 								LoginActivity.class);
@@ -161,39 +180,31 @@ public class SetActivity extends Activity {
 				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whitch) {
 						// 点击"取消"后操作，在这里不做任何操作
+						popupWindow.dismiss();
 					}
 				}).show();
 	}
 
 	// 退出登录
 	private void exitLogin() {
-		new AlertDialog.Builder(this)
-				.setTitle("关闭宠物")
+		new AlertDialog.Builder(this).setTitle("关闭宠物")
 				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int whitch) {
 						// 点击"确定"后操作
-						// SetActivity.this.finish();
-						// System.exit(0);
-						// SetActivity.this.closeContextMenu();
-						/*
-						 * ActivityManager mgr = (ActivityManager)
-						 * SetActivity.this.getSystemService(ACTIVITY_SERVICE);
-						 * mgr.restartPackage(getPackageName());
-						 */
-
+						popupWindow.dismiss();
 						Intent intent = new Intent(Intent.ACTION_MAIN);
 						intent.addCategory(Intent.CATEGORY_HOME);
 						intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						startActivity(intent);
-						android.os.Process.killProcess(android.os.Process
-								.myPid());
+						//finish();
+						android.os.Process.killProcess(android.os.Process.myPid());
 					}
 				})
 				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int witch) {
 						// 点击"取消"后操作，在这里不做任何操作
+						popupWindow.dismiss();
 					}
 				}).show();
 
@@ -207,4 +218,5 @@ public class SetActivity extends Activity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+
 }
