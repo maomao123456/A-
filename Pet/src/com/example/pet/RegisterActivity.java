@@ -2,8 +2,11 @@ package com.example.pet;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -27,6 +30,8 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,6 +44,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
 
 import com.example.pet.lei.PhoneTy;
 
@@ -65,6 +72,12 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	 * 获得用户输的邀请码
 	 */
 	String inviteCd;
+	Thread thread=null;
+	private int time=60;
+	private boolean tag=true;
+	private boolean isChange=false;
+	private static final String APPKEY = "168b024d49944";    
+	private static final String APPSECRETE = "3554d93a1086b52572d38877fa651526"; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +118,20 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		shoujihao.setOnFocusChangeListener(focusChangeListener);
 		yanzhengma.setOnFocusChangeListener(focusChangeListener);
 		shezhimima.setOnFocusChangeListener(focusChangeListener);
+		 // 启动短信验证sdk  
+		SMSSDK.initSDK(RegisterActivity.this, APPKEY, APPSECRETE);    
+        EventHandler eventHandler = new EventHandler(){    
+            @Override    
+            public void afterEvent(int event, int result, Object data) {    
+                Message msg = new Message();    
+                msg.arg1 = event;    
+                msg.arg2 = result;    
+                msg.obj = data;    
+                handler.sendMessage(msg);    
+            }    
+        };    
+        //注册回调监听接口    
+        SMSSDK.registerEventHandler(eventHandler);
 	}
 	/**
 	 * 布局尺寸的调整
@@ -186,6 +213,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	 * 普通控件的点击事件
 	 */
 	public void onClick(View v) {
+		String phoneNums=shoujihao.getText().toString();
+		String yzm=yanzhengma.getText().toString();
 		switch (v.getId()) {
 		case R.id.register_shoujihao:
 			changeSize();
@@ -208,8 +237,18 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			startActivity(intent);
 			RegisterActivity.this.finish();
 			break;
-		case R.id.register_huoquyanzhengma:// 获取验证码
-
+		case R.id.register_huoquyanzhengma:// 获取验证码(按钮)
+			boolean phone=PhoneTy.isPhoneNb(phoneNums);
+			if(!phone){
+				toast("请输入正确的手机号！");
+				break;
+			}
+			getYangzhengma.setText("获取验证码");
+			getYangzhengma.setClickable(true);
+			isChange=true;
+			// 2. 通过sdk发送短信验证    
+            SMSSDK.getVerificationCode("86", phoneNums);
+            changeTime();
 			break;
 		case R.id.register_tongyixieyi_quyu:// 同意协议区域
 			if (xieyiCb.isChecked()) {
@@ -230,7 +269,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 					// 自动检测 错误 不用再调用方法
 				} else {
 					if (xieyiCb.isChecked()) {
-						complete();
+						SMSSDK.submitVerificationCode("86", phoneNums, yzm); 
 					} else {
 						Builder builder = new AlertDialog.Builder(
 								RegisterActivity.this);
@@ -328,4 +367,71 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
+	public void changeTime(){
+		 thread = new Thread() { 
+		      public void run() { 
+		        if (tag) { 
+		          while (time > 0) { 
+		            time--; 
+		            if (RegisterActivity.this == null) { 
+		              break; 
+		            }   
+		            RegisterActivity.this .runOnUiThread(new Runnable() { 
+		                  public void run() { 
+		                	  getYangzhengma.setText("重新发送("
+		                        + time + ")"); 
+		                    getYangzhengma .setClickable(false); } }); 
+		            try { 
+		              Thread.sleep(1000); 
+		            } catch (InterruptedException e) { 
+		              throw new RuntimeException(e); 
+		            } 
+		          } 
+		          tag = false; 
+		        } 
+		        time = 60; 
+		        tag = true; 
+		        if (RegisterActivity.this != null) { 
+		          RegisterActivity.this.runOnUiThread(new Runnable() { 
+		            @Override
+		            public void run() { 
+		              getYangzhengma.setText("获取验证码"); 
+		              getYangzhengma.setClickable(true); 
+		              handler.sendEmptyMessage(3);
+		            } 
+		          }); 
+		        } 
+		      }; 
+		    }; 
+		    thread.start(); 
+	}
+	Handler handler = new Handler() {    
+        public void handleMessage(Message msg) {    
+            if(msg.what==3){ 
+            	
+            }else{   
+                int event = msg.arg1;    
+                int result = msg.arg2;    
+                Object data = msg.obj;    
+                Log.e("event", "event=" + event);    
+                if (result == SMSSDK.RESULT_COMPLETE) {    
+                    // 短信注册成功后，返回MainActivity,然后提示    
+                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {// 提交验证码成功    
+                        toast("验证码校验成功！");
+                        complete();
+                    } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {    
+                        toast("正在获取验证码....");
+                    } else {
+                    	toast("验证码校验失败！ 请重试");
+                        ((Throwable) data).printStackTrace();    
+                    }    
+                }    
+            }    
+        }    
+    };	
+	protected void onDestroy() {
+		SMSSDK.unregisterAllEventHandler();    
+        super.onDestroy();
+	};
+	
 }
