@@ -1,4 +1,4 @@
-package com.example.fragment;
+package com.example.pet.fragment;
 
 import com.example.pet.R;
 

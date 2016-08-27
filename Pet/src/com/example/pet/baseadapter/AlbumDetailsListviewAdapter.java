@@ -1,51 +1,48 @@
-package com.example.baseadapter;
+package com.example.pet.baseadapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import android.R;
+import com.example.pet.R;
+import com.example.pet.lei.AlbumDetailsListview;
+import com.example.pet.lei.SquareListview;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.lei.SquareGridview;
-import com.example.lei.SquareListview;
+public class AlbumDetailsListviewAdapter extends BaseAdapter{
 
-
-public class GridAdapter extends BaseAdapter{
 	LayoutInflater inflater;
 	Context context;
-	List<SquareGridview> list1;
+	List<AlbumDetailsListview> list;
 	int item;
-	int id;
+	int[] id;
 	
-	public GridAdapter(){
+	public AlbumDetailsListviewAdapter(){
 	}
-	public GridAdapter(Context context,List<SquareGridview> list1,int item,int id){
+	public AlbumDetailsListviewAdapter(Context context,List<AlbumDetailsListview> list,int item,int[] id){
 		super();
 		this.context=context;
-		this.list1=list1;
+		this.list=list;
 		this.item=item;
 		this.id=id;
 		inflater=LayoutInflater.from(context);
 	}
-	
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return list1.size();
+		return list.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return list1.get(position);
+		return list.get(position);
 	}
 
 	@Override
@@ -60,10 +57,14 @@ public class GridAdapter extends BaseAdapter{
 		if(convertView==null){
 			convertView=inflater.inflate(item, null);
 		}
-		ImageView img=(ImageView)convertView.findViewById(id);
-		SquareGridview gridview=list1.get(position);
-		img.setImageResource(gridview.getImage());
-		
+		TextView time=(TextView)convertView.findViewById(id[0]);
+		GridView gridView=(GridView)convertView.findViewById(id[1]);
+		AlbumDetailsListview albumDetails=list.get(position);
+		time.setText(albumDetails.getTime());
+		GridAdapter adapter=new GridAdapter(context,albumDetails.getList() ,
+				R.layout.gridview_item_album_details, R.id.gridview_item_album_details);
+		gridView.setAdapter(adapter);
 		return convertView;
 	}
+
 }

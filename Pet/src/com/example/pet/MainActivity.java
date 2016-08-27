@@ -6,12 +6,12 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.fragment.DongTaiFragment;
-import com.example.fragment.GonglueFragment;
-import com.example.fragment.MineFragment;
-import com.example.fragment.PetSquareFragment;
-import com.example.fragment.ResourceFragment;
-import com.example.fragmentadapter.MainFragmentAdapter;
+import com.example.pet.fragment.DongTaiFragment;
+import com.example.pet.fragment.GonglueFragment;
+import com.example.pet.fragment.MineFragment;
+import com.example.pet.fragment.PetSquareFragment;
+import com.example.pet.fragment.ResourceFragment;
+import com.example.pet.fragmentadapter.MainFragmentAdapter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

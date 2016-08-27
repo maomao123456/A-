@@ -1,4 +1,4 @@
-package com.example.lei;
+package com.example.pet.lei;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ public class SquareListview {
 	String guanzhu;
 	String miaoshu;
 	List<SquareGridview> list;
-	int big_pet;
 	int dingwei;
 	String address;
 	int collections;
@@ -49,12 +48,6 @@ public class SquareListview {
 	}
 	public void setMiaoshu(String miaoshu) {
 		this.miaoshu = miaoshu;
-	}
-	public int getBig_pet() {
-		return big_pet;
-	}
-	public void setBig_pet(int big_pet) {
-		this.big_pet = big_pet;
 	}
 	public int getDingwei() {
 		return dingwei;

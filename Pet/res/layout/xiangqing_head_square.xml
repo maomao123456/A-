@@ -63,7 +63,7 @@
             android:textColor="@color/text_33"
             android:textSize="16sp"
             android:text="看我家毛毛和兔子玩的多好啊~~~"/>
-        <com.example.myview.MyGridView 
+        <com.example.pet.myview.MyGridView 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/gridview1_xiangqing_square"
@@ -78,7 +78,7 @@
 	    android:background="@color/white"
 	    android:layout_marginTop="12dp"
 	    android:layout_marginBottom="12dp">
-	    <com.example.myview.MyGridView 
+	    <com.example.pet.myview.MyGridView 
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:id="@+id/gridview2_xiangqing_square"

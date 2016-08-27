@@ -36,22 +36,24 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar">
+        android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         <activity
             android:name=".GuideActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-       <!--  <activity android:name="com.example.pet.GuideActivity" /> -->
-        <activity android:name="com.example.pet.LoginActivity"/>
+        <!-- <activity android:name="com.example.pet.GuideActivity" /> -->
+        <activity android:name="com.example.pet.LoginActivity" />
         <activity android:name="com.example.pet.RegisterActivity" />
         <activity android:name="com.example.pet.XieYiActivity" />
-        <!--主页面  -->
-        <activity android:name="com.example.pet.MainActivity"/>
+        <!-- 主页面 -->
+       	<activity android:name="com.example.pet.MainActivity" 
+       	    android:launchMode="singleTask"/>
         <!-- 资料信息界面 -->
         <activity
             android:name="com.example.pet.DataInformationActivity"
@@ -68,10 +70,12 @@
         <activity
             android:name="com.example.pet.FeedbackActivity"
             android:launchMode="singleTop" />
-        <activity android:name="com.example.pet.SquareDetailsActivity"/>
-        <!--广场详情页面  -->
-        <!-- <activity android:name="com.example.pet.MainActivity"
-            android:launchMode="singleTask"/> -->
+        <!-- 广场详情页面 -->
+        <activity android:name="com.example.pet.SquareDetailsActivity" />
+        <!-- 相册动态详情页面 -->
+        <activity android:name="com.example.pet.DongtaiAlbumDetailsActivity" />
+        <!-- 动态   时光轴页面 -->
+        <activity android:name="com.example.pet.TimeShaftActivity" />
         <activity
             android:name="com.example.pet.DianpingActivity"
             android:launchMode="singleTop" />
@@ -93,6 +97,7 @@
             android:exported="false"
             android:windowSoftInputMode="stateHidden|adjustResize" >
         </activity>
+
         <service
             android:name="com.sina.weibo.sdk.net.DownloadService"
             android:exported="false" >
@@ -109,8 +114,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity
-            android:name=".ReturnActivity">
+        <activity android:name=".ReturnActivity" >
         </activity>
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -118,10 +122,12 @@
             android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="tencent1105564187" />
- 				<!-- 100380359 100381104 222222 -->
+                <!-- 100380359 100381104 222222 -->
             </intent-filter>
         </activity>
     </application>

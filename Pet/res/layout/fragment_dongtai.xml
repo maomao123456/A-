@@ -27,12 +27,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <ImageView 
+            <com.example.pet.lei.CircularImage 
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:layout_marginTop="6dp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/head_dynamic"/>
+                android:layout_gravity="center_horizontal"/>
             <TextView 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -93,7 +92,7 @@
 	        android:layout_height="wrap_content"
 	        android:orientation="vertical"
 	        android:padding="8dp">
-            <com.example.myview.MyGridView
+            <com.example.pet.myview.MyGridView
                 android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		      	android:numColumns="3"

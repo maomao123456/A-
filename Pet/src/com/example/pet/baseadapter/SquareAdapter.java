@@ -1,4 +1,4 @@
-package com.example.baseadapter;
+package com.example.pet.baseadapter;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.lei.SquareGridview;
-import com.example.lei.SquareListview;
 import com.example.pet.R;
+import com.example.pet.lei.SquareGridview;
+import com.example.pet.lei.SquareListview;
 
 public class SquareAdapter extends BaseAdapter{
 	LayoutInflater inflater;
@@ -81,6 +81,7 @@ public class SquareAdapter extends BaseAdapter{
 		GridAdapter adapter=new GridAdapter(context,square.getList() ,
 				R.layout.gridview_item_square, R.id.gridview_item_grid);
 		gridView.setAdapter(adapter);
+		gridView.setNumColumns(square.getList().size());
 		return convertView;
 	}
 
