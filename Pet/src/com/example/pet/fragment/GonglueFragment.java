@@ -16,9 +16,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.example.lei.MysimpleAdapter;
 import com.example.pet.R;
 import com.example.pet.XianqingActivity;
+import com.example.pet.baseadapter.MysimpleAdapter;
 
 public class GonglueFragment extends Fragment {
 	ListView listView;

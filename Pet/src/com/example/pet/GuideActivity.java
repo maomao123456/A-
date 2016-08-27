@@ -2,6 +2,8 @@ package com.example.pet;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,13 +27,30 @@ public class GuideActivity extends Activity implements OnClickListener {
 	 float x2 = 0;
 	 float y1 = 0;
 	 float y2 = 0;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		panDuan();
 		setContentView(R.layout.activity_guide);
 		initView();
+	}
+	/**
+	 * 首次安装 guide为1
+	 */
+	public void panDuan(){
+		SharedPreferences pf=getSharedPreferences("pet", MODE_PRIVATE);
+		int numb=pf.getInt("guide", 0);
+		if(numb==0){
+			Editor editor=getSharedPreferences("pet", MODE_PRIVATE).edit();
+	    	editor.putInt("guide", 1);
+	    	editor.commit();
+		}else{
+			Intent intent=new Intent(GuideActivity.this, LoginActivity.class);
+			startActivity(intent);
+			GuideActivity.this.finish();
+		}
+		
 	}
 
 	/**

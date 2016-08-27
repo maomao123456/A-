@@ -3,6 +3,7 @@ package com.example.pet;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -41,11 +42,28 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		saveZhuangtai();
 		initView();
 		getData();
 		fragmentAdapter=new MainFragmentAdapter(
 				getSupportFragmentManager(), fragmentList);
 		viewPager.setAdapter(fragmentAdapter);	
+	}
+	/**
+	 * 保存APP初始状态
+	 */
+	public void saveZhuangtai(){
+		Editor editor=getSharedPreferences("pet", MODE_PRIVATE).edit();
+    	editor.putInt("kills", 0);
+    	editor.commit();
+	}
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		Editor editor=getSharedPreferences("pet", MODE_PRIVATE).edit();
+    	editor.putInt("kills", 1);
+    	editor.commit();
+		super.onDestroy();
 	}
 	/**
 	 * 寻找id的方法

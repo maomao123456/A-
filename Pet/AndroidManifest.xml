@@ -47,6 +47,8 @@
             </intent-filter>
         </activity>
        <!--  <activity android:name="com.example.pet.GuideActivity" /> -->
+       <!-- 进程被杀死后再进入的开启动画 -->
+        <activity android:name="com.example.pet.KaiQiActivity"/>
         <activity android:name="com.example.pet.LoginActivity"/>
         <activity android:name="com.example.pet.RegisterActivity" />
         <activity android:name="com.example.pet.XieYiActivity" />

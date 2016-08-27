@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -173,6 +174,7 @@ public class SetActivity extends Activity {
 					public void onClick(DialogInterface dialog, int whitch) {
 						// 点击"确定"后操作
 						popupWindow.dismiss();
+						saveLoginOut();
 						Intent intent = new Intent();
 						intent.setClass(getApplicationContext(),
 								LoginActivity.class);
@@ -187,6 +189,15 @@ public class SetActivity extends Activity {
 					}
 				}).show();
 	}
+	/**
+	 * 退出时缓存用户已是退出状态 下次登录时需要进入登录界面
+	 */
+	public void saveLoginOut(){
+		Editor editor=getSharedPreferences("pet", MODE_PRIVATE).edit();
+    	editor.putInt("kills", 1);
+    	editor.putInt("login", 0);
+    	editor.commit();
+	}
 
 	// 退出登录
 	private void exitLogin() {
@@ -197,6 +208,7 @@ public class SetActivity extends Activity {
 					public void onClick(DialogInterface dialog, int whitch) {
 						// 点击"确定"后操作
 						popupWindow.dismiss();
+						saveLoginOut();
 						Intent intent = new Intent(Intent.ACTION_MAIN);
 						intent.addCategory(Intent.CATEGORY_HOME);
 						intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

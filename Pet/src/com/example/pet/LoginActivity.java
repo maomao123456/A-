@@ -84,6 +84,7 @@ public class LoginActivity extends Activity  implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		panDuan();
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		setContentView(R.layout.activity_login);
 		 mAppid = QqAppConstant.APP_ID;//初始化主操作对象
@@ -91,7 +92,27 @@ public class LoginActivity extends Activity  implements OnClickListener {
 		jx=new JieXiShuJu();
 		initView();
 	}
-	/*
+	/**
+	 * 判断用户上次是否已登录
+	 */
+	public void panDuan(){
+		SharedPreferences pf=getSharedPreferences("pet", MODE_PRIVATE);
+		int numb=pf.getInt("login", 0);
+		if(numb!=0){
+			Intent intent=new Intent(LoginActivity.this, KaiQiActivity.class);
+			startActivity(intent);
+			LoginActivity.this.finish();
+		}
+	}
+	/**
+	 * 储存用户上次是否已登录
+	 */
+	public void saveLogin(){
+		Editor editor=getSharedPreferences("pet", MODE_PRIVATE).edit();
+    	editor.putInt("login", 1);
+    	editor.commit();
+	}
+	/**
 	 * 通过ID找到控件
 	 */
 	public void initView() {
@@ -346,6 +367,7 @@ public class LoginActivity extends Activity  implements OnClickListener {
 	 */
 		public class SinaRequestListener implements RequestListener{ //新浪微博请求接口  
 	        public void onComplete(String response) {  
+	        	saveLogin();
 	            try {  
 	                JSONObject jsonObject = new JSONObject(response);
 	                System.out.println(jsonObject.toString());
@@ -444,6 +466,7 @@ public class LoginActivity extends Activity  implements OnClickListener {
 				public void onError(UiError arg0) {
 				}
 				public void onComplete(final Object arg0) {
+					saveLogin();
 					JSONObject response = (JSONObject) arg0;
 					if (response.has("nickname")) {
 						try {
@@ -491,26 +514,6 @@ public class LoginActivity extends Activity  implements OnClickListener {
 			};
 			userInfo.getUserInfo(userInfoListener);
 	    }
-		Handler mHandler = new Handler() {
-			public void handleMessage(Message msg) {
-				if (msg.what == 0) {
-					JSONObject response = (JSONObject) msg.obj;
-					if (response.has("nickname")) {
-						try {
-							loName.setText(response.getString("nickname")+
-									"性别："+response.getString("gender")+
-									"地址："+response.getString("city"));
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-					}
-				} else if (msg.what == 1) {
-					Bitmap bitmap = (Bitmap) msg.obj;
-					lg.setImageBitmap(bitmap);
-				}
-			}
-		};
-	
 	/**
 	 * 解析微信数据
 	 */
@@ -604,6 +607,7 @@ public class LoginActivity extends Activity  implements OnClickListener {
 					} else if (status == 3) {
 						toast(message);// 当输入的用户名不存在时，提示用户不存在
 					} else {
+						saveLogin();
 						Intent intent = new Intent();
 						intent.setClass(LoginActivity.this, MainActivity.class);// 登录成功，跳转到首页
 						startActivity(intent);
