@@ -21,4 +21,12 @@ public class Utils {
 		Matcher m = p.matcher(email);
 		return m.matches();
 	}
+	
+	//判断输入的密码是否符合规定的格式
+	public static boolean isRightPassword(String password){
+		String str = "^([A-Za-z]|[0-9])+$";
+		Pattern p = Pattern.compile(str);
+		Matcher m = p.matcher(password);
+		return m.matches();
+	}
 }

@@ -32,6 +32,7 @@ public class MineFragment extends Fragment {
 	RelativeLayout data_infor, account_manager, about_pets, settings;// 用户的信息，账号管理，用户的萌萌的宠物，以及设置
 	LayoutInflater inflater;
 	View view;
+	String userName, userId;
 
 	@SuppressLint("InflateParams")
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

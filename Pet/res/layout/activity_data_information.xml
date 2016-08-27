@@ -67,6 +67,7 @@
             android:layout_marginStart="10dp"
             android:background="@null"
             android:hint="@string/input_nickname"
+            android:singleLine="true"
             android:textColorHint="@color/hint_word_color"
             android:textSize="14sp" />
     </LinearLayout>
@@ -148,6 +149,7 @@
             android:layout_marginStart="10dp"
             android:background="@null"
             android:hint="@string/input_birthday"
+            android:singleLine="true"
             android:textColorHint="@color/hint_word_color"
             android:textSize="14sp" />
     </LinearLayout>
@@ -177,6 +179,7 @@
             android:layout_marginStart="10dp"
             android:background="@null"
             android:hint="@string/input_star_sign"
+            android:singleLine="true"
             android:textColorHint="@color/hint_word_color"
             android:textSize="14sp" />
     </LinearLayout>
@@ -206,6 +209,7 @@
             android:layout_marginStart="10dp"
             android:background="@null"
             android:hint="@string/input_occupation"
+            android:singleLine="true"
             android:textColorHint="@color/hint_word_color"
             android:textSize="14sp" />
     </LinearLayout>
@@ -235,6 +239,7 @@
             android:layout_marginStart="10dp"
             android:background="@null"
             android:hint="@string/input_company"
+            android:singleLine="true"
             android:textColorHint="@color/hint_word_color"
             android:textSize="14sp" />
     </LinearLayout>
@@ -264,6 +269,7 @@
             android:layout_marginStart="10dp"
             android:background="@null"
             android:hint="@string/input_address"
+            android:singleLine="true"
             android:textColorHint="@color/hint_word_color"
             android:textSize="14sp" />
     </LinearLayout>
@@ -293,6 +299,7 @@
             android:layout_marginStart="10dp"
             android:background="@null"
             android:hint="@string/input_address"
+            android:singleLine="true"
             android:textColorHint="@color/hint_word_color"
             android:textSize="14sp" />
     </LinearLayout>
@@ -321,8 +328,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:background="@null"
-            android:inputType="textEmailAddress"
             android:hint="@string/input_email"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
             android:textColorHint="@color/hint_word_color"
             android:textSize="14sp" />
     </LinearLayout>
