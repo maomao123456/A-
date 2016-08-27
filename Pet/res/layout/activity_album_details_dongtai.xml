@@ -10,7 +10,7 @@
         android:background="@color/bg_zhuti" >
 
         <RelativeLayout
-            android:id="@+id/back_timeshaft_dongtai"
+            android:id="@+id/back_album_details_dongtai"
             android:layout_width="50dp"
             android:layout_height="match_parent" >
 
@@ -21,24 +21,21 @@
                 android:layout_marginLeft="18dp"
                 android:src="@drawable/back_button1" />
         </RelativeLayout>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="时光轴"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:text="上传"
             android:textColor="@color/text_33"
-            android:textSize="20sp" />
-
+            android:textSize="16sp" />
     </RelativeLayout>
-        <ListView 
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:id="@+id/timeshaft_listview"
-	        android:layout_margin="10dp"
-	        android:background="@color/white"
-	        android:paddingTop="10dp"
-	        android:dividerHeight="33dp"
-	        android:divider="@color/white"/>
-    
+	<ListView 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:id="@+id/listview_album_details_dongtai"
+	    android:layout_margin="10dp">
+	    
+	</ListView>
 </LinearLayout>

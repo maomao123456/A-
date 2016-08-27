@@ -11,7 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.pet.AboutPetsActivity;
+import com.example.pet.AccountManagerActivity;
+import com.example.pet.DataInformationActivity;
+import com.example.pet.R;
+import com.example.pet.SetActivity;
 import com.example.pet.AboutPetsActivity;
 import com.example.pet.AccountManagerActivity;
 import com.example.pet.DataInformationActivity;
@@ -105,5 +111,6 @@ public class MineFragment extends Fragment {
 		Intent intent = new Intent();
 		intent.setClass(getActivity(), SetActivity.class);
 		startActivity(intent);
+		Toast.makeText(getActivity(), "1231", Toast.LENGTH_LONG).show();
 	}
 }

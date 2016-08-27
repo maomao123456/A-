@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.SharedPreferences.Editor;
+import com.example.pet.fragment.DongTaiFragment;
+import com.example.pet.fragment.GonglueFragment;
+import com.example.pet.fragment.MineFragment;
+import com.example.pet.fragment.PetSquareFragment;
+import com.example.pet.fragment.ResourceFragment;
+import com.example.pet.fragmentadapter.MainFragmentAdapter;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;

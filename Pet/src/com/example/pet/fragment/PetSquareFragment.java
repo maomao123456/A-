@@ -50,8 +50,6 @@ public class PetSquareFragment extends Fragment implements OnTouchListener{
 			,R.id.text_guanzhu_square,R.id.text_miaoshu_square,R.id.gridview_square
 			,R.id.address_image_square,R.id.text_address_square,
 			 R.id.text_collection_square,R.id.text_pinglun_square};
-	int id1;
-	List<Integer> listdata;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -59,13 +57,13 @@ public class PetSquareFragment extends Fragment implements OnTouchListener{
 		headview=inflater.inflate(R.layout.fragment_square_head, null);
 		itemview=inflater.inflate(R.layout.listview_item_square, null);
 		initView();
-		listview.setOnItemClickListener(itemClickListener);
 		viewflipper.startFlipping();//开始轮播
 		senMsg();
 		getList();//获得下面listview的数据
 		listview.addHeaderView(headview);
 		adapter=new SquareAdapter(getActivity(), list, R.layout.listview_item_square, id);
 		listview.setAdapter(adapter);//设置listview
+		listview.setOnItemClickListener(itemClickListener);
 		return view;
 	}
 	/**
@@ -220,11 +218,9 @@ public class PetSquareFragment extends Fragment implements OnTouchListener{
 	public void getList(){
 		list=new ArrayList<SquareListview>();
 		List<SquareGridview> list_gridview=new ArrayList<SquareGridview>();
-		//GridView gridview=(GridView)itemview.findViewById(R.id.gridview_square);
 		SquareGridview  squareGridview=new SquareGridview();
 		squareGridview.setImage((R.drawable.big_pet1_square));
 		list_gridview.add(squareGridview);
-		gridview.setNumColumns(list_gridview.size());
 		square=new SquareListview();
 		square.setLittle_head(R.drawable.little_head1);
 		square.setName("Wendy");
@@ -237,7 +233,6 @@ public class PetSquareFragment extends Fragment implements OnTouchListener{
 		square.setList(list_gridview);
 		list.add(square);
 		
-		//GridView gridview=(GridView)itemview.findViewById(R.id.gridview_square);
 		SquareGridview  squareGridview1=new SquareGridview();
 		list_gridview=new ArrayList<SquareGridview>();
 		squareGridview1.setImage((R.drawable.big_pet2_square));
@@ -248,7 +243,6 @@ public class PetSquareFragment extends Fragment implements OnTouchListener{
 		SquareGridview  squareGridview3=new SquareGridview();
 		squareGridview3.setImage((R.drawable.big_pet2_square));
 		list_gridview.add(squareGridview3);
-		gridview.setNumColumns(list_gridview.size());
 		square=new SquareListview();
 		square.setLittle_head(R.drawable.little_head2);
 		square.setName("微笑AND");
