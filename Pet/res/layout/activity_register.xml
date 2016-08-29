@@ -229,7 +229,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:button="@null"
-                android:checked="true"
+                android:checked="false"
                 android:drawableRight="@drawable/register_tongyixieyi_selector" />
         </LinearLayout>
 

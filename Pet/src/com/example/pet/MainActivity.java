@@ -32,7 +32,7 @@ import com.example.pet.fragmentadapter.MainFragmentAdapter;
 /**
  * 登录后的页面,也是存放介个fragment的页面
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements OnClickListener{
 	ViewPager viewPager;
 	TextView title1;
 	TextView title2;
@@ -75,7 +75,6 @@ public class MainActivity extends FragmentActivity {
 	/**
 	 * 寻找id的方法
 	 */
-	@SuppressWarnings("deprecation")
 	public void initView(){
 		viewPager=(ViewPager)findViewById(R.id.viewpager_main);
 		title1=(TextView)findViewById(R.id.text_title1_main);
@@ -87,35 +86,55 @@ public class MainActivity extends FragmentActivity {
 		shouye=(RadioButton)findViewById(R.id.radio_button_shouye_main);
 		pet=(RadioButton)findViewById(R.id.radio_button_pet_main);
 		mine=(RadioButton)findViewById(R.id.radio_button_mine_main);
-		radiogroup.setOnCheckedChangeListener(checkedChangeListener);
+		shouye.setOnClickListener(this);
+		pet.setOnClickListener(this);
+		mine.setOnClickListener(this);
 		viewPager.setOnPageChangeListener(pageChangeListener);
-		title1.setOnClickListener(clickListener);
-		title2.setOnClickListener(clickListener);
+		title1.setOnClickListener(this);
+		title2.setOnClickListener(this);
 	}
 	/**
-	 * radioGroup的监听事件
+	 * title1和title2的手动切换效果
+	 * 及底部按钮的监听事件
 	 */
-	OnCheckedChangeListener checkedChangeListener=new OnCheckedChangeListener() {
-
-		@Override
-		public void onCheckedChanged(RadioGroup group, int checkedId) {
-			// TODO Auto-generated method stub
-			switch(checkedId){
-			case R.id.radio_button_shouye_main:
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.radio_button_shouye_main:
+			viewPager.setCurrentItem(0);
+			first();
+			break;
+		case R.id.radio_button_pet_main:
+			viewPager.setCurrentItem(2);
+			third();
+			break;
+		case R.id.radio_button_mine_main:
+			viewPager.setCurrentItem(4);
+			fifth();
+			break;
+		case R.id.text_title1_main:
+			if(shouye.isChecked()){
 				viewPager.setCurrentItem(0);
 				first();
-				break;
-			case R.id.radio_button_pet_main:
+			}else if(pet.isChecked()){
 				viewPager.setCurrentItem(2);
 				third();
-				break;
-			case R.id.radio_button_mine_main:
-				viewPager.setCurrentItem(4);
-				fifth();
-				break;
 			}
+			break;
+		case R.id.text_title2_main:
+			if(shouye.isChecked()){
+				viewPager.setCurrentItem(1);
+				second();
+			}else if(pet.isChecked()){
+				viewPager.setCurrentItem(3);
+				fourth();
+			}
+			break;
+		default:
+			break;
 		}
-	};
+	}
 	/**
 	 * viewPager的滑动监听事件
 	 */
@@ -162,36 +181,6 @@ public class MainActivity extends FragmentActivity {
 			break;
 		}
 	}
-	/**
-	 * title1和title2的手动切换效果
-	 */
-	OnClickListener clickListener=new OnClickListener() {
-		
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			switch(v.getId()){
-			case R.id.text_title1_main:
-				if(shouye.isChecked()){
-					viewPager.setCurrentItem(0);
-					first();
-				}else if(pet.isChecked()){
-					viewPager.setCurrentItem(2);
-					third();
-				}
-				break;
-			case R.id.text_title2_main:
-				if(shouye.isChecked()){
-					viewPager.setCurrentItem(1);
-					second();
-				}else if(pet.isChecked()){
-					viewPager.setCurrentItem(3);
-					fourth();
-				}
-				break;
-			}
-		}
-	};
 	/**
 	 * 第一个fragment页面的状态,下面的方法同理
 	 */
@@ -255,4 +244,5 @@ public class MainActivity extends FragmentActivity {
 		MineFragment mineFragment=new MineFragment();
 		fragmentList.add(mineFragment);
 	}
+	
 }

@@ -44,6 +44,7 @@ import com.example.pet.lei.CircularImage;
 import com.example.pet.lei.JieXiShuJu;
 import com.example.pet.qq.QqAppConstant;
 import com.example.pet.qq.Util;
+import com.example.pet.wb.AccessTokenKeeper;
 import com.example.pet.wb.UsersAPI;
 import com.example.pet.wb.WbConstant;
 import com.example.pet.wx.WxAppConstant;
@@ -103,14 +104,6 @@ public class LoginActivity extends Activity  implements OnClickListener {
 			startActivity(intent);
 			LoginActivity.this.finish();
 		}
-	}
-	/**
-	 * 储存用户上次是否已登录
-	 */
-	public void saveLogin(){
-		Editor editor=getSharedPreferences("pet", MODE_PRIVATE).edit();
-    	editor.putInt("login", 1);
-    	editor.commit();
 	}
 	/**
 	 * 通过ID找到控件
@@ -194,7 +187,7 @@ public class LoginActivity extends Activity  implements OnClickListener {
 	 */
 	String str="";
 	/**
-	 * 远程判断用户账号12
+	 * 远程判断用户账号 数据库账号比对
 	 */
 		public void loging(final String userName, final String password) {
 			new Thread(new Runnable() {
@@ -235,7 +228,6 @@ public class LoginActivity extends Activity  implements OnClickListener {
 						//发送登录验证消息
 						msg.what=4;
 						handler.sendMessage(msg);
-						//myHandler.sendEmptyMessage(0);
 					} catch (MalformedURLException e) {
 						e.printStackTrace();
 					} catch (IOException e) {
@@ -309,6 +301,7 @@ public class LoginActivity extends Activity  implements OnClickListener {
 		api.sendReq(req);
 	}
 	SsoHandler mSsoHandler;
+	Oauth2AccessToken mAccessToken;
 	/**
 	 * 微博登录
 	 */
@@ -328,10 +321,11 @@ public class LoginActivity extends Activity  implements OnClickListener {
 			}
 			public void onComplete(Bundle arg0) {
 				// 从 Bundle 中解析 Token
-				final Oauth2AccessToken	 mAccessToken = Oauth2AccessToken.parseAccessToken(arg0);
+				mAccessToken = Oauth2AccessToken.parseAccessToken(arg0);
 				 //从这里获取用户输入的 电话号码信息
 				String  phoneNum =  mAccessToken.getPhoneNum();
 		        if (mAccessToken.isSessionValid()) {
+		        	AccessTokenKeeper.writeAccessToken(LoginActivity.this, mAccessToken);
 		            // 保存 Token 到 SharedPreferences
 		        	String token=mAccessToken.getToken();
 		        	String uid=mAccessToken.getUid();
@@ -342,7 +336,7 @@ public class LoginActivity extends Activity  implements OnClickListener {
 		        	Log.i("token", ">>>>>>>>"+token.toString());
 		        } else {
 		        // 当您注册的应用程序签名不正确时，就会收到 Code，请确保签名正确
-		            String code = arg0.getString("code", "");
+		            String code = arg0.getString("code");
 		            String message = "授权失败";
 		            if (!TextUtils.isEmpty(code)) {
 		            message = message + "\nObtained the code: " + code;
@@ -351,12 +345,12 @@ public class LoginActivity extends Activity  implements OnClickListener {
 		        }//封装好的用户信息解析方法
 		        new Thread(new Runnable() {
 					public void run() {
+						Oauth2AccessToken mAccessToken = AccessTokenKeeper.readAccessToken(LoginActivity.this);
 						 UsersAPI usersAPI = new UsersAPI(LoginActivity.this,
-								 WxAppConstant.APP_ID, mAccessToken);  
-		                 usersAPI.show(Long.valueOf(mAccessToken.getUid()), new SinaRequestListener());   
+								 WbConstant.APP_KEY, mAccessToken);  
+		                 usersAPI.show(Long.parseLong(mAccessToken.getUid()), new SinaRequestListener());   
 					}
 				}).start();
-		        toast("登录成功！即将为你跳转到主页面");
 			}
 			public void onCancel() {
 				toast("登录取消");
@@ -366,33 +360,24 @@ public class LoginActivity extends Activity  implements OnClickListener {
 	 * 新浪微请求接口	
 	 */
 		public class SinaRequestListener implements RequestListener{ //新浪微博请求接口  
-	        public void onComplete(String response) {  
+	        public void onComplete(String response) {
+	        	toast("登录成功！即将为你跳转到主页面");
 	        	saveLogin();
 	            try {  
 	                JSONObject jsonObject = new JSONObject(response);
 	                System.out.println(jsonObject.toString());
-	                  String idStr = jsonObject.getString("idstr");// 唯一标识符(uid)  
-	                  String location=jsonObject.getString("location");//地址
-	                  String name = jsonObject.getString("name");// 姓名    
-	                  final String avatarHd = jsonObject.getString("avatar_hd");// 头像   
-	                  System.out.println(idStr+">>>"+name+">>>>>"+avatarHd+"<<<");
+	                  String ID = jsonObject.getString("idstr");// 唯一标识符(uid)  
+	                  String city=jsonObject.getString("location");//地址
+	                  String nickName = jsonObject.getString("name");// 姓名    
+	                  final String touxiang = jsonObject.getString("avatar_hd");// 头像   
 	                  //调用用户信息类
-	                  /**
-	                   * 缓存当前用户的信息
-	                   */
-	                  Editor editor=getSharedPreferences("pet_user", MODE_PRIVATE).edit();
-			        	editor.putString("nicheng", name);
-			        	editor.putString("id", idStr);
-			        	editor.putString("six", "");
-			        	editor.putString("tongxiang", avatarHd);
-			        	editor.putString("city", location);
-			        	editor.commit();
-	                  loName.setText(name);
+	                  loName.setText(nickName);
+	                  threeTz(3, nickName, ID, "无", touxiang, city);
 	                  //用户头像转换
 	                  new Thread(){
 	                        @Override			
 	                        public void run() {
-	                            bitmap =Util.getbitmap(avatarHd);
+	                            bitmap =Util.getbitmap(touxiang);
 	                            Message msg = new Message();
 	                            msg.obj = bitmap;
 	                            msg.what = 2;
@@ -405,11 +390,9 @@ public class LoginActivity extends Activity  implements OnClickListener {
 	        }  
 	        @Override  
 	        public void onWeiboException(WeiboException e) {  
-	        	toast("Auth exception : " + e.getMessage());
-	            Log.i("mylog", "Auth exception : " + e.getMessage());  
+	        	toast("授权成功获取信息异常 没有权限！");
+	            Log.i("授权成功但登录异常》》《《《《《", "Auth exception : " + e.getMessage());  
 	        }  
-	          
-	          
 	    }
 		//我的APPid
 		public static String mAppid;
@@ -420,6 +403,8 @@ public class LoginActivity extends Activity  implements OnClickListener {
 	 * QQ登录
 	 */
 	public void loginQQ(){
+		 //开始qq授权登录    
+		 mTencent.login(LoginActivity.this, "all", iuilisten);
 		 iuilisten= new IUiListener(){
 				public void onCancel() {
 					toast("登录取消");
@@ -436,37 +421,26 @@ public class LoginActivity extends Activity  implements OnClickListener {
 						System.out.println("返回为空登录失败");  
 						return;
 					}
-					toast("登录成功！");
+					getQQuserInfo();
 					System.out.println("登录成功：="+response);  
 				}
 				public void onError(UiError arg0) {
 					toast("登录出错！");
 				}};
-				 //开始qq授权登录    
-				  mTencent.login(LoginActivity.this, "all", iuilisten);
-				  getQQuserInfo();
-				  new Thread(new Runnable() {
-					public void run() {
-						try {
-							Thread.sleep(10000);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						 getQQuserInfo();
-					}
-				});
 	}
 	/**
 	 * 获得qq用户信息
 	 */
 	 public void getQQuserInfo(){
 	    	UserInfo userInfo = new UserInfo(LoginActivity.this, mTencent.getQQToken());
+	    	userInfo.getUserInfo(userInfoListener);
+	  }
 			IUiListener userInfoListener=new IUiListener() {
 				public void onError(UiError arg0) {
+					toast("登录成功 但获取信息出错");
 				}
 				public void onComplete(final Object arg0) {
-					saveLogin();
+					toast("登录成功正在为你跳转到主页！");
 					JSONObject response = (JSONObject) arg0;
 					if (response.has("nickname")) {
 						try {
@@ -474,14 +448,9 @@ public class LoginActivity extends Activity  implements OnClickListener {
 							String six=response.getString("gender");
 							String city=response.getString("city");
 							String touxiang=response.getString("figureurl_qq_2");
-							Editor editor=getSharedPreferences("pet_user", MODE_PRIVATE).edit();
-				        	editor.putString("nicheng", name);
-				        	editor.putString("id", "");
-				        	editor.putString("six", six);
-				        	editor.putString("tongxiang", touxiang);
-				        	editor.putString("city", city);
-				        	editor.commit();
 		                  loName.setText(name);
+		                  saveLogin();
+		                  //threeTz(3, name, "无", six, touxiang, city);
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
@@ -510,10 +479,10 @@ public class LoginActivity extends Activity  implements OnClickListener {
 					}.start();
 				}
 				public void onCancel() {
+					toast("登录成功 但获取信息时被取消");
 				}
 			};
-			userInfo.getUserInfo(userInfoListener);
-	    }
+	    
 	/**
 	 * 解析微信数据
 	 */
@@ -535,23 +504,9 @@ public class LoginActivity extends Activity  implements OnClickListener {
 	Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			case 0:
-				JSONObject response = (JSONObject) msg.obj;
-				if (response.has("nickname")) {
-					try {
-						loName.setText(response.getString("nickname")+
-								"性别："+response.getString("gender")+
-								"地址："+response.getString("city"));
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-				}
-				break;
 			case 1:
 				Bitmap bitmap = (Bitmap) msg.obj;
 				lg.setImageBitmap(bitmap);
-				 Bitmap bitmap1 = (Bitmap)msg.obj;
-	                lg.setImageBitmap(bitmap1);
 				break;
 			case 2:
 				/**
@@ -589,8 +544,6 @@ public class LoginActivity extends Activity  implements OnClickListener {
 				 */
 				String tongxiang=pf.getString("tongxiang", "无地址");
 				
-				loName.setText(city);
-				System.out.println("缓存数据取出》》》《《《《"+city+name+id+tongxiang);
 				 Bitmap bitmap2 = (Bitmap)msg.obj;
 	                lg.setImageBitmap(bitmap2);
 				break;
@@ -604,14 +557,15 @@ public class LoginActivity extends Activity  implements OnClickListener {
 					String message = jsonObject.getString("message");
 					if (status == 2) {
 						toast(message);// 密码错误，提示用户名或密码错误
+						//跳转到忘记密码界面
+						
 					} else if (status == 3) {
 						toast(message);// 当输入的用户名不存在时，提示用户不存在
 					} else {
+						toast("登录成功！");
 						saveLogin();
-						Intent intent = new Intent();
-						intent.setClass(LoginActivity.this, MainActivity.class);// 登录成功，跳转到首页
-						startActivity(intent);
-						LoginActivity.this.finish();
+						threeTz(1, userName.getText().toString(), userName.getText().toString(),
+								"无", "无", "无");;
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -627,14 +581,12 @@ public class LoginActivity extends Activity  implements OnClickListener {
 	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		//微博返回码
-		if (resultCode ==Constants.ACTIVITY_OK){
 			// 重要：发起 SSO 登陆的 Activity 必须重写 onActivityResults
 			if (mSsoHandler != null) {
 			 Log.i("新浪微博登陆返回","返回");
 			 mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
 			 }
-		}
-		super.onActivityResult(requestCode, resultCode, data);
+			super.onActivityResult(requestCode, resultCode, data);
 	}
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -643,14 +595,13 @@ public class LoginActivity extends Activity  implements OnClickListener {
         return true;
     }
 	@Override
-	protected void onDestroy() {
+	protected void onDestroy() {//QQ登出
 		super.onDestroy();
 		mTencent.logout(LoginActivity.this);
 	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// TODO Auto-generated method stub
-		if(keyCode==KeyEvent.KEYCODE_BACK){
+		if(keyCode==KeyEvent.KEYCODE_BACK){//返回键的监听
 			onBackPressed();
 		}
 		return true;
@@ -675,11 +626,52 @@ public class LoginActivity extends Activity  implements OnClickListener {
 		return false;
 	}
 	/**
-	 * 提示全局通用
+	 *  提示全局通用
+	 * @param string
+	 * 提示语
 	 */
 	public void toast(String string) {
 		Toast toast=Toast.makeText(LoginActivity.this, string, Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
+	}
+	/**
+	 * 保存用户登录方式
+	 * 第三方登录成功后 进行跳转并保存第三方用户信息
+	 * @param numb
+	 * numb=1:用自己的账号登录的
+	 * numb=2刚注册的用户
+	 * numb=3为第三方登录的
+	 * @param nickName
+	 * 用户的昵称
+	 * @param ID
+	 * 用户的id
+	 * @param six
+	 * 用户的性别
+	 * @param touxiang
+	 * 用户的头像 为一个网址
+	 * @param city
+	 * 用户所在地
+	 */
+	public void threeTz(int numb,String nickName,String ID,String six,String touxiang,String city){
+		Editor editor=getSharedPreferences("pet_user", MODE_PRIVATE).edit();
+		editor.putInt("disanfang", numb);
+		editor.putString("nicheng", nickName);
+    	editor.putString("id", ID);
+    	editor.putString("six", six);
+    	editor.putString("tongxiang", touxiang);
+    	editor.putString("city", city);
+		editor.commit();
+		Intent intent =new Intent(LoginActivity.this, MainActivity.class);
+		startActivity(intent);
+		LoginActivity.this.finish();
+	} 
+	/**
+	 * 储存用户上次是否已登录
+	 */
+	public void saveLogin(){
+		Editor editor2=getSharedPreferences("pet", MODE_PRIVATE).edit();
+    	editor2.putInt("login", 1);
+    	editor2.commit();
 	}
 }
