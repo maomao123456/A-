@@ -30,6 +30,7 @@
             <com.example.pet.lei.CircularImage 
                 android:layout_width="55dp"
                 android:layout_height="55dp"
+                android:id="@+id/head_dongtai"
                 android:layout_marginTop="6dp"
                 android:layout_gravity="center_horizontal"/>
             <TextView 
@@ -106,6 +107,7 @@
 	            <TextView 
 	                android:layout_width="96dp"
 	                android:layout_height="90dp"
+	                android:id="@+id/new_albums_dongtai"
 	                android:background="@color/bg_zhuti"
 	                android:text="新建相册"
 	                android:textColor="@color/text_33"
@@ -117,6 +119,7 @@
 	            <ImageView 
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
+	                android:id="@+id/enter_timeshaft_dongtai"
 	                android:layout_alignParentRight="true"
 	                android:layout_centerVertical="true"
 	                android:src="@drawable/time_button"/>

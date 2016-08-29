@@ -4,14 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pet.baseadapter.SquareDetailsListviewAdapter;
@@ -25,6 +35,9 @@ public class SquareDetailsActivity extends Activity{
 	SquareDetailsListviewAdapter adapter;
 	List<SquareDetailsListview> list;
 	SquareDetailsListview details;
+	RelativeLayout back;
+	TextView fabu,guanzhu;
+	String str1;//在本页设置的关注情况
 	
 	int[] id={R.id.head_pinglun_xiangqing_square,R.id.name_pinglun_xiangqing_square
 			,R.id.pinglun_xiangqing_square,R.id.time_pinglun_xiangqing_square};
@@ -39,6 +52,7 @@ public class SquareDetailsActivity extends Activity{
 		adapter=new SquareDetailsListviewAdapter(this, list, 
 				R.layout.listview_item_xiangqing_square, id);
 		listview.setAdapter(adapter);
+
 	}
 	/**
 	 * 找id,并且给各个控件设置点击等事件
@@ -51,7 +65,61 @@ public class SquareDetailsActivity extends Activity{
 		gridview2=(GridView)headview.findViewById(R.id.gridview2_xiangqing_square);
 		gridview1.setAdapter(new GridAdapter(this));
 		gridview2.setAdapter(new GridAdapter2(this));
+		back=(RelativeLayout)findViewById(R.id.back_xiangqing_square);
+		back.setOnClickListener(onClickListener);
+		fabu=(TextView)findViewById(R.id.fabu_square_details);
+		fabu.setOnClickListener(onClickListener);
+		guanzhu=(TextView)headview.findViewById(R.id.text_guanzhu_xiangqing_square);
+		guanzhu.setOnClickListener(onClickListener);
 	}
+	OnClickListener onClickListener=new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			switch(v.getId()){
+			case R.id.back_xiangqing_square://返回键的监听
+				startActivity(new Intent(SquareDetailsActivity.this,MainActivity.class));
+				SquareDetailsActivity.this.finish();
+				break;
+			case R.id.fabu_square_details:
+				startActivity(new Intent(SquareDetailsActivity.this,PublishStatesActivity.class));
+				break;
+			case R.id.text_guanzhu_xiangqing_square:
+				if(guanzhu.getText().toString().equals("+关注")){
+					guanzhu.setText("已关注");
+				}else{
+					AlertDialog alertDialog;
+					Builder builder;
+					builder=new AlertDialog.Builder(SquareDetailsActivity.this);
+					builder.setMessage("你真的要取消对我的关注吗？");
+					builder.setPositiveButton("是的", onClickListener2);
+					builder.setNegativeButton("我再想想", onClickListener2);
+					alertDialog=builder.create();
+					alertDialog.show();
+				}
+				break;
+			}
+		}
+	};
+	/**
+	 * 对是否取消关注的监听
+	 */
+	DialogInterface.OnClickListener onClickListener2=new DialogInterface.OnClickListener() {
+		
+		@Override
+		public void onClick(DialogInterface arg0, int arg1) {
+			// TODO Auto-generated method stub
+			switch(arg1){
+			case -1:
+				guanzhu.setText("+关注");
+				Toast.makeText(SquareDetailsActivity.this, "已取消关注", Toast.LENGTH_SHORT).show();
+				break;
+			case -2:
+				break;
+			}
+		}
+	};
 	/**
 	 * 为listView加数据
 	 */

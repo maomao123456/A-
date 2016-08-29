@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/bg_whole">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/bg_zhuti" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/quxiao_publish_states"
+            android:text="取消"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:textColor="@color/text_33"
+            android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="写说说"
+            android:textColor="@color/text_33"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fabiao_publish_states"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:text="发表"
+            android:textColor="@color/text_33"
+            android:textSize="16sp" />
+    </RelativeLayout>
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:background="@color/white">
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="18dp"
+	        android:layout_marginTop="19dp"
+	        android:layout_marginRight="18dp"
+	        android:textColor="@color/text_68"
+	        android:textSize="18sp"
+	        android:text="说点什么吧..."/>
+	    <ImageView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="56dp"
+	        android:layout_marginLeft="15dp"
+	        android:layout_marginBottom="15dp"
+	        android:src="@drawable/add_photo"/>
+	    <View 
+	        android:layout_width="match_parent"
+	        android:layout_height="1dp"
+	        android:background="@color/bg_whole"
+	        android:layout_marginLeft="15dp"/>
+	    <TextView 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="15dp"
+	        android:layout_marginTop="15dp"
+	        android:layout_marginRight="12dp"
+	        android:layout_marginBottom="17dp"
+	        android:textColor="@color/text_33"
+	        android:textSize="18sp"
+	        android:layout_centerVertical="true"
+	        android:text="地点"
+	        android:drawableRight="@drawable/youyou"/>
+	</LinearLayout>
+</LinearLayout>

@@ -3,16 +3,21 @@ package com.example.pet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.pet.baseadapter.AlbumDetailsListviewAdapter;
-import com.example.pet.lei.AlbumDetailsListview;
-import com.example.pet.lei.SquareGridview;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.pet.baseadapter.AlbumDetailsListviewAdapter;
+import com.example.pet.lei.AlbumDetailsListview;
+import com.example.pet.lei.SquareGridview;
 
 public class DongtaiAlbumDetailsActivity extends Activity{
 	LayoutInflater inflater;
@@ -24,6 +29,9 @@ public class DongtaiAlbumDetailsActivity extends Activity{
 	List<AlbumDetailsListview> list;
 	AlbumDetailsListview albumDetails;
 	int[] id={R.id.time_album_details_dongtai,R.id.gridview_album_details_dongtai};
+	RelativeLayout back;
+	TextView shangchuan;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -45,7 +53,27 @@ public class DongtaiAlbumDetailsActivity extends Activity{
 		itemview=(View)inflater.inflate(R.layout.listview_item_album_details_dongtai, null);
 		listview=(ListView)findViewById(R.id.listview_album_details_dongtai);
 		gridview=(GridView)itemview.findViewById(R.id.gridview_album_details_dongtai);
+		back=(RelativeLayout)findViewById(R.id.back_album_details_dongtai);
+		shangchuan=(TextView)findViewById(R.id.shangchuan_album_details);
+		back.setOnClickListener(clickListener);
+		shangchuan.setOnClickListener(clickListener);
 	}
+	OnClickListener clickListener=new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			switch (v.getId()) {
+			case R.id.back_album_details_dongtai:
+				startActivity(new Intent(DongtaiAlbumDetailsActivity.this,MainActivity.class));
+				DongtaiAlbumDetailsActivity.this.finish();
+				break;
+			case R.id.shangchuan_album_details:
+				Toast.makeText(DongtaiAlbumDetailsActivity.this, "上传", Toast.LENGTH_SHORT).show();
+				break;
+			}
+		}
+	};
 	/**
 	 * 给listview添加数据
 	 */

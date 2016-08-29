@@ -26,13 +26,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.example.pet.PetDetailsActivity;
 import com.example.pet.R;
 import com.example.pet.SquareDetailsActivity;
 import com.example.pet.baseadapter.SquareAdapter;
 import com.example.pet.lei.SquareGridview;
 import com.example.pet.lei.SquareListview;
 
-public class PetSquareFragment extends Fragment implements OnTouchListener{
+public class PetSquareFragment extends Fragment {
 	View view;
 	View headview;
 	View itemview;
@@ -86,6 +87,9 @@ public class PetSquareFragment extends Fragment implements OnTouchListener{
 		img_next=(ImageView)headview.findViewById(R.id.image_next_square);
 		radiogroup.setOnCheckedChangeListener(checkedChangeListener);
 		img_next.setOnClickListener(clickListener);
+		pet2.setOnClickListener(clickListener);
+		pet3.setOnClickListener(clickListener);
+		pet4.setOnClickListener(clickListener);
 	}
 	/**
 	 * 图片轮播来改变底下小圆点的颜色
@@ -191,6 +195,15 @@ public class PetSquareFragment extends Fragment implements OnTouchListener{
 					pet4.setImageResource(imgs[(a+2)%l]);
 					numb++;
 				break;
+			case R.id.image_pet2_square:
+				startActivity(new Intent(getActivity(),PetDetailsActivity.class));
+				break;
+			case R.id.image_pet3_square:
+				startActivity(new Intent(getActivity(),PetDetailsActivity.class));
+				break;
+			case R.id.image_pet4_square:
+				startActivity(new Intent(getActivity(),PetDetailsActivity.class));
+				break;
 			}
 		}
 	};
@@ -202,11 +215,8 @@ public class PetSquareFragment extends Fragment implements OnTouchListener{
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			// TODO Auto-generated method stub
-			System.out.println("21221222121102121012.422211220");
-			Toast.makeText(getActivity(), "10104124412", Toast.LENGTH_SHORT).show();
 			switch(position){
 			case 1:
-				Toast.makeText(getActivity(), "66666", Toast.LENGTH_SHORT).show();
 				startActivity(new Intent(getActivity(),SquareDetailsActivity.class));
 				break;
 			}
@@ -254,11 +264,5 @@ public class PetSquareFragment extends Fragment implements OnTouchListener{
 		square.setPinglun(12);
 		square.setList(list_gridview);
 		list.add(square);
-	}
-	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-		// TODO Auto-generated method stub
-		Toast.makeText(getActivity(), "66666", Toast.LENGTH_SHORT).show();
-		return true;
 	}
 }
