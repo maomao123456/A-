@@ -1,5 +1,6 @@
 package com.example.pet;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,9 +25,10 @@ public class GuideActivity extends Activity implements OnClickListener {
 	RadioButton bt1, bt2, bt3;
 	TextView startPet;
 	float x1 = 0;
-	 float x2 = 0;
-	 float y1 = 0;
-	 float y2 = 0;
+	float x2 = 0;
+	float y1 = 0;
+	float y2 = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -35,22 +37,23 @@ public class GuideActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_guide);
 		initView();
 	}
+
 	/**
 	 * 首次安装 guide为1
 	 */
-	public void panDuan(){
-		SharedPreferences pf=getSharedPreferences("pet", MODE_PRIVATE);
-		int numb=pf.getInt("guide", 0);
-		if(numb==0){
-			Editor editor=getSharedPreferences("pet", MODE_PRIVATE).edit();
-	    	editor.putInt("guide", 1);
-	    	editor.commit();
-		}else{
-			Intent intent=new Intent(GuideActivity.this, LoginActivity.class);
+	public void panDuan() {
+		SharedPreferences pf = getSharedPreferences("pet", MODE_PRIVATE);
+		int numb = pf.getInt("guide", 0);
+		if (numb == 0) {
+			Editor editor = getSharedPreferences("pet", MODE_PRIVATE).edit();
+			editor.putInt("guide", 1);
+			editor.commit();
+		} else {
+			Intent intent = new Intent(GuideActivity.this, LoginActivity.class);
 			startActivity(intent);
 			GuideActivity.this.finish();
 		}
-		
+
 	}
 
 	/**
@@ -68,58 +71,59 @@ public class GuideActivity extends Activity implements OnClickListener {
 		radioGroup.setOnCheckedChangeListener(checkedChangeListener);
 		buju.setOnTouchListener(onTouchListener);
 	}
+
 	/**
 	 * 布局滑动监听事件
 	 */
-	OnTouchListener onTouchListener=new OnTouchListener() {
+	OnTouchListener onTouchListener = new OnTouchListener() {
+		@SuppressLint("ClickableViewAccessibility")
 		public boolean onTouch(View v, MotionEvent event) {
-			if(event.getAction() == MotionEvent.ACTION_DOWN) {
-				  //当手指按下的时候
-				  x1 = event.getX();
-				  y1 = event.getY();
-				 }
-					if (event.getAction() == MotionEvent.ACTION_UP) {
-						// 当手指离开的时候
-						x2 = event.getX();
-						y2 = event.getY();
-						if (y1 - y2 > 50) {//向上滑
-						} else if (y2 - y1 > 50) {//向下滑
-						} else if (x1 - x2 > 20) {//向左滑 下一页
-							if(viewFlipper.getDisplayedChild()==0){
-								viewFlipper.setDisplayedChild(1);
-								bt2.setChecked(true);
-								startPet.setVisibility(View.GONE);
-							}else if(viewFlipper.getDisplayedChild()==1){
-								viewFlipper.setDisplayedChild(2);
-									bt3.setChecked(true);
-									startPet.setVisibility(View.VISIBLE);
-							}else if(viewFlipper.getDisplayedChild()==2){
-								Toast.makeText(getApplicationContext(), "这已经是最后页！",
-										Toast.LENGTH_SHORT).show();
-								
-							}
-						} else if (x2 - x1 > 20) {//向右滑  上一页
-							if(viewFlipper.getDisplayedChild()==0){
-								Toast.makeText(getApplicationContext(), "这已经是第一页！",
-										Toast.LENGTH_SHORT).show();
-							}else if(viewFlipper.getDisplayedChild()==1){
-								viewFlipper.setDisplayedChild(0);
-								startPet.setVisibility(View.GONE);
-								bt1.setChecked(true);
-							}else if(viewFlipper.getDisplayedChild()==2){
-								viewFlipper.setDisplayedChild(1);
-								bt2.setChecked(true);
-								startPet.setVisibility(View.GONE);
-							}
-						}
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				// 当手指按下的时候
+				x1 = event.getX();
+				y1 = event.getY();
+			}
+			if (event.getAction() == MotionEvent.ACTION_UP) {
+				// 当手指离开的时候
+				x2 = event.getX();
+				y2 = event.getY();
+				if (y1 - y2 > 50) {// 向上滑
+				} else if (y2 - y1 > 50) {// 向下滑
+				} else if (x1 - x2 > 20) {// 向左滑 下一页
+					if (viewFlipper.getDisplayedChild() == 0) {
+						viewFlipper.setDisplayedChild(1);
+						bt2.setChecked(true);
+						startPet.setVisibility(View.GONE);
+					} else if (viewFlipper.getDisplayedChild() == 1) {
+						viewFlipper.setDisplayedChild(2);
+						bt3.setChecked(true);
+						startPet.setVisibility(View.VISIBLE);
+					} else if (viewFlipper.getDisplayedChild() == 2) {
+						Toast.makeText(getApplicationContext(), "这已经是最后页！",
+								Toast.LENGTH_SHORT).show();
 					}
+				} else if (x2 - x1 > 20) {// 向右滑 上一页
+					if (viewFlipper.getDisplayedChild() == 0) {
+						Toast.makeText(getApplicationContext(), "这已经是第一页！",
+								Toast.LENGTH_SHORT).show();
+					} else if (viewFlipper.getDisplayedChild() == 1) {
+						viewFlipper.setDisplayedChild(0);
+						startPet.setVisibility(View.GONE);
+						bt1.setChecked(true);
+					} else if (viewFlipper.getDisplayedChild() == 2) {
+						viewFlipper.setDisplayedChild(1);
+						bt2.setChecked(true);
+						startPet.setVisibility(View.GONE);
+					}
+				}
+			}
 			return true;
 		}
 	};
 	/**
 	 * 圆点的点击事件
 	 */
-	OnCheckedChangeListener checkedChangeListener=new OnCheckedChangeListener() {
+	OnCheckedChangeListener checkedChangeListener = new OnCheckedChangeListener() {
 		public void onCheckedChanged(RadioGroup group, int checkedId) {
 			switch (checkedId) {
 			case R.id.guide_rd_bt1:
@@ -148,7 +152,8 @@ public class GuideActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.guide_start_pet:
-			Intent intent =new Intent(getApplicationContext(), LoginActivity.class);
+			Intent intent = new Intent(getApplicationContext(),
+					LoginActivity.class);
 			startActivity(intent);
 			GuideActivity.this.finish();
 			break;

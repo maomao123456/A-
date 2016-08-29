@@ -38,7 +38,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         <activity
-            android:name=".GuideActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -54,7 +54,7 @@
         <activity android:name="com.example.pet.RegisterActivity" />
         <activity android:name="com.example.pet.XieYiActivity" />
         <!--主页面  -->
-        <activity android:name="com.example.pet.MainActivity"
+        <activity android:name="com.example.pet.GuideActivity"
             android:launchMode="singleTask"/>
         <!-- 我的界面 -->
         <activity android:name="com.example.pet.MineActivity" />
@@ -79,6 +79,8 @@
         <activity
             android:name="com.example.pet.AboutPetsActivity"
             android:launchMode="singleTop" />
+        <!-- 功能介绍页面  -->
+        <activity android:name="com.example.pet.FunctionGuideActivity" />
         <!-- 设置界面 -->
          <activity android:name="com.example.pet.SetActivity"/>
         <!--意见反馈界面 -->
