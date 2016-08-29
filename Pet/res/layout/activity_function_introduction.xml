@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <ViewFlipper
+            android:id="@+id/function_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:flipInterval="5000" >
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/function_guide_one" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/function_guide_two" />
+        </ViewFlipper>
+
+        <LinearLayout
+            android:id="@+id/function_bg"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1" />
+
+            <RadioGroup
+                android:id="@+id/function_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/function_shop"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableRight="@drawable/guide_yuandian_selector" />
+
+                <RadioButton
+                    android:id="@+id/function_strategy"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:button="@null"
+                    android:drawableRight="@drawable/guide_yuandian_selector" />
+            </RadioGroup>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>
