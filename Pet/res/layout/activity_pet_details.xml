@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/bg_whole">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/bg_zhuti" >
+
+        <RelativeLayout
+            android:id="@+id/back_petdetails_square"
+            android:layout_width="50dp"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
+                android:src="@drawable/back_button1" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="宠物详情"
+            android:textColor="@color/text_33"
+            android:textSize="20sp" />
+        
+		<!-- <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="18dp"
+            android:text="发布"
+            android:textColor="@color/text_33"
+            android:textSize="16sp" /> -->
+		
+    </RelativeLayout>
+	<RelativeLayout 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content">
+
+	    <ImageView
+	        android:layout_width="match_parent"
+	        android:layout_height="263dp"
+	        android:scaleType="fitXY"
+	        android:src="@drawable/pet_detail" />
+		<ImageView 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="25dp"
+		    android:layout_marginTop="15dp"
+		    android:src="@drawable/send_message"/>
+	</RelativeLayout>
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:background="@color/white"
+	    android:paddingLeft="25dp"
+	    android:paddingRight="25dp"
+	    android:paddingTop="20dp"
+	    android:paddingBottom="20dp">
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+	        <TextView 
+	            android:textColor="@color/text_2b"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textSize="16sp"
+	            android:text="昵称:"/>
+	        <TextView 
+	            android:textColor="@color/text_68"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textSize="16sp"
+	            android:layout_marginLeft="8dp"
+	            android:text="毛毛"/>
+	    </LinearLayout>
+	    <View 
+	        android:layout_width="match_parent"
+	        android:layout_height="1dp"
+	        android:background="@color/text_c7"
+	        android:layout_marginTop="20dp"/>
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:layout_marginTop="20dp">
+	        <TextView 
+	            android:textColor="@color/text_2b"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textSize="16sp"
+	            android:text="品种:"/>
+	        <TextView 
+	            android:textColor="@color/text_68"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textSize="16sp"
+	            android:layout_marginLeft="8dp"
+	            android:text="柴犬"/>
+	    </LinearLayout>
+	    <View 
+	        android:layout_width="match_parent"
+	        android:layout_height="1dp"
+	        android:background="@color/text_c7"
+	        android:layout_marginTop="20dp"/>
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:layout_marginTop="20dp">
+	        <TextView 
+	            android:textColor="@color/text_2b"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textSize="16sp"
+	            android:text="性格品性:"/>
+	        <TextView 
+	            android:textColor="@color/text_68"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textSize="16sp"
+	            android:layout_marginLeft="8dp"
+	            android:text="温顺可爱，爱干净，粘人"/>
+	    </LinearLayout>
+	</LinearLayout>
+</LinearLayout>

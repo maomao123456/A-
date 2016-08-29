@@ -3,16 +3,19 @@ package com.example.pet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.pet.baseadapter.TimeShaftListviewAdapter;
-import com.example.pet.lei.SquareGridview;
-import com.example.pet.lei.TimeShaftListview;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+
+import com.example.pet.baseadapter.TimeShaftListviewAdapter;
+import com.example.pet.lei.SquareGridview;
+import com.example.pet.lei.TimeShaftListview;
 
 public class TimeShaftActivity extends Activity{
 	ListView listview;
@@ -26,6 +29,8 @@ public class TimeShaftActivity extends Activity{
 	SquareGridview squareGridview;
 	int[] id={R.id.head_listview_timeshaft,R.id.time_listview_timeshaft,
 			R.id.word_listview_timeshaft,R.id.gridview_listview_timeshaft};
+	RelativeLayout back;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -42,7 +47,23 @@ public class TimeShaftActivity extends Activity{
 		inflater=this.getLayoutInflater();
 		itemview=inflater.inflate(R.layout.listview_item_timeshaft, null);
 		gridview=(GridView)itemview.findViewById(R.id.gridview_listview_timeshaft);
+		back=(RelativeLayout)findViewById(R.id.back_timeshaft_dongtai);
+		back.setOnClickListener(clickListener);
 	}
+	OnClickListener clickListener=new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			switch(v.getId()){
+			case R.id.back_timeshaft_dongtai:
+				startActivity(new Intent(TimeShaftActivity.this,MainActivity.class));
+				TimeShaftActivity.this.finish();
+				break;
+			
+			}
+		}
+	};
 	/**
 	 * 给listView添加数据
 	 */

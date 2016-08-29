@@ -55,7 +55,7 @@
         <activity android:name="com.example.pet.XieYiActivity" />
         <!--主页面  -->
         <activity android:name="com.example.pet.MainActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"/> 
         <!-- 我的界面 -->
         <activity android:name="com.example.pet.MineActivity" />
 
@@ -91,6 +91,12 @@
         <activity android:name="com.example.pet.DongtaiAlbumDetailsActivity" />
         <!-- 动态   时光轴页面 -->
         <activity android:name="com.example.pet.TimeShaftActivity" />
+        <!-- 发表说说页面 -->
+        <activity android:name="com.example.pet.PublishStatesActivity" />
+        <!-- 新建相册页面 -->
+        <activity android:name="com.example.pet.NewAlbumActivity" />
+        <!-- 宠物达人  宠物详情页面 -->
+        <activity android:name="com.example.pet.PetDetailsActivity" />
         <activity
             android:name="com.example.pet.DianpingActivity"
             android:launchMode="singleTop" />

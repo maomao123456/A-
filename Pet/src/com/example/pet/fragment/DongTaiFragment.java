@@ -1,17 +1,16 @@
 package com.example.pet.fragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.example.pet.R;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -19,6 +18,10 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
+import com.example.pet.NewAlbumActivity;
+import com.example.pet.R;
+import com.example.pet.TimeShaftActivity;
 
 public class DongTaiFragment extends Fragment{
 	View view;
@@ -28,6 +31,9 @@ public class DongTaiFragment extends Fragment{
 	String[] keys={"image","text"};
 	int[] viewIds={R.id.album_dongtai,R.id.album_text_dongtai};
 	List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+	ImageView head,timeShaft;
+	TextView new_albums;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -43,7 +49,28 @@ public class DongTaiFragment extends Fragment{
 		gridview=(GridView)view.findViewById(R.id.gridview_dongtai);
 		scrollView=(ScrollView)view.findViewById(R.id.scrollview_dongtai);
 		gridview.setAdapter(new GridAdapter(getActivity())); 
+		head=(ImageView)view.findViewById(R.id.head_dongtai);
+		head.setImageResource(R.drawable.dongtai_head);
+		timeShaft=(ImageView)view.findViewById(R.id.enter_timeshaft_dongtai);
+		new_albums=(TextView)view.findViewById(R.id.new_albums_dongtai);
+		timeShaft.setOnClickListener(clickListener);
+		new_albums.setOnClickListener(clickListener);
 	}
+	OnClickListener clickListener=new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			switch(v.getId()){
+			case R.id.enter_timeshaft_dongtai:
+				startActivity(new Intent(getActivity(),TimeShaftActivity.class));
+				break;
+			case R.id.new_albums_dongtai:
+				startActivity(new Intent(getActivity(),NewAlbumActivity.class));
+				break;
+			}
+		}
+	};
 	/**
 	 * 以下代码为scrollView与gridView不冲突的设置代码
 	 */
