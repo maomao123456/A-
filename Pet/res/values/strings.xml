@@ -109,5 +109,9 @@
     <!-- 账号管理 修改电话号码 -->
     <string name="input_new_telephone">手机号码</string>
     <string name="confirm_telephone">确认新手机号码</string>
+    
+    <!-- 用户帮助  -->
+    <string name="pet">宠物</string>
+    <string name="pet_helper">宠物小助手</string>
 
 </resources>

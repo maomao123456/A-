@@ -89,6 +89,8 @@
         <activity
             android:name="com.example.pet.FeedbackActivity"
             android:launchMode="singleTop" />
+        <!-- 用户帮助界面  -->
+        <activity android:name="com.example.pet.UserHelpActivity" />"
         <!-- 广场详情页面 -->
         <activity android:name="com.example.pet.SquareDetailsActivity" />
         <!-- 相册动态详情页面 -->

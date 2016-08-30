@@ -96,6 +96,9 @@ public class SetActivity extends Activity {
 			case R.id.feedback_next:
 				toFeedback();
 				break;
+			case R.id.user_help_next:
+				toUserHelp();
+				break;
 
 			case R.id.clear_cache_next:
 				new AlertDialog.Builder(SetActivity.this)
@@ -136,6 +139,13 @@ public class SetActivity extends Activity {
 	private void toFeedback() {
 		Intent intent = new Intent();
 		intent.setClass(getApplicationContext(), FeedbackActivity.class);
+		startActivity(intent);
+	}
+	
+	//跳转到用户帮助界面
+	private void toUserHelp(){
+		Intent intent = new Intent();
+		intent.setClass(getApplicationContext(), UserHelpActivity.class);
 		startActivity(intent);
 	}
 
