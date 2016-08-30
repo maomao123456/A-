@@ -13,7 +13,6 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -63,7 +62,7 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
-public class LoginActivity extends Activity  implements OnClickListener {
+public class LoginActivity extends Activity  implements OnClickListener{
 	EditText userName, mima;
 	Button zhuce, denglu;
 	ImageView qq, wb, wx;
@@ -73,10 +72,6 @@ public class LoginActivity extends Activity  implements OnClickListener {
 	 * logo下面的名字  用户名
 	 */
 	TextView loName;
-	/**
-	 * 解析数据时 提供的判断
-	 */
-	int numb=0;
 	/**
 	 * get方式的解析方法
 	 */
@@ -89,7 +84,9 @@ public class LoginActivity extends Activity  implements OnClickListener {
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		setContentView(R.layout.activity_login);
 		 mAppid = QqAppConstant.APP_ID;//初始化主操作对象
-	     mTencent = Tencent.createInstance(mAppid,getApplicationContext());
+		 if(null==mTencent){
+			 mTencent = Tencent.createInstance(mAppid,getApplicationContext()); 
+		 }
 		jx=new JieXiShuJu();
 		initView();
 	}
@@ -137,7 +134,6 @@ public class LoginActivity extends Activity  implements OnClickListener {
 		case R.id.login_zhuce:
 			Intent intent=new Intent(LoginActivity.this, RegisterActivity.class);
 			startActivity(intent);
-			LoginActivity.this.finish();
 			break;
 		case R.id.login_userName:
 			changeSize();
@@ -189,53 +185,55 @@ public class LoginActivity extends Activity  implements OnClickListener {
 	/**
 	 * 远程判断用户账号 数据库账号比对
 	 */
-		public void loging(final String userName, final String password) {
-			new Thread(new Runnable() {
-				public void run() {
-					StringBuilder builder = new StringBuilder();
-					try {
-						String httpHost = "http://192.168.1.192/index.php/Home/Api/login";// php接口
-						String name = "useraccount=" + userName + "&userpassword="
-								+ password;
-						String urlName = httpHost + "?" + name;
-						URL url = new URL(urlName);
-						HttpURLConnection connection = (HttpURLConnection) url
-								.openConnection();
-						connection.setConnectTimeout(5000);
-						connection.setRequestProperty("accept", "*/*");// 设置客户端接受那些类型的信息，通配符代表接收所有类型的数据
-						connection.setRequestProperty("connection", "Keep-Alive");// 保持长链接
-						connection.setRequestProperty("user-agent",
-										"Mozilla/4.0(compatible;MSIE 6.0;Windows NT5.1;SV1)");// 设置浏览器代理
-						connection.setRequestProperty("accept-charset", "utf-8;GBK");// 客户端接受的字符集
-						connection.connect();// 建立连接
-						InputStream inputStream = connection.getInputStream();
-						Map<String, List<String>> headers = connection
-								.getHeaderFields();
-						for (String key : headers.keySet()) {
-							System.out.println(key + "----" + headers.get(key));
-						}
-						BufferedReader bufferedReader = new BufferedReader(
-								new InputStreamReader(inputStream));
-						String line = bufferedReader.readLine();
-						while (line != null && line.length() > 0) {
-							builder.append(line);
-							line = bufferedReader.readLine();
-						}
-						bufferedReader.close();
-						inputStream.close();
-						str=builder.toString();
-						Message msg=new Message();
-						//发送登录验证消息
-						msg.what=4;
-						handler.sendMessage(msg);
-					} catch (MalformedURLException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
+	public void loging(final String userName, final String password) {
+		new Thread(new Runnable() {
+			public void run() {
+				StringBuilder builder = new StringBuilder();
+				try {
+					String httpHost = "http://192.168.1.192/index.php/Home/Api/login";// php接口
+					String name = "useraccount=" + userName + "&userpassword="
+							+ password;
+					String urlName = httpHost + "?" + name;
+					URL url = new URL(urlName);
+					HttpURLConnection connection = (HttpURLConnection) url
+							.openConnection();
+					connection.setConnectTimeout(5000);
+					connection.setRequestProperty("accept", "*/*");// 设置客户端接受那些类型的信息，通配符代表接收所有类型的数据
+					connection.setRequestProperty("connection", "Keep-Alive");// 保持长链接
+					connection
+							.setRequestProperty("user-agent",
+									"Mozilla/4.0(compatible;MSIE 6.0;Windows NT5.1;SV1)");// 设置浏览器代理
+					connection
+							.setRequestProperty("accept-charset", "utf-8;GBK");// 客户端接受的字符集
+					connection.connect();// 建立连接
+					InputStream inputStream = connection.getInputStream();
+					Map<String, List<String>> headers = connection
+							.getHeaderFields();
+					for (String key : headers.keySet()) {
+						System.out.println(key + "----" + headers.get(key));
 					}
+					BufferedReader bufferedReader = new BufferedReader(
+							new InputStreamReader(inputStream));
+					String line = bufferedReader.readLine();
+					while (line != null && line.length() > 0) {
+						builder.append(line);
+						line = bufferedReader.readLine();
+					}
+					bufferedReader.close();
+					inputStream.close();
+					str = builder.toString();
+					Message msg = new Message();
+					// 发送登录验证消息
+					msg.what = 4;
+					handler.sendMessage(msg);
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-			}).start();
-		}
+			}
+		}).start();
+	}
 	/**
 	 * 布局尺寸的调整
 	 */
@@ -300,7 +298,13 @@ public class LoginActivity extends Activity  implements OnClickListener {
 		//向微信发送请求
 		api.sendReq(req);
 	}
+	/**
+	 * 微博的handler
+	 */
 	SsoHandler mSsoHandler;
+	/**
+	 * 微博的AccessToken
+	 */
 	Oauth2AccessToken mAccessToken;
 	/**
 	 * 微博登录
@@ -315,189 +319,219 @@ public class LoginActivity extends Activity  implements OnClickListener {
 	/**
 	 * 微博的监听
 	 */
-	WeiboAuthListener authListener=new WeiboAuthListener() {
-			public void onWeiboException(WeiboException arg0) {
-				toast("登录出错！"+arg0.getMessage());				
-			}
-			public void onComplete(Bundle arg0) {
-				// 从 Bundle 中解析 Token
-				mAccessToken = Oauth2AccessToken.parseAccessToken(arg0);
-				 //从这里获取用户输入的 电话号码信息
-				String  phoneNum =  mAccessToken.getPhoneNum();
-		        if (mAccessToken.isSessionValid()) {
-		        	AccessTokenKeeper.writeAccessToken(LoginActivity.this, mAccessToken);
-		            // 保存 Token 到 SharedPreferences
-		        	String token=mAccessToken.getToken();
-		        	String uid=mAccessToken.getUid();
-		        	Editor editor=getSharedPreferences("pet", MODE_PRIVATE).edit();
-		        	editor.putString("token", token);
-		        	editor.putString("uid", uid);
-		        	editor.commit();
-		        	Log.i("token", ">>>>>>>>"+token.toString());
-		        } else {
-		        // 当您注册的应用程序签名不正确时，就会收到 Code，请确保签名正确
-		            String code = arg0.getString("code");
-		            String message = "授权失败";
-		            if (!TextUtils.isEmpty(code)) {
-		            message = message + "\nObtained the code: " + code;
-		            }
-		            toast(message);
-		        }//封装好的用户信息解析方法
-		        new Thread(new Runnable() {
+	WeiboAuthListener authListener = new WeiboAuthListener() {
+		public void onWeiboException(WeiboException arg0) {
+			toast("登录出错！" + arg0.getMessage());
+		}
+		public void onComplete(Bundle arg0) {
+			// 从 Bundle 中解析 Token
+			mAccessToken = Oauth2AccessToken.parseAccessToken(arg0);
+			// 从这里获取用户输入的 电话号码信息
+			String phoneNum = mAccessToken.getPhoneNum();
+			if (mAccessToken.isSessionValid()) {
+				AccessTokenKeeper.writeAccessToken(LoginActivity.this,
+						mAccessToken);
+				// 保存 Token 到 SharedPreferences
+				String token = mAccessToken.getToken();
+				String uid = mAccessToken.getUid();
+				Editor editor = getSharedPreferences("pet", MODE_PRIVATE)
+						.edit();
+				editor.putString("token", token);
+				editor.putString("uid", uid);
+				editor.commit();
+				Log.i("token", ">>>>>>>>" + token.toString());
+			} else {
+				// 当您注册的应用程序签名不正确时，就会收到 Code，请确保签名正确
+				String code = arg0.getString("code");
+				String message = "授权失败";
+				if (!TextUtils.isEmpty(code)) {
+					message = message + "\nObtained the code: " + code;
+				}
+				toast(message);
+			}// 封装好的用户信息解析方法
+			new Thread(new Runnable() {
+				public void run() {
+					Oauth2AccessToken mAccessToken = AccessTokenKeeper
+							.readAccessToken(LoginActivity.this);
+					UsersAPI usersAPI = new UsersAPI(LoginActivity.this,
+							WbConstant.APP_KEY, mAccessToken);
+					usersAPI.show(Long.parseLong(mAccessToken.getUid()),
+							new SinaRequestListener());
+				}
+			}).start();
+		}
+		public void onCancel() {
+			toast("登录取消");
+		}
+	};
+	/**
+	 * 新浪微请求接口
+	 */
+	public class SinaRequestListener implements RequestListener { // 新浪微博请求接口
+		public void onComplete(String response) {
+			toast("登录成功！即将为你跳转到主页面");
+			saveLogin();
+			try {
+				JSONObject jsonObject = new JSONObject(response);
+				System.out.println(jsonObject.toString());
+				String ID = jsonObject.getString("idstr");// 唯一标识符(uid)
+				String city = jsonObject.getString("location");// 地址
+				String nickName = jsonObject.getString("name");// 姓名
+				final String touxiang = jsonObject.getString("avatar_hd");// 头像
+				// 调用用户信息类
+				loName.setText(nickName);
+				threeTz(3, nickName, ID, "无", touxiang, city);
+				// 用户头像转换
+				new Thread() {
 					public void run() {
-						Oauth2AccessToken mAccessToken = AccessTokenKeeper.readAccessToken(LoginActivity.this);
-						 UsersAPI usersAPI = new UsersAPI(LoginActivity.this,
-								 WbConstant.APP_KEY, mAccessToken);  
-		                 usersAPI.show(Long.parseLong(mAccessToken.getUid()), new SinaRequestListener());   
+						bitmap = Util.getbitmap(touxiang);
+						Message msg = new Message();
+						msg.obj = bitmap;
+						msg.what = 2;
+						handler.sendMessage(msg);
 					}
-				}).start();
+				}.start();
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
-			public void onCancel() {
-				toast("登录取消");
-			}
-		};
-	/**
-	 * 新浪微请求接口	
-	 */
-		public class SinaRequestListener implements RequestListener{ //新浪微博请求接口  
-	        public void onComplete(String response) {
-	        	toast("登录成功！即将为你跳转到主页面");
-	        	saveLogin();
-	            try {  
-	                JSONObject jsonObject = new JSONObject(response);
-	                System.out.println(jsonObject.toString());
-	                  String ID = jsonObject.getString("idstr");// 唯一标识符(uid)  
-	                  String city=jsonObject.getString("location");//地址
-	                  String nickName = jsonObject.getString("name");// 姓名    
-	                  final String touxiang = jsonObject.getString("avatar_hd");// 头像   
-	                  //调用用户信息类
-	                  loName.setText(nickName);
-	                  threeTz(3, nickName, ID, "无", touxiang, city);
-	                  //用户头像转换
-	                  new Thread(){
-	                        @Override			
-	                        public void run() {
-	                            bitmap =Util.getbitmap(touxiang);
-	                            Message msg = new Message();
-	                            msg.obj = bitmap;
-	                            msg.what = 2;
-	                            handler.sendMessage(msg);
-	                        }                       
-	                    }.start();
-	            } catch (JSONException e) {  
-	                e.printStackTrace();  
-	            }  
-	        }  
-	        @Override  
-	        public void onWeiboException(WeiboException e) {  
-	        	toast("授权成功获取信息异常 没有权限！");
-	            Log.i("授权成功但登录异常》》《《《《《", "Auth exception : " + e.getMessage());  
-	        }  
-	    }
-		//我的APPid
-		public static String mAppid;
-		private Tencent mTencent; //qq主操作对象 
-	    private  IUiListener iuilisten;
-	    Bitmap bitmap=null;
-	/**
-	 * QQ登录
-	 */
-	public void loginQQ(){
-		 //开始qq授权登录    
-		 mTencent.login(LoginActivity.this, "all", iuilisten);
-		 iuilisten= new IUiListener(){
-				public void onCancel() {
-					toast("登录取消");
-				}
-				public void onComplete(Object response) {
-					if (null == response) {
-						toast("登录失败！");
-						System.out.println( "返回为空登录失败");  
-						return;
-					}
-					JSONObject jsonResponse = (JSONObject) response;
-					if (null != jsonResponse && jsonResponse.length() == 0) {
-						toast("登录失败！");
-						System.out.println("返回为空登录失败");  
-						return;
-					}
-					getQQuserInfo();
-					System.out.println("登录成功：="+response);  
-				}
-				public void onError(UiError arg0) {
-					toast("登录出错！");
-				}};
+		}
+		public void onWeiboException(WeiboException e) {
+			toast("授权成功获取信息异常 没有权限！");
+			Log.i("授权成功但登录异常》》《《《《《", "Auth exception : " + e.getMessage());
+		}
 	}
 	/**
-	 * 获得qq用户信息
+	 * 我的APPid
 	 */
-	 public void getQQuserInfo(){
-	    	UserInfo userInfo = new UserInfo(LoginActivity.this, mTencent.getQQToken());
-	    	userInfo.getUserInfo(userInfoListener);
-	  }
-			IUiListener userInfoListener=new IUiListener() {
-				public void onError(UiError arg0) {
-					toast("登录成功 但获取信息出错");
-				}
-				public void onComplete(final Object arg0) {
-					toast("登录成功正在为你跳转到主页！");
-					JSONObject response = (JSONObject) arg0;
-					if (response.has("nickname")) {
-						try {
-							String name=response.getString("nickname");
-							String six=response.getString("gender");
-							String city=response.getString("city");
-							String touxiang=response.getString("figureurl_qq_2");
-		                  loName.setText(name);
-		                  saveLogin();
-		                  //threeTz(3, name, "无", six, touxiang, city);
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-					}
-					Message msg = new Message();
-					msg.obj = arg0;
-					msg.what = 0;
-					handler.sendMessage(msg);
-					new Thread() {
-						public void run() {
-							JSONObject json = (JSONObject) arg0;
-							//获取头像
-							if (json.has("figureurl")) {//判断字段是否为空
-								bitmap = null;
-								try {
-									bitmap = Util.getbitmap(json
-											.getString("figureurl_qq_2"));
-								} catch (JSONException e) {
-								}
-								Message msg = new Message();
-								msg.obj = bitmap;
-								msg.what = 1;
-								handler.sendMessage(msg);
-							}
-						}
-					}.start();
-				}
-				public void onCancel() {
-					toast("登录成功 但获取信息时被取消");
-				}
-			};
-	    
+	public static String mAppid;
 	/**
-	 * 解析微信数据
+	 * QQ信息类 已包装
 	 */
-	public void jiexiWx(String data){
+	UserInfo qqInfo;
+	/**
+	 * qq主操作对象
+	 */
+	private Tencent mTencent;
+	Bitmap bitmap = null;
+	/**
+	 * 登录QQ方法
+	 */
+	public void loginQQ() {
+		if (!mTencent.isSessionValid()) {
+			mTencent.login(this, "all", qqListener);
+		}
+	}
+	/**
+	 * 登录QQ时的监听
+	 */
+	private IUiListener qqListener = new BaseUiListener() {
+		protected void doComplete(JSONObject values) {
+			// super.doComplete(values);
+			initLoginID(values);
+		}
+	};
+	private class BaseUiListener implements IUiListener {
+		protected void doComplete(JSONObject values) {
+		}
+		public void onComplete(Object response) {
+			if (null == response) {
+				toast("登录失败！");
+				return;
+			}
+			JSONObject jsonResponse = (JSONObject) response;
+			if (null != jsonResponse && jsonResponse.length() == 0) {
+				toast("登录失败！");
+				return;
+			}
+			doComplete((JSONObject) response);
+		}
+		public void onError(UiError e) {
+			toast("登录时出错！");
+		}
+		public void onCancel() {
+			toast("登录取消！");
+		}
+	}
+	/**
+	 * 登录后获取qqID及token信息
+	 * 
+	 * @param jsonObject
+	 *            json对象
+	 */
+	private void initLoginID(JSONObject jsonObject) {
 		try {
-			JSONObject jsonObject=new JSONObject(data);
-			String nickname=jsonObject.getString("name");
-			String city=jsonObject.getString("location");
-			String touxiang=jsonObject.getString("profile_image_url");
-			Message msg=new Message();
-			msg.what=3;
+			if (jsonObject.getInt("ret") == 0) {
+				String token = jsonObject
+						.getString(Constants.PARAM_ACCESS_TOKEN);
+				String expires = jsonObject
+						.getString(Constants.PARAM_EXPIRES_IN);
+				String openID = jsonObject.getString(Constants.PARAM_OPEN_ID);
+				// **下面这两步设置很重要,如果没有设置,返回为空**
+				mTencent.setOpenId(openID);
+				mTencent.setAccessToken(token, expires);
+				getuserInfo();
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * 获得qq用户的信息
+	 */
+	private void getuserInfo() {
+		qqInfo = new UserInfo(LoginActivity.this, mTencent.getQQToken());
+		qqInfo.getUserInfo(getQQinfoListener);
+	}
+	/**
+	 * 获取用户信息的监听
+	 */
+	private IUiListener getQQinfoListener = new IUiListener() {
+		public void onComplete(final Object response) {
+			try {
+				toast("登录成功！正在为你跳转到主页");
+				JSONObject jsonObject = (JSONObject) response;
+				Log.i("qq用户信息", jsonObject.toString());
+				// 处理自己需要的信息
+				String name = jsonObject.getString("nickname");
+				String six = jsonObject.getString("gender");
+				String city = jsonObject.getString("city");
+				String touxiang = jsonObject.getString("figureurl_qq_2");
+				loName.setText(name);
+				saveLogin();
+				threeTz(3, name, "无", six, touxiang, city);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			Message msg = new Message();
+			msg.obj = response;
+			msg.what = 0;
+			handler.sendMessage(msg);
+			new Thread() {
+				public void run() {
+					JSONObject json = (JSONObject) response;
+					// 获取头像
+					if (json.has("figureurl")) {// 判断字段是否为空
+						bitmap = null;
+						try {
+							bitmap = Util.getbitmap(json
+									.getString("figureurl_qq_2"));
+						} catch (JSONException e) {
+						}
+						Message msg = new Message();
+						msg.obj = bitmap;
+						msg.what = 1;
+						handler.sendMessage(msg);
+					}
+				}
+			}.start();
+		}
+		public void onError(UiError uiError) {
+			toast("登录成功但获取信息时异常！");
+		}
+		public void onCancel() {
+			toast("登录成功但获取信息时被取消！");
+		}
+	};
 	/**
 	 * 接收解析数据并刷新UI
 	 */
@@ -564,7 +598,8 @@ public class LoginActivity extends Activity  implements OnClickListener {
 					} else {
 						toast("登录成功！");
 						saveLogin();
-						threeTz(1, userName.getText().toString(), userName.getText().toString(),
+						threeTz(1, userName.getText().toString(), 
+								userName.getText().toString(),
 								"无", "无", "无");;
 					}
 				} catch (JSONException e) {
@@ -580,17 +615,25 @@ public class LoginActivity extends Activity  implements OnClickListener {
 	 * 处理第三方的回调消息
 	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		//微博返回码
-			// 重要：发起 SSO 登陆的 Activity 必须重写 onActivityResults
-			if (mSsoHandler != null) {
-			 Log.i("新浪微博登陆返回","返回");
-			 mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
-			 }
-			super.onActivityResult(requestCode, resultCode, data);
+		//微博返回码 发起 SSO 登陆的 Activity 必须重写 onActivityResults
+		if (mSsoHandler != null) {
+			Log.i("新浪微博登陆返回", "返回");
+			mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
+		}
+		//QQ的回调监听
+		if (requestCode == Constants.REQUEST_LOGIN) {
+			if (resultCode == -1) {
+				Tencent.onActivityResultData(requestCode, resultCode, data,
+						qqListener);
+				Tencent.handleResultData(data, qqListener);
+				UserInfo info = new UserInfo(this, mTencent.getQQToken());
+				info.getUserInfo(getQQinfoListener);
+			}
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -617,6 +660,7 @@ public class LoginActivity extends Activity  implements OnClickListener {
 	}
 	/**
 	 * 验证网络状态
+	 * (WiFi只能验证是否连接上 不能验证是否能上网)
 	 */
 	private boolean checkNetwork() {
 		ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

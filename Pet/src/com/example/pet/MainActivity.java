@@ -72,6 +72,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener{
     	editor.commit();
 		super.onDestroy();
 	}
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		Editor editor=getSharedPreferences("pet", MODE_PRIVATE).edit();
+    	editor.putInt("kills", 1);
+    	editor.commit();
+		super.onStop();
+	}
 	/**
 	 * 寻找id的方法
 	 */

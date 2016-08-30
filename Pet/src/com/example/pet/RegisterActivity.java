@@ -193,8 +193,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		if(!phone){
 			toast("请输入正确的手机号！");
 			return false;
-		}else if(yanzhengCd.length()<4||yanzhengCd.length()>6){
-			toast("格式错误：验证码长度4~6位");
+		}else if(yanzhengCd.length()!=4){
+			toast("格式错误：验证码长度为4位");
 			return false;
 		}else if(password.length()<6||password.length()>20){
 			toast("密码只能是6-20位数字或字母!");
@@ -245,6 +245,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			}
 			if(!checkNetwork()){
 				toast("网络未连接，无法获取验证码！");
+				break;
 			}
 			getYangzhengma.setText("获取验证码");
 			getYangzhengma.setClickable(true);
