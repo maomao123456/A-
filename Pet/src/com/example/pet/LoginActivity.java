@@ -40,6 +40,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pet.classes.SysApplication;
 import com.example.pet.lei.CircularImage;
 import com.example.pet.lei.JieXiShuJu;
 import com.example.pet.qq.QqAppConstant;
@@ -87,6 +88,7 @@ public class LoginActivity extends Activity  implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		panDuan();
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+		SysApplication.getInstance().addActivity(this);
 		setContentView(R.layout.activity_login);
 		 mAppid = QqAppConstant.APP_ID;//初始化主操作对象
 	     mTencent = Tencent.createInstance(mAppid,getApplicationContext());

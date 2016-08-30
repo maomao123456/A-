@@ -1,5 +1,7 @@
 package com.example.pet;
 
+import com.example.pet.classes.SysApplication;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -35,6 +37,7 @@ public class GuideActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		panDuan();
 		setContentView(R.layout.activity_guide);
+		SysApplication.getInstance().addActivity(this);
 		initView();
 	}
 

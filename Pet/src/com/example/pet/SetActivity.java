@@ -2,6 +2,8 @@ package com.example.pet;
 
 import java.io.File;
 
+import com.example.pet.classes.SysApplication;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -42,6 +44,7 @@ public class SetActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);// 取消标题栏
 		setContentView(R.layout.activity_set);
+		SysApplication.getInstance().addActivity(this);
 
 		inflater = this.getLayoutInflater();
 		windView = inflater.inflate(R.layout.activity_exit, null);
@@ -239,11 +242,12 @@ public class SetActivity extends Activity {
 						// 点击"确定"后操作
 						popupWindow.dismiss();
 						saveLoginOut();
-						Intent intent = new Intent(Intent.ACTION_MAIN);
+						SysApplication.getInstance().exit();
+						/*Intent intent = new Intent(Intent.ACTION_MAIN);
 						intent.addCategory(Intent.CATEGORY_HOME);
 						intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 						//finish();
-						android.os.Process.killProcess(android.os.Process.myPid());
+						android.os.Process.killProcess(android.os.Process.myPid());*/
 					}
 				})
 				.setNegativeButton("取消", new DialogInterface.OnClickListener() {

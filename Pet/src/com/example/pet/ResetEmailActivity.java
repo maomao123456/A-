@@ -29,6 +29,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pet.classes.SysApplication;
 import com.example.pet.classes.Utils;
 
 public class ResetEmailActivity extends Activity {
@@ -44,6 +45,7 @@ public class ResetEmailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);// 取消标题栏
 		setContentView(R.layout.activity_reset_email);
+		SysApplication.getInstance().addActivity(this);
 
 		// Bundle bundle = this.getIntent().getExtras();
 		// userId = bundle.getString("userid");

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.SharedPreferences.Editor;
+
+import com.example.pet.classes.SysApplication;
 import com.example.pet.fragment.DongTaiFragment;
 import com.example.pet.fragment.GonglueFragment;
 import com.example.pet.fragment.MineFragment;
@@ -49,6 +51,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		SysApplication.getInstance().addActivity(this);
 		saveZhuangtai();
 		initView();
 		getData();

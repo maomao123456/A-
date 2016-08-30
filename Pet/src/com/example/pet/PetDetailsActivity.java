@@ -1,5 +1,7 @@
 package com.example.pet;
 
+import com.example.pet.classes.SysApplication;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ public class PetDetailsActivity extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pet_details);
+		SysApplication.getInstance().addActivity(this);
 		init();
 	}
 	public void init(){

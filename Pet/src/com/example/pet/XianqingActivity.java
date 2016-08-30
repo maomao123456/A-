@@ -1,5 +1,7 @@
 package com.example.pet;
 
+import com.example.pet.classes.SysApplication;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +20,8 @@ public class XianqingActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_xiangqing);
+		SysApplication.getInstance().addActivity(this);
+		
 		imageview=(ImageView)findViewById(R.id.imageview);
 		textview1=(TextView)findViewById(R.id.sc);
 		imageview.setOnClickListener(onClickListener);

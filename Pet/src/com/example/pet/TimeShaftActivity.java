@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.example.pet.baseadapter.TimeShaftListviewAdapter;
+import com.example.pet.classes.SysApplication;
 import com.example.pet.lei.SquareGridview;
 import com.example.pet.lei.TimeShaftListview;
 
@@ -36,6 +37,7 @@ public class TimeShaftActivity extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_timeshaft_dongtai);
+		SysApplication.getInstance().addActivity(this);
 		init();
 		getList();
 		adapter=new TimeShaftListviewAdapter(this, list, 

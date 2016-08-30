@@ -16,6 +16,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import com.example.pet.classes.SysApplication;
 import com.example.pet.classes.Utils;
 
 import android.app.Activity;
@@ -43,6 +44,7 @@ public class ResetPasswordActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);// 取消标题栏
 		setContentView(R.layout.activity_reset_password);
+		SysApplication.getInstance().addActivity(this);
 		initView();
 	}
 

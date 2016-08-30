@@ -1,5 +1,7 @@
 package com.example.pet;
 
+import com.example.pet.classes.SysApplication;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ public class DianpingActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dianping);
+		SysApplication.getInstance().addActivity(this);
 		ImageView imageView=(ImageView)findViewById(R.id.imageviewTitle);
 		textview=(TextView)findViewById(R.id.textviewTitle);
 		textview.setOnClickListener(onClickListener);

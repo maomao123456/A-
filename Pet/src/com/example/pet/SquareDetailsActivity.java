@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pet.baseadapter.SquareDetailsListviewAdapter;
+import com.example.pet.classes.SysApplication;
 import com.example.pet.lei.SquareDetailsListview;
 
 public class SquareDetailsActivity extends Activity{
@@ -46,6 +47,7 @@ public class SquareDetailsActivity extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_xiangqing_square);
+		SysApplication.getInstance().addActivity(this);
 		init();
 		listview.addHeaderView(headview);
 		getList();

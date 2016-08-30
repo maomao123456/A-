@@ -2,7 +2,7 @@ package com.example.pet;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +14,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.pet.baseadapter.AlbumDetailsListviewAdapter;
+import com.example.pet.classes.SysApplication;
 import com.example.pet.lei.AlbumDetailsListview;
 import com.example.pet.lei.SquareGridview;
 
+@SuppressLint("InflateParams")
 public class DongtaiAlbumDetailsActivity extends Activity{
 	LayoutInflater inflater;
 	View headview;
@@ -37,6 +38,7 @@ public class DongtaiAlbumDetailsActivity extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_album_details_dongtai);
+		SysApplication.getInstance().addActivity(this);
 		init();
 		listview.addHeaderView(headview);
 		getList();
@@ -47,6 +49,7 @@ public class DongtaiAlbumDetailsActivity extends Activity{
 	/**
 	 * 找id，设点击
 	 */
+	@SuppressLint("InflateParams")
 	public void init(){
 		inflater=this.getLayoutInflater();
 		headview=(View)inflater.inflate(R.layout.album_details_head_dongtai, null);

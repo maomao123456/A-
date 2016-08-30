@@ -1,5 +1,7 @@
 package com.example.pet;
 
+import com.example.pet.classes.SysApplication;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ public class UserHelpActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_help);
+		SysApplication.getInstance().addActivity(this);
 		
 		backSet = (ImageButton) findViewById(R.id.back_set);
 		backSet.setOnClickListener(new OnClickListener() {

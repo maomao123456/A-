@@ -1,5 +1,7 @@
 package com.example.pet;
 
+import com.example.pet.classes.SysApplication;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,7 +21,8 @@ public class AboutPetsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);// 取消标题栏
 		setContentView(R.layout.activity_about_lovely_pets);
-		initView();
+		SysApplication.getInstance().addActivity(this);
+		initView();		
 	}
 
 	// 初始化视图

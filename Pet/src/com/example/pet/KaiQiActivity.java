@@ -1,5 +1,7 @@
 package com.example.pet;
 
+import com.example.pet.classes.SysApplication;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +19,7 @@ public class KaiQiActivity extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_kaiqi);
+		SysApplication.getInstance().addActivity(this);
 		kaiqi=(ImageView)findViewById(R.id.kaiqi);
 		setImg();
 		doWait();

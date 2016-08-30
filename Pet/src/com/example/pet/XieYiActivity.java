@@ -1,5 +1,7 @@
 package com.example.pet;
 
+import com.example.pet.classes.SysApplication;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,11 +17,14 @@ public class XieYiActivity extends Activity{
 	LinearLayout backQuyu;
 	WebView wb;
 	TextView tishi;
+	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_fuwutiaokuan);
+		SysApplication.getInstance().addActivity(this);
+		
 		backQuyu=(LinearLayout)findViewById(R.id.xieyi_back_quyu);
 		wb=(WebView)findViewById(R.id.xieyi_webview);
 		tishi=(TextView)findViewById(R.id.xieyi_tishi);
