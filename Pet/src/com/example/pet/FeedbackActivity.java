@@ -20,6 +20,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -40,7 +42,8 @@ public class FeedbackActivity extends Activity {
 	Button closeFeedback, submitFeedback;// 关闭意见反馈页面，提交反馈的意见
 	EditText inputFeedback, contantPhone;// 输入反馈的意见和电话联系方式
 	ImageView addImage;// 添加图片
-	TextView textPrompt, maxNum;// 提示用户输入正确的电话号码，输入文字显示的最大数字
+	TextView textPrompt, num;// 提示用户输入正确的电话号码，还可以输入的字符数
+	private final int MaxNum = 400;// 输入文字显示的最大数字
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +52,7 @@ public class FeedbackActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);// 取消标题栏
 		setContentView(R.layout.activity_feedback);
 		SysApplication.getInstance().addActivity(this);
-		initView();
+		initView();		
 	}
 
 	// 初始化视图
@@ -61,10 +64,12 @@ public class FeedbackActivity extends Activity {
 		contantPhone = (EditText) findViewById(R.id.input_contant_phone);
 		addImage = (ImageView) findViewById(R.id.add_pictrue);
 		textPrompt = (TextView) findViewById(R.id.text_prompt);
-		maxNum = (TextView) findViewById(R.id.max_num);
+		num = (TextView) findViewById(R.id.max_num);
 		// 触发点击
 		backSet.setOnClickListener(clickListener);
 		closeFeedback.setOnClickListener(clickListener);
+		inputFeedback.addTextChangedListener(new EditChangedlistener());
+		num.setText(MaxNum);
 		submitFeedback.setOnClickListener(clickListener);
 	}
 
@@ -107,13 +112,40 @@ public class FeedbackActivity extends Activity {
 		FeedbackActivity.this.finish();
 	}
 
-	public int wordLength() {
-		int i, j = 400;
-		String feedback = inputFeedback.getText().toString();
-		for (i = 0; i < feedback.length(); i++) {
-			j = j - feedback.length();
+	/*
+	 * public int wordLength() { int i, j = 400; String feedback =
+	 * inputFeedback.getText().toString(); for (i = 0; i < feedback.length();
+	 * i++) { j = j - feedback.length(); } return j; }
+	 */
+	// 文本输入框监听方法
+	class EditChangedlistener implements TextWatcher {
+		private CharSequence temp;// 监听前的文本
+		private int editStart;// 光标开始位置
+		private int editEnd;// 光标结束位置
+
+		// 输入文本之前的状态
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+			temp = s;
 		}
-		return j;
+
+		// 输入文字中的状态，count是一次性输入字符数
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+			num.setText(MaxNum-(s.length()));
+		}
+
+		// 输入文字后的状态
+		public void afterTextChanged(Editable s) {
+			editStart = inputFeedback.getSelectionStart();
+			editEnd = inputFeedback.getSelectionEnd();
+			if (temp.length() > MaxNum) {
+				s.delete(editStart - 1, editEnd);
+				inputFeedback.setText(s);
+				inputFeedback.setSelection(s.length());
+			}
+		}
+
 	}
 
 	public boolean checkEdit() {

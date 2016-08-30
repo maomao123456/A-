@@ -241,7 +241,7 @@ public class SetActivity extends Activity {
 					public void onClick(DialogInterface dialog, int whitch) {
 						// 点击"确定"后操作
 						popupWindow.dismiss();
-						saveLoginOut();
+						//saveLoginOut();
 						SysApplication.getInstance().exit();
 						/*Intent intent = new Intent(Intent.ACTION_MAIN);
 						intent.addCategory(Intent.CATEGORY_HOME);

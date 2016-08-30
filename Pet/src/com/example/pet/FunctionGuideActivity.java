@@ -106,7 +106,7 @@ public class FunctionGuideActivity extends Activity {
 			intent.setClass(getApplicationContext(), AboutPetsActivity.class);
 			startActivity(intent);
 			FunctionGuideActivity.this.finish();
-			return false;
+			return true;
 		}
 		return super.onKeyDown(keyCode, event);
 	}

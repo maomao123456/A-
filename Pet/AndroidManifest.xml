@@ -64,34 +64,40 @@
         <!-- 资料信息界面 -->
         <activity
             android:name="com.example.pet.DataInformationActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <!-- 账户管理界面 -->
         <activity
             android:name="com.example.pet.AccountManagerActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <!-- 修改密码界面 -->
         <activity android:name="com.example.pet.ResetPasswordActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:launchMode="singleTask" />
         <!-- 修改手机号界面 -->
         <activity android:name="com.example.pet.ResetTelephoneActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:launchMode="singleTask" />
         <!-- 修改邮箱界面 -->
         <activity android:name="com.example.pet.ResetEmailActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:launchMode="singleTask" />
         <!-- 修改密保设置界面 -->
-        <activity android:name="com.example.pet.ResetSecuritySetActivity" />
+        <activity android:name="com.example.pet.ResetSecuritySetActivity"
+            android:launchMode="singleTask" />
         <!-- 关于萌宠界面 -->
         <activity
             android:name="com.example.pet.AboutPetsActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <!-- 功能介绍页面  -->
-        <activity android:name="com.example.pet.FunctionGuideActivity" />
+        <activity android:name="com.example.pet.FunctionGuideActivity"
+            android:launchMode="singleTask" />
         <!-- 设置界面 -->
-         <activity android:name="com.example.pet.SetActivity"/>
+         <activity android:name="com.example.pet.SetActivity"
+             android:launchMode="singleTask" />
         <!--意见反馈界面 -->
         <activity
             android:name="com.example.pet.FeedbackActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <!-- 用户帮助界面  -->
         <activity android:name="com.example.pet.UserHelpActivity" />"
         <!-- 广场详情页面 -->
