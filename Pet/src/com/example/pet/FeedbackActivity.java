@@ -52,7 +52,7 @@ public class FeedbackActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);// 取消标题栏
 		setContentView(R.layout.activity_feedback);
 		SysApplication.getInstance().addActivity(this);
-		initView();		
+		initView();
 	}
 
 	// 初始化视图
@@ -69,7 +69,7 @@ public class FeedbackActivity extends Activity {
 		backSet.setOnClickListener(clickListener);
 		closeFeedback.setOnClickListener(clickListener);
 		inputFeedback.addTextChangedListener(new EditChangedlistener());
-		num.setText(MaxNum);
+		num.setText(MaxNum + "");
 		submitFeedback.setOnClickListener(clickListener);
 	}
 
@@ -119,31 +119,26 @@ public class FeedbackActivity extends Activity {
 	 */
 	// 文本输入框监听方法
 	class EditChangedlistener implements TextWatcher {
-		private CharSequence temp;// 监听前的文本
-		private int editStart;// 光标开始位置
-		private int editEnd;// 光标结束位置
+
+		// 输入文字后的状态
+		public void afterTextChanged(Editable arg0) {
+			// TODO Auto-generated method stub
+
+		}
 
 		// 输入文本之前的状态
-		public void beforeTextChanged(CharSequence s, int start, int count,
-				int after) {
-			temp = s;
+		public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+				int arg3) {
+			// TODO Auto-generated method stub
+
 		}
 
 		// 输入文字中的状态，count是一次性输入字符数
-		public void onTextChanged(CharSequence s, int start, int before,
-				int count) {
-			num.setText(MaxNum-(s.length()));
-		}
+		public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+				int arg3) {
+			// TODO Auto-generated method stub
+			num.setText(MaxNum - (arg0.length()) + "");
 
-		// 输入文字后的状态
-		public void afterTextChanged(Editable s) {
-			editStart = inputFeedback.getSelectionStart();
-			editEnd = inputFeedback.getSelectionEnd();
-			if (temp.length() > MaxNum) {
-				s.delete(editStart - 1, editEnd);
-				inputFeedback.setText(s);
-				inputFeedback.setSelection(s.length());
-			}
 		}
 
 	}
