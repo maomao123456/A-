@@ -1,13 +1,10 @@
+
 package com.example.pet;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -20,7 +17,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -49,7 +46,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
-
 import com.example.pet.lei.PhoneTy;
 
 
@@ -314,6 +310,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	public void complete() {
 		toast("正在为你注册...");
 		new Thread(new Runnable() {
+			@SuppressWarnings("unused")
 			public void run() {
 				String httpUrl = "http://192.168.1.192/index.php/Home/Api/add";//PHP接口地址
 				HttpPost httpRequest = new HttpPost(httpUrl);//http用post方法请求数据
@@ -386,7 +383,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	}
 	public void changeTime(){
 		 thread = new Thread() { 
-		      public void run() { 
+		      @SuppressWarnings("unused")
+			public void run() { 
 		        if (tag) { 
 		          while (time > 0) { 
 		            time--; 
@@ -422,6 +420,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		    }; 
 		    thread.start(); 
 	}
+	@SuppressLint("HandlerLeak")
 	Handler handler = new Handler() {    
         public void handleMessage(Message msg) {    
             if(msg.what==3){ 
