@@ -1,7 +1,5 @@
 package com.example.pet;
 
-import java.io.File;
-
 import com.example.pet.classes.SysApplication;
 
 import android.annotation.SuppressLint;
@@ -11,10 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -93,7 +88,7 @@ public class SetActivity extends Activity {
 				}
 				break;
 			case R.id.share_next:
-				
+				share();
 				break;
 
 			case R.id.feedback_next:
@@ -125,17 +120,13 @@ public class SetActivity extends Activity {
 	};
 
 	//分享
-    public void shareSingleImage(View view) {
-        String imagePath = Environment.getExternalStorageDirectory() + File.separator + "hs.jpg";
-        //由文件得到uri
-        Uri imageUri = Uri.fromFile(new File(imagePath));
-        Log.d("share", "uri:" + imageUri);  //输出：file:///storage/emulated/0/test.jpg
-
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-        shareIntent.setType("image/*");
-        startActivity(Intent.createChooser(shareIntent, "分享到"));
+    public void share() {
+    	Intent intent=new Intent(Intent.ACTION_SEND); 
+    	intent.setType("image/*"); 
+    	intent.putExtra(Intent.EXTRA_SUBJECT, "Share"); 
+    	intent.putExtra(Intent.EXTRA_TEXT, "New Message");  
+    	intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+    	startActivity(Intent.createChooser(intent, getTitle()));
     }
 
 	// 跳转到意见反馈界面
@@ -145,7 +136,7 @@ public class SetActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	//跳转到用户帮助界面
+	//跳转到用户帮助界面 
 	private void toUserHelp(){
 		Intent intent = new Intent();
 		intent.setClass(getApplicationContext(), UserHelpActivity.class);
