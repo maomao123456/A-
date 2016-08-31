@@ -3,16 +3,8 @@ package com.example.pet;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.SharedPreferences.Editor;
-
-import com.example.pet.classes.SysApplication;
-import com.example.pet.fragment.DongTaiFragment;
-import com.example.pet.fragment.GonglueFragment;
-import com.example.pet.fragment.MineFragment;
-import com.example.pet.fragment.PetSquareFragment;
-import com.example.pet.fragment.ResourceFragment;
-import com.example.pet.fragmentadapter.MainFragmentAdapter;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -23,6 +15,14 @@ import android.view.View.OnClickListener;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.example.pet.classes.SysApplication;
+import com.example.pet.fragment.DongTaiFragment;
+import com.example.pet.fragment.GonglueFragment;
+import com.example.pet.fragment.MineFragment;
+import com.example.pet.fragment.PetSquareFragment;
+import com.example.pet.fragment.ResourceFragment;
+import com.example.pet.fragmentadapter.MainFragmentAdapter;
 /**
  * 登录后的页面,也是存放介个fragment的页面
  */
@@ -39,9 +39,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener{
 	RadioButton mine;
 	List<Fragment> fragmentList;
 	MainFragmentAdapter fragmentAdapter;
+	static Activity instance;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		instance=this;
 		setContentView(R.layout.activity_main);
 		SysApplication.getInstance().addActivity(this);
 		saveZhuangtai();
@@ -58,14 +60,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener{
 		Editor editor=getSharedPreferences("pet", MODE_PRIVATE).edit();
     	editor.putInt("kills", 0);
     	editor.commit();
-	}
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		Editor editor=getSharedPreferences("pet", MODE_PRIVATE).edit();
-    	editor.putInt("kills", 1);
-    	editor.commit();
-		super.onDestroy();
 	}
 	@Override
 	protected void onStop() {

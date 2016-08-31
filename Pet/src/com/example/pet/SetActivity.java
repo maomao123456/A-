@@ -2,8 +2,6 @@ package com.example.pet;
 
 import java.io.File;
 
-import com.example.pet.classes.SysApplication;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -28,6 +26,8 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.example.pet.classes.SysApplication;
 
 public class SetActivity extends Activity {
 
@@ -212,6 +212,7 @@ public class SetActivity extends Activity {
 						intent.setClass(getApplicationContext(),
 								LoginActivity.class);
 						startActivity(intent);
+						MainActivity.instance.finish();
 						SetActivity.this.finish();
 					}
 				})

@@ -500,7 +500,7 @@ public class LoginActivity extends Activity  implements OnClickListener{
 				String touxiang = jsonObject.getString("figureurl_qq_2");
 				loName.setText(name);
 				saveLogin();
-				threeTz(3, name, "无", six, touxiang, city);
+				threeTz(3, name, "", six, touxiang, city);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
