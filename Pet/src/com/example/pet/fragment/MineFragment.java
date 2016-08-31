@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -73,6 +72,7 @@ public class MineFragment extends Fragment {
 	 * 获取用户登录后的个人信息
 	 * (并判断是否为第三方登录)
 	 */
+	@SuppressWarnings("static-access")
 	public void getUserIfon(){
 		/**
 		 * 第三方登录返回的头像地址
@@ -116,6 +116,7 @@ public class MineFragment extends Fragment {
 	/**
 	 * 根据用户登录的状况来刷新UI
 	 */
+	@SuppressLint("HandlerLeak")
 	Handler handler=new Handler(){
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
