@@ -41,8 +41,8 @@ public class FeedbackActivity extends Activity {
 	ImageButton backSet;// 返回设置页面
 	Button closeFeedback, submitFeedback;// 关闭意见反馈页面，提交反馈的意见
 	EditText inputFeedback, contantPhone;// 输入反馈的意见和电话联系方式
-	ImageView addImage;// 添加图片
-	TextView textPrompt, num;// 提示用户输入正确的电话号码，还可以输入的字符数
+	ImageView addImage;// 添加图片	
+	TextView textPrompt, num, promptImage;// 提示用户输入正确的电话号码，还可以输入的字符数，图片添加说明文字
 	private final int MaxNum = 400;// 输入文字显示的最大数字
 
 	@Override
@@ -64,12 +64,14 @@ public class FeedbackActivity extends Activity {
 		contantPhone = (EditText) findViewById(R.id.input_contant_phone);
 		addImage = (ImageView) findViewById(R.id.add_pictrue);
 		textPrompt = (TextView) findViewById(R.id.text_prompt);
+		promptImage = (TextView) findViewById(R.id.prompt_picture);
 		num = (TextView) findViewById(R.id.max_num);
 		// 触发点击
 		backSet.setOnClickListener(clickListener);
 		closeFeedback.setOnClickListener(clickListener);
 		inputFeedback.addTextChangedListener(new EditChangedlistener());
 		num.setText(MaxNum + "");
+		addImage.setOnClickListener(clickListener);
 		submitFeedback.setOnClickListener(clickListener);
 	}
 
@@ -82,6 +84,9 @@ public class FeedbackActivity extends Activity {
 				break;
 			case R.id.close_feedback:
 				closeFeedback();
+				break;
+			case R.id.add_pictrue:
+				promptImage.setText("暂不提供图片添加功能");
 				break;
 			case R.id.submit_feedback:
 				if (!checkEdit()) {

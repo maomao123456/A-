@@ -89,12 +89,14 @@
                 android:src="@drawable/add_pictrue" />
 
             <TextView
+                android:id="@+id/prompt_picture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_toRightOf="@+id/add_pictrue"
+                android:layout_toEndOf="@+id/add_pictrue"
                 android:text="@string/add_picture"
                 android:textColor="@color/hint_word_color"
                 android:textSize="14sp" />

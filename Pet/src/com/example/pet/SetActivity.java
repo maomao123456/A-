@@ -1,15 +1,18 @@
 package com.example.pet;
 
+import com.example.pet.classes.DataClearManager;
 import com.example.pet.classes.SysApplication;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -23,7 +26,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 public class SetActivity extends Activity {
 
@@ -101,12 +104,16 @@ public class SetActivity extends Activity {
 
 			case R.id.clear_cache_next:
 				new AlertDialog.Builder(SetActivity.this)
-						.setMessage("确定清除缓存吗？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int whitch) {
-								
-							}
-						})
-						.setNegativeButton("取消", null).show();
+						.setMessage("确定清除缓存吗？")
+						.setPositiveButton("确定",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int whitch) {
+										DataClearManager
+												.cleanInternalCache(getApplicationContext());
+										toastClearCache();
+									}
+								}).setNegativeButton("取消", null).show();
 				break;
 
 			case R.id.exit_login:
@@ -120,15 +127,31 @@ public class SetActivity extends Activity {
 		}
 	};
 
-	//分享
-    public void share() {
-    	Intent intent=new Intent(Intent.ACTION_SEND); 
-    	intent.setType("image/*"); 
-    	intent.putExtra(Intent.EXTRA_SUBJECT, "Share"); 
-    	intent.putExtra(Intent.EXTRA_TEXT, "New Message");  
-    	intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-    	startActivity(Intent.createChooser(intent, getTitle()));
-    }
+	// 清除缓存提示
+	public void toastClearCache() {
+		final ProgressDialog progressDialog = new ProgressDialog(this);
+		progressDialog.setMessage("正在清除缓存....");
+		progressDialog.show();
+		Handler mHandler = new Handler();
+		mHandler.postDelayed(new Runnable() {
+			public void run() {
+				progressDialog.dismiss();
+				Toast.makeText(getApplicationContext(), "缓存清除完成！",
+						Toast.LENGTH_SHORT).show();
+			}
+		}, 3000);
+
+	}
+
+	// 分享
+	public void share() {
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("image/*");
+		intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
+		intent.putExtra(Intent.EXTRA_TEXT, "New Message");
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(Intent.createChooser(intent, getTitle()));
+	}
 
 	// 跳转到意见反馈界面
 	private void toFeedback() {
@@ -136,9 +159,9 @@ public class SetActivity extends Activity {
 		intent.setClass(getApplicationContext(), FeedbackActivity.class);
 		startActivity(intent);
 	}
-	
-	//跳转到用户帮助界面 
-	private void toUserHelp(){
+
+	// 跳转到用户帮助界面
+	private void toUserHelp() {
 		Intent intent = new Intent();
 		intent.setClass(getApplicationContext(), UserHelpActivity.class);
 		startActivity(intent);
@@ -215,14 +238,15 @@ public class SetActivity extends Activity {
 					}
 				}).show();
 	}
+
 	/**
 	 * 退出时缓存用户已是退出状态 下次登录时需要进入登录界面
 	 */
-	public void saveLoginOut(){
-		Editor editor=getSharedPreferences("pet", MODE_PRIVATE).edit();
-    	editor.putInt("kills", 1);
-    	editor.putInt("login", 0);
-    	editor.commit();
+	public void saveLoginOut() {
+		Editor editor = getSharedPreferences("pet", MODE_PRIVATE).edit();
+		editor.putInt("kills", 1);
+		editor.putInt("login", 0);
+		editor.commit();
 	}
 
 	// 退出登录
@@ -234,13 +258,16 @@ public class SetActivity extends Activity {
 					public void onClick(DialogInterface dialog, int whitch) {
 						// 点击"确定"后操作
 						popupWindow.dismiss();
-						//saveLoginOut();
+						// saveLoginOut();
 						SysApplication.getInstance().exit();
-						/*Intent intent = new Intent(Intent.ACTION_MAIN);
-						intent.addCategory(Intent.CATEGORY_HOME);
-						intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						//finish();
-						android.os.Process.killProcess(android.os.Process.myPid());*/
+						/*
+						 * Intent intent = new Intent(Intent.ACTION_MAIN);
+						 * intent.addCategory(Intent.CATEGORY_HOME);
+						 * intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						 * //finish();
+						 * android.os.Process.killProcess(android.os.
+						 * Process.myPid());
+						 */
 					}
 				})
 				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -253,12 +280,9 @@ public class SetActivity extends Activity {
 	}
 
 	// 判断退出登录对话框的点击事件
-	/*public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-			backMine();
-			return false;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
-*/
+	/*
+	 * public boolean onKeyDown(int keyCode, KeyEvent event) { if (keyCode ==
+	 * KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) { backMine();
+	 * return false; } return super.onKeyDown(keyCode, event); }
+	 */
 }
