@@ -94,7 +94,8 @@
         <!-- 用户帮助界面  -->
         <activity android:name="com.example.pet.UserHelpActivity" />"
         <!-- 广场详情页面 -->
-        <activity android:name="com.example.pet.SquareDetailsActivity" />
+        <activity android:name="com.example.pet.SquareDetailsActivity" 
+            android:windowSoftInputMode="adjustPan"/>
         <!-- 相册动态详情页面 -->
         <activity android:name="com.example.pet.DongtaiAlbumDetailsActivity" />
         <!-- 动态   时光轴页面 -->

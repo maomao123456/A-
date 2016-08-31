@@ -80,7 +80,6 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	private boolean tag=true;
 	private static final String APPKEY = "168b024d49944";    
 	private static final String APPSECRETE = "3554d93a1086b52572d38877fa651526"; 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
