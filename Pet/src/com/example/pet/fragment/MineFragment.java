@@ -32,6 +32,7 @@ public class MineFragment extends Fragment {
 	LayoutInflater inflater;
 	View view;
 	String userName, userId;
+	int concern, fans, collection;
 
 	@SuppressLint("InflateParams")
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -145,6 +146,9 @@ public class MineFragment extends Fragment {
 		settings = (RelativeLayout) view.findViewById(R.id.settings_next);
 		user_icon.setImageResource(R.drawable.logo);
 		// 触发点击
+		concern_num.setText(concern + "");
+		fans_num.setText(fans + "");
+		collection_num.setText(collection + "");
 		data_infor.setOnClickListener(clickListener);
 		account_manager.setOnClickListener(clickListener);
 		about_pets.setOnClickListener(clickListener);
@@ -172,6 +176,29 @@ public class MineFragment extends Fragment {
 			}
 		}
 	};
+	
+	//保存用户的关注、粉丝、收藏等信息
+	@SuppressWarnings("static-access")
+	public void toSave(){
+		concern = 0;
+		fans = 0;
+		collection = 0;
+		SharedPreferences share = getActivity().getSharedPreferences("count", getActivity().MODE_PRIVATE);
+		for(int numb = 1;numb < 5;numb++){
+			String str = numb + "关注";
+			String str2 = share.getString(str, "1");
+			if(str2.equals("已关注")){
+				concern++;
+			}
+		}
+		for(int numb = 1; numb < 5; numb++){
+			String str = numb + "收藏";
+			String str2 = share.getString(str, "1");
+			if(str2.equals("已收藏")){
+				collection++;
+			}
+		}
+	}
 
 	// 跳转到资料信息界面
 	private void toDataInfor() {

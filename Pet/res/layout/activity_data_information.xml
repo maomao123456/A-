@@ -43,325 +43,336 @@
             android:textSize="16sp" />
     </RelativeLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="48dp"
-        android:background="@color/white"
-        android:orientation="horizontal" >
+        android:layout_height="wrap_content" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center_vertical"
-            android:text="@string/nickname"
-            android:textColor="@color/mine_word_color"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/input_nickname"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:background="@null"
-            android:hint="@string/input_nickname"
-            android:singleLine="true"
-            android:textColorHint="@color/hint_word_color"
-            android:textSize="14sp" />
-    </LinearLayout>
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:orientation="horizontal" >
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:orientation="horizontal" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center_vertical"
-            android:text="@string/gender"
-            android:textColor="@color/mine_word_color"
-            android:textSize="14sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/nickname"
+                    android:textColor="@color/mine_word_color"
+                    android:textSize="14sp" />
 
-        <RadioGroup
-            android:id="@+id/gender"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+                <EditText
+                    android:id="@+id/input_nickname"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:hint="@string/input_nickname"
+                    android:singleLine="true"
+                    android:textColorHint="@color/hint_word_color"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/boy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:button="@null"
-                android:checked="true"
-                android:drawableEnd="@android:drawable/btn_radio"
-                android:drawableRight="@android:drawable/btn_radio"
-                android:text="@string/boy"
-                android:textColor="@color/mine_word_color"
-                android:textSize="14sp" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:orientation="horizontal" >
 
-            <RadioButton
-                android:id="@+id/girl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:button="@null"
-                android:drawableEnd="@android:drawable/btn_radio"
-                android:drawableRight="@android:drawable/btn_radio"
-                android:text="@string/girl"
-                android:textColor="@color/mine_word_color"
-                android:textSize="14sp" />
-        </RadioGroup>
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/gender"
+                    android:textColor="@color/mine_word_color"
+                    android:textSize="14sp" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:orientation="horizontal" >
+                <RadioGroup
+                    android:id="@+id/gender"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center_vertical"
-            android:text="@string/birth"
-            android:textColor="@color/mine_word_color"
-            android:textSize="14sp" />
+                    <RadioButton
+                        android:id="@+id/boy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:button="@null"
+                        android:checked="true"
+                        android:drawableEnd="@android:drawable/btn_radio"
+                        android:drawableRight="@android:drawable/btn_radio"
+                        android:text="@string/boy"
+                        android:textColor="@color/mine_word_color"
+                        android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/input_birthday"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:background="@null"
-            android:hint="@string/input_birthday"
-            android:singleLine="true"
-            android:textColorHint="@color/hint_word_color"
-            android:textSize="14sp" />
-    </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/girl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:button="@null"
+                        android:drawableEnd="@android:drawable/btn_radio"
+                        android:drawableRight="@android:drawable/btn_radio"
+                        android:text="@string/girl"
+                        android:textColor="@color/mine_word_color"
+                        android:textSize="14sp" />
+                </RadioGroup>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:orientation="horizontal" >
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:orientation="horizontal" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center_vertical"
-            android:text="@string/star_sign"
-            android:textColor="@color/mine_word_color"
-            android:textSize="14sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/birth"
+                    android:textColor="@color/mine_word_color"
+                    android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/input_star_sign"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:background="@null"
-            android:hint="@string/input_star_sign"
-            android:singleLine="true"
-            android:textColorHint="@color/hint_word_color"
-            android:textSize="14sp" />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/input_birthday"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:hint="@string/input_birthday"
+                    android:singleLine="true"
+                    android:textColorHint="@color/hint_word_color"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="12dp"
-        android:background="@color/white"
-        android:orientation="horizontal" >
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:orientation="horizontal" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center_vertical"
-            android:text="@string/occupation"
-            android:textColor="@color/mine_word_color"
-            android:textSize="14sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/star_sign"
+                    android:textColor="@color/mine_word_color"
+                    android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/input_occupation"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:background="@null"
-            android:hint="@string/input_occupation"
-            android:singleLine="true"
-            android:textColorHint="@color/hint_word_color"
-            android:textSize="14sp" />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/input_star_sign"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:hint="@string/input_star_sign"
+                    android:singleLine="true"
+                    android:textColorHint="@color/hint_word_color"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:orientation="horizontal" >
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+                android:orientation="horizontal" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center_vertical"
-            android:text="@string/company"
-            android:textColor="@color/mine_word_color"
-            android:textSize="14sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/occupation"
+                    android:textColor="@color/mine_word_color"
+                    android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/input_company"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:background="@null"
-            android:hint="@string/input_company"
-            android:singleLine="true"
-            android:textColorHint="@color/hint_word_color"
-            android:textSize="14sp" />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/input_occupation"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:hint="@string/input_occupation"
+                    android:singleLine="true"
+                    android:textColorHint="@color/hint_word_color"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:orientation="horizontal" >
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:orientation="horizontal" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center_vertical"
-            android:text="@string/address"
-            android:textColor="@color/mine_word_color"
-            android:textSize="14sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/company"
+                    android:textColor="@color/mine_word_color"
+                    android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/input_address"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:background="@null"
-            android:hint="@string/input_address"
-            android:singleLine="true"
-            android:textColorHint="@color/hint_word_color"
-            android:textSize="14sp" />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/input_company"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:hint="@string/input_company"
+                    android:singleLine="true"
+                    android:textColorHint="@color/hint_word_color"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:orientation="horizontal" >
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:orientation="horizontal" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center_vertical"
-            android:text="@string/hometown"
-            android:textColor="@color/mine_word_color"
-            android:textSize="14sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/address"
+                    android:textColor="@color/mine_word_color"
+                    android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/input_hometown"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:background="@null"
-            android:hint="@string/input_address"
-            android:singleLine="true"
-            android:textColorHint="@color/hint_word_color"
-            android:textSize="14sp" />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/input_address"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:hint="@string/input_address"
+                    android:singleLine="true"
+                    android:textColorHint="@color/hint_word_color"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:orientation="horizontal" >
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:orientation="horizontal" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center_vertical"
-            android:text="@string/email"
-            android:textColor="@color/mine_word_color"
-            android:textSize="14sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/hometown"
+                    android:textColor="@color/mine_word_color"
+                    android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/input_mail"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:background="@null"
-            android:hint="@string/input_email"
-            android:inputType="textEmailAddress"
-            android:singleLine="true"
-            android:textColorHint="@color/hint_word_color"
-            android:textSize="14sp" />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/input_hometown"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:hint="@string/input_address"
+                    android:singleLine="true"
+                    android:textColorHint="@color/hint_word_color"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:orientation="horizontal" >
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:orientation="horizontal" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center_vertical"
-            android:text="@string/personality_desdcript"
-            android:textColor="@color/mine_word_color"
-            android:textSize="14sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/email"
+                    android:textColor="@color/mine_word_color"
+                    android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/input_personality_desdcript"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:background="@null"
-            android:hint="@string/input_personality_desdcript"
-            android:textColorHint="@color/hint_word_color"
-            android:textSize="14sp" />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/input_mail"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:hint="@string/input_email"
+                    android:inputType="textEmailAddress"
+                    android:singleLine="true"
+                    android:textColorHint="@color/hint_word_color"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/personality_desdcript"
+                    android:textColor="@color/mine_word_color"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/input_personality_desdcript"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:hint="@string/input_personality_desdcript"
+                    android:textColorHint="@color/hint_word_color"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
