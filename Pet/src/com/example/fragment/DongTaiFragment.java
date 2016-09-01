@@ -88,6 +88,7 @@ public class DongTaiFragment extends Fragment{
 	            } 
 	            else{ 
 	                holder=(ViewHolder)convertView.getTag(); 
+	               
 	            } 
 	            holder.image.setImageResource(imgs[position]); 
 	            holder.text.setText(texts[position]); 
