@@ -5,23 +5,13 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.SharedPreferences.Editor;
-
-import com.example.pet.fragment.DongTaiFragment;
-import com.example.pet.fragment.GonglueFragment;
-import com.example.pet.fragment.MineFragment;
-import com.example.pet.fragment.PetSquareFragment;
-import com.example.pet.fragment.ResourceFragment;
-import com.example.pet.fragmentadapter.MainFragmentAdapter;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -61,7 +51,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener{
 		getData();
 		fragmentAdapter=new MainFragmentAdapter(
 				getSupportFragmentManager(), fragmentList);
-		viewPager.setAdapter(fragmentAdapter);	
+		viewPager.setAdapter(fragmentAdapter);
 	}
 	/**
 	 * 保存APP初始状态
@@ -251,5 +241,4 @@ public class MainActivity extends FragmentActivity implements OnClickListener{
 		MineFragment mineFragment=new MineFragment();
 		fragmentList.add(mineFragment);
 	}
-	
 }

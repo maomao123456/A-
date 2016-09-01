@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.AdapterView;
@@ -38,8 +39,11 @@ import com.example.pet.baseadapter.SquareAdapter;
 import com.example.pet.lei.SquareGridview;
 import com.example.pet.lei.SquareListview;
 
-@SuppressLint("InflateParams")
-public class PetSquareFragment extends Fragment implements OnGestureListener{
+public class PetSquareFragment extends Fragment {
+	float x1 = 0;
+	float x2 = 0;
+	float y1 = 0;
+	float y2 = 0;
 	View view;
 	View headview;
 	View itemview;
@@ -98,8 +102,87 @@ public class PetSquareFragment extends Fragment implements OnGestureListener{
 		pet2.setOnClickListener(clickListener);
 		pet3.setOnClickListener(clickListener);
 		pet4.setOnClickListener(clickListener);
-		mGestureDetector=new GestureDetector(this);
+		viewflipper.setOnTouchListener(touchListener);
 	}
+	/**
+	 * viewerFlipper的手势监听
+	 */
+	OnTouchListener touchListener=new OnTouchListener() {
+		public boolean onTouch(View v, MotionEvent event) {
+			 switch (event.getAction()) {  
+			 case MotionEvent.ACTION_DOWN:
+				 ((ViewParent) v.getParent()).requestDisallowInterceptTouchEvent(true);
+				// 当手指按下的时候
+					x1 = event.getX();
+					y1 = event.getY();
+			    case MotionEvent.ACTION_MOVE:   
+			        break;
+			    case MotionEvent.ACTION_UP: 
+			    	 // 当手指离开的时候
+					x2 = event.getX();
+					y2 = event.getY();
+					if (y1 - y2 > 50) {// 向上滑
+					} else if (y2 - y1 > 50) {// 向下滑
+					} else if (x1 - x2 > 20) {// 向左滑 下一页
+						if (viewflipper.getDisplayedChild() == 0) {
+							viewflipper.stopFlipping();
+							viewflipper.setDisplayedChild(1);
+							radiobutton2.setChecked(true);
+							viewflipper.startFlipping();
+						} else if (viewflipper.getDisplayedChild() == 1) {
+							viewflipper.stopFlipping();
+							viewflipper.setDisplayedChild(2);
+							radiobutton3.setChecked(true);
+							viewflipper.startFlipping();
+						} else if (viewflipper.getDisplayedChild() == 2) {
+							viewflipper.stopFlipping();
+							radiobutton4.setChecked(true);
+							viewflipper.startFlipping();
+						} else if (viewflipper.getDisplayedChild() == 3) {
+							viewflipper.stopFlipping();
+							viewflipper.setDisplayedChild(2);
+							radiobutton5.setChecked(true);
+							viewflipper.startFlipping();
+						} else if (viewflipper.getDisplayedChild() == 4) {
+							viewflipper.stopFlipping();
+							radiobutton1.setChecked(true);
+							viewflipper.startFlipping();
+						}
+					} else if (x2 - x1 > 20) {// 向右滑 上一页
+						if (viewflipper.getDisplayedChild() == 0) {
+							viewflipper.stopFlipping();
+							radiobutton5.setChecked(true);
+							viewflipper.startFlipping();
+						} else if (viewflipper.getDisplayedChild() == 1) {
+							viewflipper.stopFlipping();
+							viewflipper.setDisplayedChild(0);
+							radiobutton1.setChecked(true);
+							viewflipper.startFlipping();
+						} else if (viewflipper.getDisplayedChild() == 2) {
+							viewflipper.stopFlipping();
+							viewflipper.setDisplayedChild(1);
+							radiobutton2.setChecked(true);
+							viewflipper.startFlipping();
+						} else if (viewflipper.getDisplayedChild() == 3) {
+							viewflipper.stopFlipping();
+							viewflipper.setDisplayedChild(0);
+							radiobutton3.setChecked(true);
+							viewflipper.startFlipping();
+						} else if (viewflipper.getDisplayedChild() == 4) {
+							viewflipper.stopFlipping();
+							viewflipper.setDisplayedChild(1);
+							radiobutton4.setChecked(true);
+							viewflipper.startFlipping();
+						}
+					}
+					break;
+			   /* case MotionEvent.ACTION_CANCEL:  
+			        ((ViewParent) v.getParent()).requestDisallowInterceptTouchEvent(false);  
+			        break;*/  
+			    }  
+			return true;
+		}
+	};
 	/**
 	 * 图片轮播来改变底下小圆点的颜色
 	 */
@@ -280,59 +363,4 @@ public class PetSquareFragment extends Fragment implements OnGestureListener{
 		square.setList(list_gridview);
 		list.add(square);
 	}
-	/**
-	 * 手势监听
-	 */
-	GestureDetector mGestureDetector;
-	public boolean onTouchEvent(MotionEvent event) {
-		Log.i(""+event,""+event);
-		viewflipper.stopFlipping();
-		return mGestureDetector.onTouchEvent(event);
-		
-	};
-	@Override
-	public boolean onDown(MotionEvent e) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public void onShowPress(MotionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public boolean onSingleTapUp(MotionEvent e) {
-		// TODO Auto-generated method stub
-		viewflipper.startFlipping();
-		return false;
-	}
-	@Override
-	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
-			float distanceY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public void onLongPress(MotionEvent e) {
-		// TODO Auto-generated method stub
-		viewflipper.stopFlipping();
-		
-	}
-	@Override
-	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-			float velocityY) {
-		// TODO Auto-generated method stub
-		if(e1.getX()-e2.getX()>0){
-			viewflipper.showNext();
-		}else if(e1.getX()-e2.getX()<0){
-			viewflipper.showPrevious();
-		}
-		return false;
-	}
-	 public boolean dispatchTouchEvent(MotionEvent ev) { 
-	    	((ViewParent) getActivity().getParent()).requestDisallowInterceptTouchEvent(true);
-	    	//super.dispatchTouchEvent(ev);  
-	          onTouchEvent(ev);  //进行子View手势的相应操作  
-	          return true;  
-	    }
 }
