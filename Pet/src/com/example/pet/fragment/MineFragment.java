@@ -333,7 +333,7 @@ public class MineFragment extends Fragment {
 		if (extras != null) {
 			Bitmap photo = extras.getParcelable("data");
 			user_icon.setImageBitmap(photo);
-			//新建文件夹 
+			/*//新建文件夹 
 			File nfile = new File(Environment.getExternalStorageDirectory() + "/ask");
 			nfile.mkdir();
 			//在根目录下面的ask文件夹下，创建temp_head_image.jpg文件
@@ -351,7 +351,7 @@ public class MineFragment extends Fragment {
 				}
 			}catch(FileNotFoundException e){
 				e.printStackTrace();
-			}
+			}*/
 		}
 	}
 
