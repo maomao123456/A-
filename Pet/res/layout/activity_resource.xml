@@ -193,12 +193,16 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:gravity="center"
+                            android:textSize="14sp"
+                            android:textColor="#333333"
                             android:text="苏菲16177729" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:textColor="#ABABAB"
                             android:gravity="center"
                             android:text="12天前" />
                     </LinearLayout>
@@ -218,16 +222,45 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal" >
 
+                    <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1" >
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/homepage_personage_pic1" />
 
-                    <ImageView
-                        android:layout_width="185dp"
+                    <TextView
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:scaleType="fitXY"
+                        android:layout_alignParentBottom="true"
+                        android:alpha="0.5"
+                        android:background="@color/gray"
+                        android:gravity="center"
+                        android:text="宠物店" />
+                </RelativeLayout>
+
+                   <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/homepage_personage_pic2" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:alpha="0.5"
+                        android:background="@color/gray"
+                        android:gravity="center"
+                        android:text="宠物店" />
+                </RelativeLayout>
                 </LinearLayout>
                 
                <TextView 
