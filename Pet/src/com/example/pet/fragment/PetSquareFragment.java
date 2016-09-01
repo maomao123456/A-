@@ -3,17 +3,21 @@ package com.example.pet.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.GestureDetector.OnGestureListener;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
@@ -23,17 +27,19 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.example.pet.MainActivity;
 import com.example.pet.PetDetailsActivity;
+import com.example.pet.PublishPetActivity;
 import com.example.pet.R;
 import com.example.pet.SquareDetailsActivity;
 import com.example.pet.baseadapter.SquareAdapter;
 import com.example.pet.lei.SquareGridview;
 import com.example.pet.lei.SquareListview;
 
-public class PetSquareFragment extends Fragment {
+@SuppressLint("InflateParams")
+public class PetSquareFragment extends Fragment implements OnGestureListener{
 	View view;
 	View headview;
 	View itemview;
@@ -51,6 +57,7 @@ public class PetSquareFragment extends Fragment {
 			,R.id.text_guanzhu_square,R.id.text_miaoshu_square,R.id.gridview_square
 			,R.id.address_image_square,R.id.text_address_square,
 			 R.id.text_collection_square,R.id.text_pinglun_square};
+	@SuppressLint("InflateParams")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -87,9 +94,11 @@ public class PetSquareFragment extends Fragment {
 		img_next=(ImageView)headview.findViewById(R.id.image_next_square);
 		radiogroup.setOnCheckedChangeListener(checkedChangeListener);
 		img_next.setOnClickListener(clickListener);
+		pet_daren.setOnClickListener(clickListener);
 		pet2.setOnClickListener(clickListener);
 		pet3.setOnClickListener(clickListener);
 		pet4.setOnClickListener(clickListener);
+		mGestureDetector=new GestureDetector(this);
 	}
 	/**
 	 * 图片轮播来改变底下小圆点的颜色
@@ -137,6 +146,7 @@ public class PetSquareFragment extends Fragment {
 		}).start();
 	}
 
+	@SuppressLint("HandlerLeak")
 	Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			buttonChange();
@@ -204,6 +214,11 @@ public class PetSquareFragment extends Fragment {
 			case R.id.image_pet4_square:
 				startActivity(new Intent(getActivity(),PetDetailsActivity.class));
 				break;
+			case R.id.text_pet_talent_square:
+				startActivity(new Intent(getActivity(),PublishPetActivity.class));
+				break;
+			default:
+				break;
 			}
 		}
 	};
@@ -265,4 +280,59 @@ public class PetSquareFragment extends Fragment {
 		square.setList(list_gridview);
 		list.add(square);
 	}
+	/**
+	 * 手势监听
+	 */
+	GestureDetector mGestureDetector;
+	public boolean onTouchEvent(MotionEvent event) {
+		Log.i(""+event,""+event);
+		viewflipper.stopFlipping();
+		return mGestureDetector.onTouchEvent(event);
+		
+	};
+	@Override
+	public boolean onDown(MotionEvent e) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void onShowPress(MotionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public boolean onSingleTapUp(MotionEvent e) {
+		// TODO Auto-generated method stub
+		viewflipper.startFlipping();
+		return false;
+	}
+	@Override
+	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+			float distanceY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void onLongPress(MotionEvent e) {
+		// TODO Auto-generated method stub
+		viewflipper.stopFlipping();
+		
+	}
+	@Override
+	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+			float velocityY) {
+		// TODO Auto-generated method stub
+		if(e1.getX()-e2.getX()>0){
+			viewflipper.showNext();
+		}else if(e1.getX()-e2.getX()<0){
+			viewflipper.showPrevious();
+		}
+		return false;
+	}
+	 public boolean dispatchTouchEvent(MotionEvent ev) { 
+	    	((ViewParent) getActivity().getParent()).requestDisallowInterceptTouchEvent(true);
+	    	//super.dispatchTouchEvent(ev);  
+	          onTouchEvent(ev);  //进行子View手势的相应操作  
+	          return true;  
+	    }
 }

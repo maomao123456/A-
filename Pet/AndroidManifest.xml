@@ -33,6 +33,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     
 	<application
         android:allowBackup="true"
@@ -40,7 +41,8 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         <activity
-            android:name=".MainActivity"
+            android:name=".GuideActivity"
+            android:launchMode="singleTask"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -49,14 +51,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-       <!--  <activity android:name="com.example.pet.GuideActivity" /> -->
        <!-- 进程被杀死后再进入的开启动画 -->
         <activity android:name="com.example.pet.KaiQiActivity"/>
         <activity android:name="com.example.pet.LoginActivity"/>
         <activity android:name="com.example.pet.RegisterActivity" />
         <activity android:name="com.example.pet.XieYiActivity" />
         <!--主页面  -->
-        <activity android:name="com.example.pet.GuideActivity"
+        <activity android:name="com.example.pet.MainActivity"
             android:launchMode="singleTask"/>
         <!-- 我的界面 -->
         <activity android:name="com.example.pet.MineActivity" />
@@ -101,6 +102,9 @@
         <activity android:name="com.example.pet.NewAlbumActivity" />
         <!-- 宠物达人  宠物详情页面 -->
         <activity android:name="com.example.pet.PetDetailsActivity" />
+        <!-- 宠物达人  发布宠物页面 -->
+        <activity android:name="com.example.pet.PublishPetActivity" 
+            android:launchMode="singleTop"/>
         <activity
             android:name="com.example.pet.DianpingActivity"
             android:launchMode="singleTop" />

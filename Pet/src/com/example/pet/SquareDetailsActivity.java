@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -38,6 +39,7 @@ public class SquareDetailsActivity extends Activity{
 	RelativeLayout back;
 	TextView fabu,guanzhu;
 	String str1;//在本页设置的关注情况
+	EditText editText;
 	
 	int[] id={R.id.head_pinglun_xiangqing_square,R.id.name_pinglun_xiangqing_square
 			,R.id.pinglun_xiangqing_square,R.id.time_pinglun_xiangqing_square};
@@ -71,6 +73,7 @@ public class SquareDetailsActivity extends Activity{
 		fabu.setOnClickListener(onClickListener);
 		guanzhu=(TextView)headview.findViewById(R.id.text_guanzhu_xiangqing_square);
 		guanzhu.setOnClickListener(onClickListener);
+		editText=(EditText)findViewById(R.id.edittext_square_album);
 	}
 	OnClickListener onClickListener=new OnClickListener() {
 		
