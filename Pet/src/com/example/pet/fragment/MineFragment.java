@@ -1,6 +1,8 @@
 package com.example.pet.fragment;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -192,7 +194,7 @@ public class MineFragment extends Fragment {
 		}
 	};
 
-	//更改头像
+	// 更改头像
 	@SuppressWarnings("deprecation")
 	public void createUpdateIconPopupWindow() {
 		// 初始化一个popupWindow的对象并给以长宽
@@ -222,11 +224,13 @@ public class MineFragment extends Fragment {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				takePhotot();
+				popupWindow.dismiss();
 			}
 		});
 		album.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				fromGallery();
+				popupWindow.dismiss();
 			}
 		});
 
@@ -249,7 +253,6 @@ public class MineFragment extends Fragment {
 	private static final int IMAGE_REQUEST_CODE = 0;
 	private static final int CAMERA_REQUEST_CODE = 1;
 	private static final int RESULT_REQUEST_CODE = 2;
-	private static final int RESULT_CANCELED = 3;
 	// 剪裁后图片的宽(X)和高(Y),138 X 138的正方形
 	private static int output_X = 138;
 	private static int output_Y = 138;
@@ -257,22 +260,28 @@ public class MineFragment extends Fragment {
 	// 拍照
 	private void takePhotot() {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		//指定调用相机拍照后的照片储存的路径
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
+		startActivityForResult(intent, CAMERA_REQUEST_CODE);	
 		// 判断储存卡是否可用，储存照片文件
 		if (hasSdcard()) {
 			intent.putExtra(MediaStore.EXTRA_OUTPUT,
 					Uri.fromFile(new File(Environment
 							.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
 
-		}
-		startActivityForResult(intent, CAMERA_REQUEST_CODE);
+		}	
+	}
+
+	// 从本地相册选取图片作为头像
+	private void fromGallery() {
+		Intent intent = new Intent(Intent.ACTION_PICK, null);
+		//调用相机拍照后的照片储存
+		intent.setType("image/*");
+		intent.setAction(Intent.ACTION_GET_CONTENT);
+		startActivityForResult(intent, IMAGE_REQUEST_CODE);
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		// 用户没有进行有效的设置操作，返回
-		if (resultCode == RESULT_CANCELED) {
-			Toast.makeText(getActivity(), "取消", Toast.LENGTH_SHORT).show();
-			return;
-		}
 		switch (requestCode) {
 		case IMAGE_REQUEST_CODE:
 			cropRawPhoto(intent.getData());
@@ -291,6 +300,7 @@ public class MineFragment extends Fragment {
 		case RESULT_REQUEST_CODE:
 			if (intent != null) {
 				setIconView(intent);
+				user_icon.setImageBitmap(bitmap);
 			}
 			break;
 
@@ -322,6 +332,25 @@ public class MineFragment extends Fragment {
 		if (extras != null) {
 			Bitmap photo = extras.getParcelable("data");
 			user_icon.setImageBitmap(photo);
+			//新建文件夹 
+			File nfile = new File(Environment.getExternalStorageDirectory() + "/ask");
+			nfile.mkdir();
+			//在根目录下面的ask文件夹下，创建temp_head_image.jpg文件
+			File file = new File(Environment.getExternalStorageDirectory() + "/ask", "icon.jpg");
+			FileOutputStream fos = null;
+			try{
+				//打开输出流，将图片数据填入文件中
+				fos = new FileOutputStream(file);
+				photo.compress(Bitmap.CompressFormat.PNG, 138, fos);
+				try{
+					fos.flush();
+					fos.close();
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}catch(FileNotFoundException e){
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -334,14 +363,6 @@ public class MineFragment extends Fragment {
 			return false;
 		}
 
-	}
-
-	// 从本地相册选取图片作为头像
-	private void fromGallery() {
-		Intent intent = new Intent();
-		intent.setType("image/*");
-		intent.setAction(Intent.ACTION_GET_CONTENT);
-		startActivityForResult(intent, IMAGE_REQUEST_CODE);
 	}
 
 	// 保存用户的关注、粉丝、收藏等信息
