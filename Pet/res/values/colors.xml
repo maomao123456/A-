@@ -40,4 +40,5 @@
 	 <color name="bg_text_shadow">#f6f6f6</color>
 	 <color name="bg_add">#f2ebd9</color>
 	 <color name="bg_bottom">#e4e4e4</color>
+	 <color name="pop_bg">#EFF3FF</color>
 </resources>

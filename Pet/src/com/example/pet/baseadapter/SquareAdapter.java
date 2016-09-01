@@ -100,7 +100,7 @@ public class SquareAdapter extends BaseAdapter{
 				R.layout.gridview_item_square, R.id.gridview_item_grid);
 		gridView.setAdapter(adapter);
 		gridView.setNumColumns(square.getList().size());
-		guanzhu.setOnClickListener(new OnClickListener() {	
+		/*guanzhu.setOnClickListener(new OnClickListener() {	
 			@Override
 			public void onClick(View v) {//对关注按钮的监听
 				// TODO Auto-generated method stub
@@ -115,14 +115,13 @@ public class SquareAdapter extends BaseAdapter{
 					break;
 				}
 			}
-		});
+		});*/
 		return convertView;
 	}
 	/**
 	 * 判断关注情况
-	 */
+	 *//*
 	public void guanzhu(){
-		
 		if(guanzhu.getText().toString().equals("+关注")){
 			guanzhu.setText("已关注");
 		}else{
@@ -135,10 +134,10 @@ public class SquareAdapter extends BaseAdapter{
 			alertDialog=builder.create();
 			alertDialog.show();
 		}
-	}
+	}*/
 	/**
 	 * 对是否取消关注的监听
-	 */
+	 *//*
 	DialogInterface.OnClickListener onClickListener=new DialogInterface.OnClickListener() {
 		
 		@Override
@@ -153,5 +152,5 @@ public class SquareAdapter extends BaseAdapter{
 				break;
 			}
 		}
-	};
+	};*/
 }
