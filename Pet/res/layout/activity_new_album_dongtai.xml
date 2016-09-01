@@ -35,30 +35,58 @@
             android:textColor="@color/text_33"
             android:textSize="16sp" />
     </RelativeLayout>
-	<EditText 
-	    android:layout_width="match_parent"
+    <LinearLayout 
+        android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="24dp"
-	    android:background="@color/white"
 	    android:paddingLeft="20dp"
 	    android:paddingRight="20dp"
 	    android:paddingTop="28dp"
 	    android:paddingBottom="28dp"
-	    android:text="相册名字 :  "
-	    android:textColor="@color/text_2b"
-	    android:textSize="16sp"
-	    android:gravity="center_vertical"/>
-	<EditText 
-	    android:layout_width="match_parent"
+	    android:background="@color/white"
+	    android:orientation="horizontal">
+        <TextView 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="相册名字 :  "
+		    android:textColor="@color/text_2b"
+		    android:textSize="16sp"
+		    android:gravity="center_vertical"/>
+        <EditText 
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/album_name_newalbum"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_33"
+            android:textSize="16sp"
+		    android:gravity="center_vertical"
+		    android:background="@null"/>
+    </LinearLayout>
+	<LinearLayout 
+        android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="1dp"
-	    android:background="@color/white"
 	    android:paddingLeft="20dp"
 	    android:paddingRight="20dp"
 	    android:paddingTop="28dp"
 	    android:paddingBottom="28dp"
-	    android:text="相册名字 :  "
-	    android:textColor="@color/text_2b"
-	    android:textSize="16sp"
-	    android:gravity="center_vertical"/>
+	    android:background="@color/white"
+	    android:orientation="horizontal">
+        <TextView 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="相册描述 :  "
+		    android:textColor="@color/text_2b"
+		    android:textSize="16sp"
+		    android:gravity="center_vertical"/>
+        <EditText 
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/album_describe_newalbum"
+            android:textColor="@color/text_33"
+            android:textSize="16sp"
+		    android:gravity="center_vertical"
+		    android:background="@null"/>
+    </LinearLayout>
 </LinearLayout>
