@@ -13,7 +13,10 @@ import android.text.TextUtils;
 @SuppressLint("NewApi")
 public class DataClearManager {
 
-	// 清除应用内部缓存(/data/data/com.xxx.xxx/cache)
+	/**
+	 * 清除应用内部缓存(/data/data/com.xxx.xxx/cache)
+	 * @param context
+	 */
 	public static void cleanInternalCache(Context context) {
 		deleteFilesByDirectory(context.getCacheDir());
 	}

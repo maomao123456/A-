@@ -468,8 +468,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
         }    
     };	
 	protected void onDestroy() {
-		SMSSDK.unregisterAllEventHandler();    
         super.onDestroy();
+        SMSSDK.unregisterAllEventHandler();  
 	};
 	/**
 	 * 保存用户登录方式

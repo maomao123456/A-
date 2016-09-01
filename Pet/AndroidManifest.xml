@@ -54,6 +54,7 @@
         <activity android:name="com.example.pet.LoginActivity"/>
         <activity android:name="com.example.pet.RegisterActivity" />
         <activity android:name="com.example.pet.XieYiActivity" />
+        <activity android:name="com.example.pet.ForgetPasswordActivity"/>
         <!--主页面  -->
         <activity android:name="com.example.pet.MainActivity"
             android:launchMode="singleTask"/>
@@ -70,13 +71,13 @@
             android:launchMode="singleTop" />
         <!-- 修改密码界面 -->
         <activity android:name="com.example.pet.ResetPasswordActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <!-- 修改手机号界面 -->
         <activity android:name="com.example.pet.ResetTelephoneActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <!-- 修改邮箱界面 -->
         <activity android:name="com.example.pet.ResetEmailActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <!-- 修改密保设置界面 -->
         <activity android:name="com.example.pet.ResetSecuritySetActivity" />
         <!-- 关于萌宠界面 -->

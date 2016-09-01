@@ -14,7 +14,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -82,7 +85,8 @@ public class LoginActivity extends Activity  implements OnClickListener{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		panDuan();
-		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN|
+				WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		SysApplication.getInstance().addActivity(this);
 		setContentView(R.layout.activity_login);
 		 mAppid = QqAppConstant.APP_ID;//初始化主操作对象
@@ -129,6 +133,20 @@ public class LoginActivity extends Activity  implements OnClickListener{
 		wx.setOnClickListener(this);
 	}
 	/**
+	 * 转圈圈
+	 *//*
+	public void zhuanquanquan(){
+		final ProgressDialog  progressDialog=new  ProgressDialog(this);
+        progressDialog.setMessage("正在清除缓存....");
+        progressDialog.show();
+        Handler mHandler = new Handler(); 
+		mHandler.postDelayed(new Runnable() {
+			 @Override public void run() { 
+				 progressDialog.dismiss();
+				 Toast.makeText(getApplicationContext(),
+						 "缓存清除完成！", Toast.LENGTH_SHORT).show();} },3000);
+	}*/
+	/**
 	 * 普通控件的点击事件
 	 */
 	public void onClick(View v) {
@@ -145,7 +163,6 @@ public class LoginActivity extends Activity  implements OnClickListener{
 				toast("网络未连接，请检查网络设置！");
 			} else {
 				if (checkedEditText()) {
-					toast("正在登录....");
 					loging(userName.getText().toString(), mima.getText()
 							.toString());
 				} else {
@@ -592,9 +609,27 @@ public class LoginActivity extends Activity  implements OnClickListener{
 					int status = jsonObject.getInt("status");
 					String message = jsonObject.getString("message");
 					if (status == 2) {
-						toast(message);// 密码错误，提示用户名或密码错误
+						// 密码错误，提示用户名或密码错误
 						//跳转到忘记密码界面
-						
+						new AlertDialog.Builder(LoginActivity.this)
+						.setTitle("密码错误！")
+						.setMessage("忘记密码？？？？？\n" + "是否立即找回密码！" )
+						.setPositiveButton("我想再试试看",
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+									}
+								})
+						.setNegativeButton("我要改密码",
+								new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								Intent intent=new Intent(LoginActivity.this,
+										ForgetPasswordActivity.class);
+								startActivity(intent);
+							}
+						}).create().show();	
 					} else if (status == 3) {
 						toast(message);// 当输入的用户名不存在时，提示用户不存在
 					} else {
