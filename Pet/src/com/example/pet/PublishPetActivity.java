@@ -2,11 +2,39 @@ package com.example.pet;
 
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+
+import com.example.pet.classes.SysApplication;
+import com.example.pet.lei.CameraAndAlbum;
+
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,12 +57,18 @@ public class PublishPetActivity extends Activity{
 	View popview;
 	LayoutInflater inflater;
 	PopupWindow popWindow;
+	/**
+	 * 头像地址转图片
+	 */
+	Bitmap bitmap = null;
+	String id = "1234";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_publish_pet);
+		SysApplication.getInstance().addActivity(this);
 		init();
 	}
 	public void init(){
@@ -49,7 +83,11 @@ public class PublishPetActivity extends Activity{
 		fabu.setOnClickListener(clickListener);
 		image.setOnClickListener(clickListener);
 		popview=(View)inflater.inflate(R.layout.popupwindow_add_head, null);
+		bitmap=getLoacalBitmap(file2.getAbsolutePath());
 	}
+	private static int output_X = 720;
+	private static int output_Y = 526;
+
 	OnClickListener clickListener=new OnClickListener() {
 		
 		@Override
@@ -61,7 +99,8 @@ public class PublishPetActivity extends Activity{
 				PublishPetActivity.this.finish();
 				break;
 			case R.id.publish_publish_pet:
-				startActivity(new Intent(PublishPetActivity.this,PublishPetActivity.class));
+				saveData();
+				//startActivity(new Intent(PublishPetActivity.this,MainActivity.class));
 				toast("发布成功!");
 				break;
 			case R.id.pet_image_publish:
@@ -71,22 +110,19 @@ public class PublishPetActivity extends Activity{
 				popWindow.dismiss();
 				break;
 			case R.id.album_head_pop:
-				Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
-				intent.addCategory(Intent.CATEGORY_OPENABLE);
-			    intent.setType("image/*");
-			    intent.putExtra("crop", "true");
-			    intent.putExtra("aspectX", 1);
-			    intent.putExtra("aspectY", 1);
-			    intent.putExtra("outputX", 80);
-			    intent.putExtra("outputY", 80);
-			    intent.putExtra("return-data", true);
-
-			    startActivityForResult(intent, 0);
+				fromGallery();
+				/*CameraAndAlbum cameraAndAlbum=new CameraAndAlbum();
+				cameraAndAlbum.which(1, output_X, output_Y);
+				Bitmap bitmap=cameraAndAlbum.getPath();
+				image.setImageBitmap(bitmap);*/
 				popWindow.dismiss();
 				break;
 			case R.id.camera_head_pop:
-				Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-				 startActivityForResult(camera, 1);
+				takePhoto();
+				popWindow.dismiss();
+				break;
+			case R.id.cancel_head_pop:
+				popWindow.dismiss();
 				break;
 			default:
 				break;
@@ -125,7 +161,196 @@ public class PublishPetActivity extends Activity{
 		toast.show();
 	}
 	/**
+	 * 存入数据库中
+	 */
+	private void saveData(){
+		new Thread(new Runnable(){
+			public void run(){
+				String httpUrl = "http://192.168.1.197/index.php/Home/Api/uploadPetMessage";//php接口地址
+				HttpPost httpRequest = new HttpPost(httpUrl);//http用post方法请求数据
+				List<NameValuePair> params = new ArrayList<NameValuePair>();//建立一个列表用于添加数据
+				params.add(new BasicNameValuePair("id", id));//添加获得的用户的账号
+				//params.add(new BasicNameValuePair("image",bitmap.toString()));//宠物图片
+				params.add(new BasicNameValuePair("describe", describe.getText().toString()));//宠物描述
+				params.add(new BasicNameValuePair("name", name.getText().toString()));//宠物名字
+				params.add(new BasicNameValuePair("type", type.getText().toString()));//宠物类型
+				try {
+					HttpEntity httpEntity = new UrlEncodedFormEntity(params, "utf-8");//设置用户的字符集格式
+					httpRequest.setEntity(httpEntity);//请求字符集数据
+					HttpClient httpClient = new DefaultHttpClient();//http客户端
+					HttpResponse httpResponse = httpClient.execute(httpRequest);//http客户端请求响应
+					if(httpResponse.getStatusLine().getStatusCode() == 200){//http请求响应成功
+						String strResult = null;
+						strResult = EntityUtils.toString(httpResponse
+								.getEntity());
+						Looper.prepare();
+						toast("发布成功");
+						startActivity(new Intent(PublishPetActivity.this,MainActivity.class));
+						PublishPetActivity.this.finish();
+						Looper.loop();
+					} else {
+						Looper.prepare();
+						toast("发布失败");
+						Looper.loop();
+					}
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClientProtocolException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+	/**
 	 * 相册相机的方法
 	 */
-	
-}
+	// 头像文件
+		private static final String IMAGE_FILE_NAME = "temp_head_image.jpg";
+		// 请求识别码
+		private static final int IMAGE_REQUEST_CODE = 0;
+		private static final int CAMERA_REQUEST_CODE = 1;
+		private static final int RESULT_REQUEST_CODE = 2;
+		// 剪裁后图片的宽(X)和高(Y),
+
+		/**
+		 * 拍照
+		 */
+		private void takePhoto() {
+			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			//指定调用相机拍照后的照片储存的路径
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(
+					new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
+			startActivityForResult(intent, CAMERA_REQUEST_CODE);	
+			// 判断储存卡是否可用，储存照片文件
+			if (hasSdcard()) {
+				intent.putExtra(MediaStore.EXTRA_OUTPUT,
+						Uri.fromFile(new File(Environment
+								.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
+
+			}	
+		}
+
+		/**
+		 * 从本地相册选取图片作为头像
+		 */
+		private void fromGallery() {
+			Intent intent = new Intent(Intent.ACTION_PICK, null);
+			//调用相机拍照后的照片储存
+			intent.setType("image/*");
+			intent.setAction(Intent.ACTION_GET_CONTENT);
+			startActivityForResult(intent, IMAGE_REQUEST_CODE);
+		}
+
+		public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+			
+			switch (requestCode) {
+			case IMAGE_REQUEST_CODE:
+				if(intent!=null){
+					cropRawPhoto(intent.getData());
+				}
+				break;
+			case CAMERA_REQUEST_CODE:
+				if (hasSdcard()) {
+					File tempFile = new File(
+							Environment.getExternalStorageDirectory(),
+							IMAGE_FILE_NAME);
+					cropRawPhoto(Uri.fromFile(tempFile));
+				} else {
+					Toast.makeText(PublishPetActivity.this, "没有SDcard", Toast.LENGTH_SHORT)
+							.show();
+				}
+				break;
+			case RESULT_REQUEST_CODE:
+				if (intent != null) {
+					setIconView(intent);
+					bitmap=getLoacalBitmap(file.getAbsolutePath());
+					image.setImageBitmap(bitmap);
+				}
+				break;
+
+			default:
+				break;
+			}
+			super.onActivityResult(requestCode, resultCode, intent);
+		};
+
+		/**
+		 * 剪裁原始图片
+		 */
+		public void cropRawPhoto(Uri uri) {
+			Intent intent = new Intent("com.android.camera.action.CROP");
+			intent.setDataAndType(uri, "image/*");
+			// 设置剪裁
+			intent.putExtra("crop", "true");
+			// aspectX, aspectY:宽高的比例
+			intent.putExtra("aspectX", 1);
+			intent.putExtra("aspectY", 1);
+			// outputX, outputY:剪裁图片的宽高
+			intent.putExtra("outputX", output_X);
+			intent.putExtra("outputY", output_Y);
+			intent.putExtra("return-data", true);
+			startActivityForResult(intent, RESULT_REQUEST_CODE);
+		}
+		File file2 = new File(Environment.getExternalStorageDirectory() + "/ask", "icon.jpg");
+		File file;
+		/**
+		 *  提取保存剪裁之后的图片数据，并设置头像部分的View
+		 */
+		private void setIconView(Intent intent) {
+			Bundle extras = intent.getExtras();
+			if (extras != null) {
+				Bitmap photo = extras.getParcelable("data");
+				image.setImageBitmap(photo);
+				//新建文件夹 
+				File nfile = new File(Environment.getExternalStorageDirectory() + "/ask");
+				nfile.mkdir();
+				//在根目录下面的ask文件夹下，创建temp_head_image.jpg文件
+				file = new File(Environment.getExternalStorageDirectory() + "/ask", "icon.jpg");
+				FileOutputStream fos = null;
+				try{
+					//打开输出流，将图片数据填入文件中
+					fos = new FileOutputStream(file);
+					photo.compress(Bitmap.CompressFormat.PNG, 100, fos);
+					try{
+						fos.flush();
+						fos.close();
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				}catch(FileNotFoundException e){
+					e.printStackTrace();
+				}
+			}
+		}
+
+		/**
+		 *  检查设备是否存在SDCardz的工具方法
+		 */
+		public static boolean hasSdcard() {
+			String state = Environment.getExternalStorageState();
+			if (state.equals(Environment.MEDIA_MOUNTED)) {
+				return true;
+			} else {
+				return false;
+			}
+
+		}
+		/** 
+		 * 加载本地图片
+		 */ 
+		public static Bitmap getLoacalBitmap(String url) {
+			try {
+				FileInputStream fis = new FileInputStream(url);
+				return BitmapFactory.decodeStream(fis);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+}		

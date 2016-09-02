@@ -126,6 +126,8 @@ public class MineFragment extends Fragment {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 1:
+				Bitmap bitmap = (Bitmap) msg.obj;
+				//user_icon.setImageBitmap(bitmap);
 				
 				break;
 			default:
@@ -259,6 +261,9 @@ public class MineFragment extends Fragment {
 		//指定调用相机拍照后的照片储存的路径
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(
 				new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), 
+
+IMAGE_FILE_NAME)));
 		startActivityForResult(intent, CAMERA_REQUEST_CODE);	
 		// 判断储存卡是否可用，储存照片文件
 		if (hasSdcard()) {
@@ -304,6 +309,8 @@ public class MineFragment extends Fragment {
 				setIconView(intent);
 				bitmap=getLoacalBitmap(file.getAbsolutePath());
 				user_icon.setImageBitmap(bitmap);
+			}else{
+				user_icon.setImageResource(R.drawable.logo);
 			}
 			break;
 
@@ -354,6 +361,7 @@ public class MineFragment extends Fragment {
   			//在根目录下面的pet文件夹下，创建image.jpg文件
   			file = new File(Environment.getExternalStorageDirectory() + 
   					"/pet_touxiang", "pet"+id+".jpg");
+			
 			FileOutputStream fos = null;
 			try{
 				//打开输出流，将图片数据填入文件中
@@ -440,6 +448,9 @@ public class MineFragment extends Fragment {
 	}
 
 	/** * 
+=======
+	/** 
+>>>>>>> feature/guoyumin
 	 * 加载本地图片
 	 */ 
 	public static Bitmap getLoacalBitmap(String url) {
