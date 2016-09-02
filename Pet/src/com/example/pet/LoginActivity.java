@@ -45,6 +45,7 @@ import android.widget.Toast;
 import com.example.pet.classes.SysApplication;
 import com.example.pet.lei.CircularImage;
 import com.example.pet.lei.JieXiShuJu;
+import com.example.pet.lei.SaveAndOutImg;
 import com.example.pet.qq.QqAppConstant;
 import com.example.pet.qq.Util;
 import com.example.pet.wb.AccessTokenKeeper;
@@ -133,19 +134,17 @@ public class LoginActivity extends Activity  implements OnClickListener{
 		wx.setOnClickListener(this);
 	}
 	/**
-	 * 转圈圈
-	 *//*
+	 * 登录时等待进度条(缓冲数据加载)
+	 */
+	ProgressDialog  progressDialog;
+	/**
+	 * 登录提示语 （转圈圈）
+	 */
 	public void zhuanquanquan(){
-		final ProgressDialog  progressDialog=new  ProgressDialog(this);
-        progressDialog.setMessage("正在清除缓存....");
+		progressDialog=new  ProgressDialog(LoginActivity.this);
+        progressDialog.setMessage("正在登录......");
         progressDialog.show();
-        Handler mHandler = new Handler(); 
-		mHandler.postDelayed(new Runnable() {
-			 @Override public void run() { 
-				 progressDialog.dismiss();
-				 Toast.makeText(getApplicationContext(),
-						 "缓存清除完成！", Toast.LENGTH_SHORT).show();} },3000);
-	}*/
+	}
 	/**
 	 * 普通控件的点击事件
 	 */
@@ -174,6 +173,7 @@ public class LoginActivity extends Activity  implements OnClickListener{
 			if (!checkNetwork()) {
 				toast("网络未连接，请检查网络设置！");
 			} else {
+				toast("稍等片刻，QQ接入中....");
 				loginQQ();
 			}
 			break;
@@ -343,6 +343,7 @@ public class LoginActivity extends Activity  implements OnClickListener{
 			toast("登录出错！" + arg0.getMessage());
 		}
 		public void onComplete(Bundle arg0) {
+			zhuanquanquan();
 			// 从 Bundle 中解析 Token
 			mAccessToken = Oauth2AccessToken.parseAccessToken(arg0);
 			// 从这里获取用户输入的 电话号码信息
@@ -388,7 +389,7 @@ public class LoginActivity extends Activity  implements OnClickListener{
 	 */
 	public class SinaRequestListener implements RequestListener { // 新浪微博请求接口
 		public void onComplete(String response) {
-			toast("登录成功！即将为你跳转到主页面");
+			toast("登录成功！");
 			saveLogin();
 			try {
 				JSONObject jsonObject = new JSONObject(response);
@@ -398,6 +399,12 @@ public class LoginActivity extends Activity  implements OnClickListener{
 				String nickName = jsonObject.getString("name");// 姓名
 				final String touxiang = jsonObject.getString("avatar_hd");// 头像
 				// 调用用户信息类
+				SharedPreferences pf=getSharedPreferences("pet_user", MODE_PRIVATE);
+				Editor editor=pf.edit();
+				if(pf.getString(ID, "无").equals("无")){
+					editor.putString(ID, ID);
+					SaveAndOutImg.saveImg(touxiang, ID);
+				}	
 				loName.setText(nickName);
 				threeTz(3, nickName, ID, "无", touxiang, city);
 				// 用户头像转换
@@ -463,6 +470,7 @@ public class LoginActivity extends Activity  implements OnClickListener{
 				return;
 			}
 			doComplete((JSONObject) response);
+			zhuanquanquan();
 		}
 		public void onError(UiError e) {
 			toast("登录时出错！");
@@ -488,12 +496,35 @@ public class LoginActivity extends Activity  implements OnClickListener{
 				// **下面这两步设置很重要,如果没有设置,返回为空**
 				mTencent.setOpenId(openID);
 				mTencent.setAccessToken(token, expires);
+				//以下是根据openID来存储QQID的方法
+				//并判断是否为同一QQ号
+				SharedPreferences pf=getSharedPreferences("pet_user", MODE_PRIVATE);
+				Editor editor=pf.edit();
+				if(!pf.getString(openID, "无").equals("无")){
+					qqID=pf.getString(openID, "无");
+				}else{
+					String	qd=pf.getString("openID", "20160000");
+					int qqid= Integer.parseInt(qd)+1;
+					editor.putString("openID", qqid+"");
+					qqID=qqid+"";
+					editor.putString(openID, qqID);
+					editor.commit();
+					hasDL=false;
+				}
 				getuserInfo();
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * 自定义生成QQid
+	 */
+	String qqID;
+	/**
+	 * 判断是否已登录过
+	 */
+	boolean hasDL=true;
 	/**
 	 * 获得qq用户的信息
 	 */
@@ -507,7 +538,6 @@ public class LoginActivity extends Activity  implements OnClickListener{
 	private IUiListener getQQinfoListener = new IUiListener() {
 		public void onComplete(final Object response) {
 			try {
-				toast("登录成功！正在为你跳转到主页");
 				JSONObject jsonObject = (JSONObject) response;
 				Log.i("qq用户信息", jsonObject.toString());
 				// 处理自己需要的信息
@@ -516,8 +546,11 @@ public class LoginActivity extends Activity  implements OnClickListener{
 				String city = jsonObject.getString("city");
 				String touxiang = jsonObject.getString("figureurl_qq_2");
 				loName.setText(name);
+				if(!hasDL){
+					SaveAndOutImg.saveImg(touxiang, qqID);
+				}
 				saveLogin();
-				threeTz(3, name, "", six, touxiang, city);
+				threeTz(3, name, qqID, six, touxiang, city);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -743,6 +776,9 @@ public class LoginActivity extends Activity  implements OnClickListener{
     	editor.putString("tongxiang", touxiang);
     	editor.putString("city", city);
 		editor.commit();
+		if(progressDialog!=null){
+			progressDialog.dismiss();
+		}
 		Intent intent =new Intent(LoginActivity.this, MainActivity.class);
 		startActivity(intent);
 		LoginActivity.this.finish();

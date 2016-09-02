@@ -258,16 +258,8 @@ public class SetActivity extends Activity {
 					public void onClick(DialogInterface dialog, int whitch) {
 						// 点击"确定"后操作
 						popupWindow.dismiss();
-						// saveLoginOut();
+						saveLoginOut();//请勿屏蔽此方法 下次进入时需要登录
 						SysApplication.getInstance().exit();
-						/*
-						 * Intent intent = new Intent(Intent.ACTION_MAIN);
-						 * intent.addCategory(Intent.CATEGORY_HOME);
-						 * intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						 * //finish();
-						 * android.os.Process.killProcess(android.os.
-						 * Process.myPid());
-						 */
 					}
 				})
 				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -278,11 +270,4 @@ public class SetActivity extends Activity {
 				}).show();
 
 	}
-
-	// 判断退出登录对话框的点击事件
-	/*
-	 * public boolean onKeyDown(int keyCode, KeyEvent event) { if (keyCode ==
-	 * KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) { backMine();
-	 * return false; } return super.onKeyDown(keyCode, event); }
-	 */
 }
