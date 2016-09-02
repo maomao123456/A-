@@ -12,6 +12,7 @@ public class BuJuMove extends RelativeLayout {
 	private int screenHeight;
 	private boolean sizeChanged = false;
 	private OnSizeChangedListener onSizeChangedListener;
+	@SuppressWarnings("deprecation")
 	public BuJuMove(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		Display localDisplay = ((Activity) context).getWindowManager()

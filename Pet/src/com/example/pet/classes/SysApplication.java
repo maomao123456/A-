@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.app.Application;
 
+//添加Activity页面方法，便于退出整个程序时关闭所有的Activity
 public class SysApplication extends Application {
 
 	private List<Activity> mList = new LinkedList<Activity>();

@@ -10,27 +10,27 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.example.pet.lei.SquareGridview;
-import com.example.pet.lei.SquareListview;
 
-
-public class GridAdapter extends BaseAdapter{
+public class GridAdapter extends BaseAdapter {
 	LayoutInflater inflater;
 	Context context;
 	List<SquareGridview> list1;
 	int item;
 	int id;
-	
-	public GridAdapter(){
+
+	public GridAdapter() {
 	}
-	public GridAdapter(Context context,List<SquareGridview> list1,int item,int id){
+
+	public GridAdapter(Context context, List<SquareGridview> list1, int item,
+			int id) {
 		super();
-		this.context=context;
-		this.list1=list1;
-		this.item=item;
-		this.id=id;
-		inflater=LayoutInflater.from(context);
+		this.context = context;
+		this.list1 = list1;
+		this.item = item;
+		this.id = id;
+		inflater = LayoutInflater.from(context);
 	}
-	
+
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -52,13 +52,13 @@ public class GridAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		if(convertView==null){
-			convertView=inflater.inflate(item, null);
+		if (convertView == null) {
+			convertView = inflater.inflate(item, null);
 		}
-		ImageView img=(ImageView)convertView.findViewById(id);
-		SquareGridview gridview=list1.get(position);
+		ImageView img = (ImageView) convertView.findViewById(id);
+		SquareGridview gridview = list1.get(position);
 		img.setImageResource(gridview.getImage());
-		
+
 		return convertView;
 	}
 }

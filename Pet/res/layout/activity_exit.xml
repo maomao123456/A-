@@ -28,7 +28,8 @@
             android:clickable="true"
             android:gravity="center_vertical"
             android:paddingLeft="20dp"
-            android:text="@string/exit_login_account" />
+            android:text="@string/exit_login_account"
+            android:textSize="20sp" />
 
         <View
             android:layout_width="fill_parent"
@@ -46,7 +47,8 @@
             android:clickable="true"
             android:gravity="center_vertical"
             android:paddingLeft="20dp"
-            android:text="@string/close_pet" />
+            android:text="@string/close_pet"
+            android:textSize="20sp" />
     </LinearLayout>
 
 </RelativeLayout>

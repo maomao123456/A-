@@ -41,4 +41,5 @@
 	 <color name="bg_add">#f2ebd9</color>
 	 <color name="bg_bottom">#e4e4e4</color>
 	 <color name="pop_bg">#EFF3FF</color>
+	 <color name="exit_line_gray">#7A8B8B</color>
 </resources>

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
 
+//清除缓存类
 @TargetApi(24)
 @SuppressLint("NewApi")
 public class DataClearManager {

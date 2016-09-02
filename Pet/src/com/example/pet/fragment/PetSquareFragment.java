@@ -9,12 +9,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.GestureDetector.OnGestureListener;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
@@ -30,7 +27,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.example.pet.MainActivity;
 import com.example.pet.PetDetailsActivity;
 import com.example.pet.PublishPetActivity;
 import com.example.pet.R;
@@ -108,6 +104,7 @@ public class PetSquareFragment extends Fragment {
 	 * viewerFlipper的手势监听
 	 */
 	OnTouchListener touchListener=new OnTouchListener() {
+		@SuppressLint("ClickableViewAccessibility")
 		public boolean onTouch(View v, MotionEvent event) {
 			 switch (event.getAction()) {  
 			 case MotionEvent.ACTION_DOWN:

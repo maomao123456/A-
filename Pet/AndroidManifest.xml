@@ -87,6 +87,7 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <!-- 修改密保设置界面 -->
         <activity android:name="com.example.pet.ResetSecuritySetActivity" />
+        <activity android:name="com.example.pet.SetPasswordQuestionAnswerActivity" />
         <!-- 关于萌宠界面 -->
         <activity
             android:name="com.example.pet.AboutPetsActivity"

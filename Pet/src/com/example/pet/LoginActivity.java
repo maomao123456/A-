@@ -15,7 +15,6 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -100,7 +99,7 @@ public class LoginActivity extends Activity  implements OnClickListener{
 	 * 判断用户上次是否已登录
 	 */
 	public void panDuan(){
-		SharedPreferences pf=getSharedPreferences("pet", MODE_PRIVATE);
+		SharedPreferences pf=getSharedPreferences("pet", Context.MODE_PRIVATE);
 		int numb=pf.getInt("login", 0);
 		if(numb!=0){
 			Intent intent=new Intent(LoginActivity.this, KaiQiActivity.class);

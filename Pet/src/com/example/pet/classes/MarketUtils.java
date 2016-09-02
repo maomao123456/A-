@@ -12,6 +12,7 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.text.TextUtils;
 
+//应用商店
 public class MarketUtils {
 
 	//获取已安装应用商店的包名列表

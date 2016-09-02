@@ -2,15 +2,12 @@ package com.example.pet;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +21,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.pet.baseadapter.SquareDetailsListviewAdapter;
 import com.example.pet.classes.SysApplication;
 import com.example.pet.lei.SquareDetailsListview;
@@ -61,6 +57,7 @@ public class SquareDetailsActivity extends Activity{
 	/**
 	 * 找id,并且给各个控件设置点击等事件
 	 */
+	@SuppressLint("InflateParams")
 	public void init(){
 		inflater=this.getLayoutInflater();
 		headview=(View)inflater.inflate(R.layout.xiangqing_head_square, null);
@@ -175,7 +172,8 @@ public class SquareDetailsActivity extends Activity{
 	            return 0; 
 	        } 
 	 
-	        @Override 
+	        @SuppressLint("InflateParams")
+			@Override 
 	        public View getView(int position, View convertView, ViewGroup parent) { 
 	            // TODO Auto-generated method stub 
 	            ViewHolder holder=null; 
@@ -221,7 +219,8 @@ public class SquareDetailsActivity extends Activity{
 	            return 0; 
 	        } 
 	 
-	        @Override 
+	        @SuppressLint("InflateParams")
+			@Override 
 	        public View getView(int position, View convertView, ViewGroup parent) { 
 	            // TODO Auto-generated method stub 
 	            ViewHolder holder=null; 
