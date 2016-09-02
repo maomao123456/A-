@@ -24,7 +24,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
@@ -82,7 +81,7 @@ public class ResetPasswordActivity extends Activity {
 		}
 	};
 
-	//输入框
+	// 输入框
 	private boolean checkEdit() {
 		String password = newPassword.getText().toString();
 		String ensurePassword = confirmPassword.getText().toString();
@@ -93,7 +92,7 @@ public class ResetPasswordActivity extends Activity {
 		} else if (resultPassword == false) {
 			promptNewPassword.setText("密码为大小写字母或数字");
 			return false;
-		} else if(password.length() < 6 || password.length() > 20){
+		} else if (password.length() < 6 || password.length() > 20) {
 			promptNewPassword.setText("密码长度为6~20");
 			return false;
 		} else if (ensurePassword.isEmpty()) {
@@ -120,7 +119,7 @@ public class ResetPasswordActivity extends Activity {
 		ResetPasswordActivity.this.finish();
 	}
 
-	//修改密码
+	// 修改密码
 	private void resetPassword() {
 		new Thread(new Runnable() {
 			public void run() {
@@ -128,8 +127,8 @@ public class ResetPasswordActivity extends Activity {
 				HttpPost httpRequest = new HttpPost(httpUrl);// http用post方法请求数据
 				List<NameValuePair> params = new ArrayList<NameValuePair>();// 建立一个列表用于添加数据
 				params.add(new BasicNameValuePair("userid", userId));// 添加获得的用户的账号
-				params.add(new BasicNameValuePair("password", newPassword.getText()
-						.toString()));// 添加用户的邮箱地址
+				params.add(new BasicNameValuePair("password", newPassword
+						.getText().toString()));// 添加用户的邮箱地址
 				try {
 					HttpEntity httpEntity = new UrlEncodedFormEntity(params,
 							"utf-8");// 设置用户的字符集格式
@@ -151,13 +150,10 @@ public class ResetPasswordActivity extends Activity {
 						Looper.loop();
 					}
 				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (ClientProtocolException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

@@ -1,7 +1,5 @@
 package com.example.pet;
 
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,8 +21,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import com.example.pet.classes.SysApplication;
-import com.example.pet.lei.CameraAndAlbum;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Intent;
@@ -49,11 +47,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PublishPetActivity extends Activity{
+public class PublishPetActivity extends Activity {
 	RelativeLayout back;
 	TextView fabu;
 	ImageView image;
-	EditText name,type,describe;
+	EditText name, type, describe;
 	View popview;
 	LayoutInflater inflater;
 	PopupWindow popWindow;
@@ -62,7 +60,7 @@ public class PublishPetActivity extends Activity{
 	 */
 	Bitmap bitmap = null;
 	String id = "1234";
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -71,36 +69,43 @@ public class PublishPetActivity extends Activity{
 		SysApplication.getInstance().addActivity(this);
 		init();
 	}
-	public void init(){
-		inflater=this.getLayoutInflater();
-		back=(RelativeLayout)findViewById(R.id.back_publish_petdetails_square);
-		fabu=(TextView)findViewById(R.id.publish_publish_pet);
-		image=(ImageView)findViewById(R.id.pet_image_publish);
-		name=(EditText)findViewById(R.id.editname_publish);
-		type=(EditText)findViewById(R.id.edittype_publish);
-		describe=(EditText)findViewById(R.id.editdescribe_publish);
+
+	@SuppressLint("InflateParams")
+	public void init() {
+		inflater = this.getLayoutInflater();
+		back = (RelativeLayout) findViewById(R.id.back_publish_petdetails_square);
+		fabu = (TextView) findViewById(R.id.publish_publish_pet);
+		image = (ImageView) findViewById(R.id.pet_image_publish);
+		name = (EditText) findViewById(R.id.editname_publish);
+		type = (EditText) findViewById(R.id.edittype_publish);
+		describe = (EditText) findViewById(R.id.editdescribe_publish);
 		back.setOnClickListener(clickListener);
 		fabu.setOnClickListener(clickListener);
 		image.setOnClickListener(clickListener);
-		popview=(View)inflater.inflate(R.layout.popupwindow_add_head, null);
-		bitmap=getLoacalBitmap(file2.getAbsolutePath());
+		popview = (View) inflater.inflate(R.layout.popupwindow_add_head, null);
+		bitmap = getLoacalBitmap(file2.getAbsolutePath());
 	}
+
 	private static int output_X = 720;
 	private static int output_Y = 526;
 
-	OnClickListener clickListener=new OnClickListener() {
-		
+	OnClickListener clickListener = new OnClickListener() {
+
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			switch(v.getId()){
+			switch (v.getId()) {
 			case R.id.back_publish_petdetails_square:
-				startActivity(new Intent(PublishPetActivity.this,MainActivity.class));
+				startActivity(new Intent(PublishPetActivity.this,
+						MainActivity.class));
 				PublishPetActivity.this.finish();
 				break;
 			case R.id.publish_publish_pet:
 				saveData();
-				//startActivity(new Intent(PublishPetActivity.this,MainActivity.class));
+				// startActivity(new
+				// Intent(PublishPetActivity.this,MainActivity.class));
+				startActivity(new Intent(PublishPetActivity.this,
+						PublishPetActivity.class));
 				toast("发布成功!");
 				break;
 			case R.id.pet_image_publish:
@@ -111,10 +116,12 @@ public class PublishPetActivity extends Activity{
 				break;
 			case R.id.album_head_pop:
 				fromGallery();
-				/*CameraAndAlbum cameraAndAlbum=new CameraAndAlbum();
-				cameraAndAlbum.which(1, output_X, output_Y);
-				Bitmap bitmap=cameraAndAlbum.getPath();
-				image.setImageBitmap(bitmap);*/
+				/*
+				 * CameraAndAlbum cameraAndAlbum=new CameraAndAlbum();
+				 * cameraAndAlbum.which(1, output_X, output_Y); Bitmap
+				 * bitmap=cameraAndAlbum.getPath();
+				 * image.setImageBitmap(bitmap);
+				 */
 				popWindow.dismiss();
 				break;
 			case R.id.camera_head_pop:
@@ -123,14 +130,31 @@ public class PublishPetActivity extends Activity{
 				break;
 			case R.id.cancel_head_pop:
 				popWindow.dismiss();
+				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+				intent.addCategory(Intent.CATEGORY_OPENABLE);
+				intent.setType("image/*");
+				intent.putExtra("crop", "true");
+				intent.putExtra("aspectX", 1);
+				intent.putExtra("aspectY", 1);
+				intent.putExtra("outputX", 80);
+				intent.putExtra("outputY", 80);
+				intent.putExtra("return-data", true);
+
+				startActivityForResult(intent, 0);
+				popWindow.dismiss();
 				break;
+
 			default:
 				break;
 			}
 		}
 	};
-	public void creatPopupWindow(){
-		popWindow=new PopupWindow(popview, LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT,true);
+
+	@SuppressLint("ClickableViewAccessibility")
+	@SuppressWarnings("deprecation")
+	public void creatPopupWindow() {
+		popWindow = new PopupWindow(popview, LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT, true);
 		popWindow.setBackgroundDrawable(new BitmapDrawable());
 		popWindow.setTouchable(true);
 		popWindow.setOutsideTouchable(true);
@@ -141,51 +165,62 @@ public class PublishPetActivity extends Activity{
 				return false;
 			}
 		});
-		popWindow.showAtLocation(popview,Gravity.BOTTOM,0,0);
-		TextView camera=(TextView)popview.findViewById(R.id.camera_head_pop);
-		TextView album=(TextView)popview.findViewById(R.id.album_head_pop);
-		TextView cancel=(TextView)popview.findViewById(R.id.cancel_head_pop);
-		View popbg=(View)popview.findViewById(R.id.popup_window_bg);
+		popWindow.showAtLocation(popview, Gravity.BOTTOM, 0, 0);
+		TextView camera = (TextView) popview.findViewById(R.id.camera_head_pop);
+		TextView album = (TextView) popview.findViewById(R.id.album_head_pop);
+		TextView cancel = (TextView) popview.findViewById(R.id.cancel_head_pop);
+		View popbg = (View) popview.findViewById(R.id.popup_window_bg);
 		camera.setOnClickListener(clickListener);
 		album.setOnClickListener(clickListener);
 		cancel.setOnClickListener(clickListener);
 		popbg.setOnClickListener(clickListener);
 	}
+
 	/**
 	 * toast方法
+	 * 
 	 * @param string
 	 */
 	public void toast(String string) {
-		Toast toast=Toast.makeText(PublishPetActivity.this, string, Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(PublishPetActivity.this, string,
+				Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
+
 	/**
 	 * 存入数据库中
 	 */
-	private void saveData(){
-		new Thread(new Runnable(){
-			public void run(){
-				String httpUrl = "http://192.168.1.197/index.php/Home/Api/uploadPetMessage";//php接口地址
-				HttpPost httpRequest = new HttpPost(httpUrl);//http用post方法请求数据
-				List<NameValuePair> params = new ArrayList<NameValuePair>();//建立一个列表用于添加数据
-				params.add(new BasicNameValuePair("id", id));//添加获得的用户的账号
-				//params.add(new BasicNameValuePair("image",bitmap.toString()));//宠物图片
-				params.add(new BasicNameValuePair("describe", describe.getText().toString()));//宠物描述
-				params.add(new BasicNameValuePair("name", name.getText().toString()));//宠物名字
-				params.add(new BasicNameValuePair("type", type.getText().toString()));//宠物类型
+	private void saveData() {
+		new Thread(new Runnable() {
+			@SuppressWarnings("unused")
+			public void run() {
+				String httpUrl = "http://192.168.1.197/index.php/Home/Api/uploadPetMessage";// php接口地址
+				HttpPost httpRequest = new HttpPost(httpUrl);// http用post方法请求数据
+				List<NameValuePair> params = new ArrayList<NameValuePair>();// 建立一个列表用于添加数据
+				params.add(new BasicNameValuePair("id", id));// 添加获得的用户的账号
+				// params.add(new
+				// BasicNameValuePair("image",bitmap.toString()));//宠物图片
+				params.add(new BasicNameValuePair("describe", describe
+						.getText().toString()));// 宠物描述
+				params.add(new BasicNameValuePair("name", name.getText()
+						.toString()));// 宠物名字
+				params.add(new BasicNameValuePair("type", type.getText()
+						.toString()));// 宠物类型
 				try {
-					HttpEntity httpEntity = new UrlEncodedFormEntity(params, "utf-8");//设置用户的字符集格式
-					httpRequest.setEntity(httpEntity);//请求字符集数据
-					HttpClient httpClient = new DefaultHttpClient();//http客户端
-					HttpResponse httpResponse = httpClient.execute(httpRequest);//http客户端请求响应
-					if(httpResponse.getStatusLine().getStatusCode() == 200){//http请求响应成功
+					HttpEntity httpEntity = new UrlEncodedFormEntity(params,
+							"utf-8");// 设置用户的字符集格式
+					httpRequest.setEntity(httpEntity);// 请求字符集数据
+					HttpClient httpClient = new DefaultHttpClient();// http客户端
+					HttpResponse httpResponse = httpClient.execute(httpRequest);// http客户端请求响应
+					if (httpResponse.getStatusLine().getStatusCode() == 200) {// http请求响应成功
 						String strResult = null;
 						strResult = EntityUtils.toString(httpResponse
 								.getEntity());
 						Looper.prepare();
 						toast("发布成功");
-						startActivity(new Intent(PublishPetActivity.this,MainActivity.class));
+						startActivity(new Intent(PublishPetActivity.this,
+								MainActivity.class));
 						PublishPetActivity.this.finish();
 						Looper.loop();
 					} else {
@@ -206,151 +241,158 @@ public class PublishPetActivity extends Activity{
 			}
 		}).start();
 	}
+
 	/**
 	 * 相册相机的方法
 	 */
 	// 头像文件
-		private static final String IMAGE_FILE_NAME = "temp_head_image.jpg";
-		// 请求识别码
-		private static final int IMAGE_REQUEST_CODE = 0;
-		private static final int CAMERA_REQUEST_CODE = 1;
-		private static final int RESULT_REQUEST_CODE = 2;
-		// 剪裁后图片的宽(X)和高(Y),
+	private static final String IMAGE_FILE_NAME = "temp_head_image.jpg";
+	// 请求识别码
+	private static final int IMAGE_REQUEST_CODE = 0;
+	private static final int CAMERA_REQUEST_CODE = 1;
+	private static final int RESULT_REQUEST_CODE = 2;
 
-		/**
-		 * 拍照
-		 */
-		private void takePhoto() {
-			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-			//指定调用相机拍照后的照片储存的路径
-			intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(
-					new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
-			startActivityForResult(intent, CAMERA_REQUEST_CODE);	
-			// 判断储存卡是否可用，储存照片文件
-			if (hasSdcard()) {
-				intent.putExtra(MediaStore.EXTRA_OUTPUT,
-						Uri.fromFile(new File(Environment
-								.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
+	// 剪裁后图片的宽(X)和高(Y),
 
-			}	
+	/**
+	 * 拍照
+	 */
+	private void takePhoto() {
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		// 指定调用相机拍照后的照片储存的路径
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(
+				Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
+		startActivityForResult(intent, CAMERA_REQUEST_CODE);
+		// 判断储存卡是否可用，储存照片文件
+		if (hasSdcard()) {
+			intent.putExtra(MediaStore.EXTRA_OUTPUT,
+					Uri.fromFile(new File(Environment
+							.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
+
 		}
+	}
 
-		/**
-		 * 从本地相册选取图片作为头像
-		 */
-		private void fromGallery() {
-			Intent intent = new Intent(Intent.ACTION_PICK, null);
-			//调用相机拍照后的照片储存
-			intent.setType("image/*");
-			intent.setAction(Intent.ACTION_GET_CONTENT);
-			startActivityForResult(intent, IMAGE_REQUEST_CODE);
-		}
+	/**
+	 * 从本地相册选取图片作为头像
+	 */
+	private void fromGallery() {
+		Intent intent = new Intent(Intent.ACTION_PICK, null);
+		// 调用相机拍照后的照片储存
+		intent.setType("image/*");
+		intent.setAction(Intent.ACTION_GET_CONTENT);
+		startActivityForResult(intent, IMAGE_REQUEST_CODE);
+	}
 
-		public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-			
-			switch (requestCode) {
-			case IMAGE_REQUEST_CODE:
-				if(intent!=null){
-					cropRawPhoto(intent.getData());
-				}
-				break;
-			case CAMERA_REQUEST_CODE:
-				if (hasSdcard()) {
-					File tempFile = new File(
-							Environment.getExternalStorageDirectory(),
-							IMAGE_FILE_NAME);
-					cropRawPhoto(Uri.fromFile(tempFile));
-				} else {
-					Toast.makeText(PublishPetActivity.this, "没有SDcard", Toast.LENGTH_SHORT)
-							.show();
-				}
-				break;
-			case RESULT_REQUEST_CODE:
-				if (intent != null) {
-					setIconView(intent);
-					bitmap=getLoacalBitmap(file.getAbsolutePath());
-					image.setImageBitmap(bitmap);
-				}
-				break;
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
-			default:
-				break;
+		switch (requestCode) {
+		case IMAGE_REQUEST_CODE:
+			if (intent != null) {
+				cropRawPhoto(intent.getData());
 			}
-			super.onActivityResult(requestCode, resultCode, intent);
-		};
+			break;
+		case CAMERA_REQUEST_CODE:
+			if (hasSdcard()) {
+				File tempFile = new File(
+						Environment.getExternalStorageDirectory(),
+						IMAGE_FILE_NAME);
+				cropRawPhoto(Uri.fromFile(tempFile));
+			} else {
+				Toast.makeText(PublishPetActivity.this, "没有SDcard",
+						Toast.LENGTH_SHORT).show();
+			}
+			break;
+		case RESULT_REQUEST_CODE:
+			if (intent != null) {
+				setIconView(intent);
+				bitmap = getLoacalBitmap(file.getAbsolutePath());
+				image.setImageBitmap(bitmap);
+			}
+			break;
 
-		/**
-		 * 剪裁原始图片
-		 */
-		public void cropRawPhoto(Uri uri) {
-			Intent intent = new Intent("com.android.camera.action.CROP");
-			intent.setDataAndType(uri, "image/*");
-			// 设置剪裁
-			intent.putExtra("crop", "true");
-			// aspectX, aspectY:宽高的比例
-			intent.putExtra("aspectX", 1);
-			intent.putExtra("aspectY", 1);
-			// outputX, outputY:剪裁图片的宽高
-			intent.putExtra("outputX", output_X);
-			intent.putExtra("outputY", output_Y);
-			intent.putExtra("return-data", true);
-			startActivityForResult(intent, RESULT_REQUEST_CODE);
+		default:
+			break;
 		}
-		File file2 = new File(Environment.getExternalStorageDirectory() + "/ask", "icon.jpg");
-		File file;
-		/**
-		 *  提取保存剪裁之后的图片数据，并设置头像部分的View
-		 */
-		private void setIconView(Intent intent) {
-			Bundle extras = intent.getExtras();
-			if (extras != null) {
-				Bitmap photo = extras.getParcelable("data");
-				image.setImageBitmap(photo);
-				//新建文件夹 
-				File nfile = new File(Environment.getExternalStorageDirectory() + "/ask");
-				nfile.mkdir();
-				//在根目录下面的ask文件夹下，创建temp_head_image.jpg文件
-				file = new File(Environment.getExternalStorageDirectory() + "/ask", "icon.jpg");
-				FileOutputStream fos = null;
-				try{
-					//打开输出流，将图片数据填入文件中
-					fos = new FileOutputStream(file);
-					photo.compress(Bitmap.CompressFormat.PNG, 100, fos);
-					try{
-						fos.flush();
-						fos.close();
-					}catch(Exception e){
-						e.printStackTrace();
-					}
-				}catch(FileNotFoundException e){
+		super.onActivityResult(requestCode, resultCode, intent);
+	};
+
+	/**
+	 * 剪裁原始图片
+	 */
+	public void cropRawPhoto(Uri uri) {
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setDataAndType(uri, "image/*");
+		// 设置剪裁
+		intent.putExtra("crop", "true");
+		// aspectX, aspectY:宽高的比例
+		intent.putExtra("aspectX", 1);
+		intent.putExtra("aspectY", 1);
+		// outputX, outputY:剪裁图片的宽高
+		intent.putExtra("outputX", output_X);
+		intent.putExtra("outputY", output_Y);
+		intent.putExtra("return-data", true);
+		startActivityForResult(intent, RESULT_REQUEST_CODE);
+	}
+
+	File file2 = new File(Environment.getExternalStorageDirectory() + "/ask",
+			"icon.jpg");
+	File file;
+
+	/**
+	 * 提取保存剪裁之后的图片数据，并设置头像部分的View
+	 */
+	private void setIconView(Intent intent) {
+		Bundle extras = intent.getExtras();
+		if (extras != null) {
+			Bitmap photo = extras.getParcelable("data");
+			image.setImageBitmap(photo);
+			// 新建文件夹
+			File nfile = new File(Environment.getExternalStorageDirectory()
+					+ "/ask");
+			nfile.mkdir();
+			// 在根目录下面的ask文件夹下，创建temp_head_image.jpg文件
+			file = new File(Environment.getExternalStorageDirectory() + "/ask",
+					"icon.jpg");
+			FileOutputStream fos = null;
+			try {
+				// 打开输出流，将图片数据填入文件中
+				fos = new FileOutputStream(file);
+				photo.compress(Bitmap.CompressFormat.PNG, 100, fos);
+				try {
+					fos.flush();
+					fos.close();
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-		}
-
-		/**
-		 *  检查设备是否存在SDCardz的工具方法
-		 */
-		public static boolean hasSdcard() {
-			String state = Environment.getExternalStorageState();
-			if (state.equals(Environment.MEDIA_MOUNTED)) {
-				return true;
-			} else {
-				return false;
-			}
-
-		}
-		/** 
-		 * 加载本地图片
-		 */ 
-		public static Bitmap getLoacalBitmap(String url) {
-			try {
-				FileInputStream fis = new FileInputStream(url);
-				return BitmapFactory.decodeStream(fis);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-				return null;
 			}
 		}
+	}
 
-}		
+	/**
+	 * 检查设备是否存在SDCardz的工具方法
+	 */
+	public static boolean hasSdcard() {
+		String state = Environment.getExternalStorageState();
+		if (state.equals(Environment.MEDIA_MOUNTED)) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	/**
+	 * 加载本地图片
+	 */
+	public static Bitmap getLoacalBitmap(String url) {
+		try {
+			FileInputStream fis = new FileInputStream(url);
+			return BitmapFactory.decodeStream(fis);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+}

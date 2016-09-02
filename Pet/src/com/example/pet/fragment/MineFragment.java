@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -39,7 +38,6 @@ import com.example.pet.R;
 import com.example.pet.SetActivity;
 import com.example.pet.lei.CircularImage;
 import com.example.pet.lei.SaveAndOutImg;
-import com.example.pet.qq.Util;
 
 public class MineFragment extends Fragment {
 
@@ -65,10 +63,11 @@ public class MineFragment extends Fragment {
 		windView = windInflater.inflate(R.layout.activity_update_icon, null);
 		initView();
 		getUserIfon();
-		//根据用户id获取头像
+		// 根据用户id获取头像
 		user_icon.setImageBitmap(SaveAndOutImg.outImg(id));
 		return view;
 	}
+
 	/**
 	 * 用户登录后所返回的城市信息
 	 */
@@ -118,17 +117,19 @@ public class MineFragment extends Fragment {
 		user_nickname.setText(name);
 		user_id.setText(id);
 	}
+
 	/**
 	 * 根据用户登录的状况来刷新UI
 	 */
 	@SuppressLint("HandlerLeak")
 	Handler handler = new Handler() {
+		@SuppressWarnings("unused")
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 1:
 				Bitmap bitmap = (Bitmap) msg.obj;
-				//user_icon.setImageBitmap(bitmap);
-				
+				// user_icon.setImageBitmap(bitmap);
+
 				break;
 			default:
 				break;
@@ -149,7 +150,7 @@ public class MineFragment extends Fragment {
 				.findViewById(R.id.account_manager_next);
 		about_pets = (RelativeLayout) view.findViewById(R.id.about_pets_next);
 		settings = (RelativeLayout) view.findViewById(R.id.settings_next);
-		bitmap=getLoacalBitmap(file2.getAbsolutePath());
+		bitmap = getLoacalBitmap(file2.getAbsolutePath());
 		user_icon.setImageBitmap(bitmap);
 		// 触发点击
 		user_icon.setOnClickListener(clickListener);
@@ -258,20 +259,21 @@ public class MineFragment extends Fragment {
 	 */
 	private void takePhotot() {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		//指定调用相机拍照后的照片储存的路径
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(
-				new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), 
+		// 指定调用相机拍照后的照片储存的路径
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(
+				Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(
+				Environment.getExternalStorageDirectory(),
 
-IMAGE_FILE_NAME)));
-		startActivityForResult(intent, CAMERA_REQUEST_CODE);	
+				IMAGE_FILE_NAME)));
+		startActivityForResult(intent, CAMERA_REQUEST_CODE);
 		// 判断储存卡是否可用，储存照片文件
 		if (hasSdcard()) {
 			intent.putExtra(MediaStore.EXTRA_OUTPUT,
 					Uri.fromFile(new File(Environment
 							.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
 
-		}	
+		}
 	}
 
 	// 从本地相册选取图片作为头像
@@ -280,7 +282,7 @@ IMAGE_FILE_NAME)));
 	 */
 	private void fromGallery() {
 		Intent intent = new Intent(Intent.ACTION_PICK, null);
-		//调用相机拍照后的照片储存
+		// 调用相机拍照后的照片储存
 		intent.setType("image/*");
 		intent.setAction(Intent.ACTION_GET_CONTENT);
 		startActivityForResult(intent, IMAGE_REQUEST_CODE);
@@ -289,7 +291,7 @@ IMAGE_FILE_NAME)));
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		switch (requestCode) {
 		case IMAGE_REQUEST_CODE:
-			if(intent!=null){
+			if (intent != null) {
 				cropRawPhoto(intent.getData());
 			}
 			break;
@@ -307,9 +309,9 @@ IMAGE_FILE_NAME)));
 		case RESULT_REQUEST_CODE:
 			if (intent != null) {
 				setIconView(intent);
-				bitmap=getLoacalBitmap(file.getAbsolutePath());
+				bitmap = getLoacalBitmap(file.getAbsolutePath());
 				user_icon.setImageBitmap(bitmap);
-			}else{
+			} else {
 				user_icon.setImageResource(R.drawable.logo);
 			}
 			break;
@@ -323,8 +325,9 @@ IMAGE_FILE_NAME)));
 	// 剪裁原始图片
 	/**
 	 * 剪裁原始图片
+	 * 
 	 * @param uri
-	 * 图片来源
+	 *            图片来源
 	 */
 	public void cropRawPhoto(Uri uri) {
 		Intent intent = new Intent("com.android.camera.action.CROP");
@@ -340,40 +343,45 @@ IMAGE_FILE_NAME)));
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, RESULT_REQUEST_CODE);
 	}
-	File file2 = new File(Environment.getExternalStorageDirectory() + "/ask", "icon.jpg");
+
+	File file2 = new File(Environment.getExternalStorageDirectory() + "/ask",
+			"icon.jpg");
 	File file;
+
 	// 提取保存剪裁之后的图片数据，并设置头像部分的View
 	/**
 	 * 提取保存剪裁之后的图片数据，并设置头像部分的View
+	 * 
 	 * @param intent
-	 * 保存到的路径
+	 *            保存到的路径
 	 */
 	private void setIconView(Intent intent) {
 		Bundle extras = intent.getExtras();
 		if (extras != null) {
 			Bitmap photo = extras.getParcelable("data");
 			user_icon.setImageBitmap(photo);
-			//新建文件夹 
-			 File nfile = new File(Environment.getExternalStorageDirectory() + "/pet_touxiang");
-        	 if(!nfile.exists()){
-        		 nfile.mkdir();
-        	 }
-  			//在根目录下面的pet文件夹下，创建image.jpg文件
-  			file = new File(Environment.getExternalStorageDirectory() + 
-  					"/pet_touxiang", "pet"+id+".jpg");
-			
+			// 新建文件夹
+			File nfile = new File(Environment.getExternalStorageDirectory()
+					+ "/pet_touxiang");
+			if (!nfile.exists()) {
+				nfile.mkdir();
+			}
+			// 在根目录下面的pet文件夹下，创建image.jpg文件
+			file = new File(Environment.getExternalStorageDirectory()
+					+ "/pet_touxiang", "pet" + id + ".jpg");
+
 			FileOutputStream fos = null;
-			try{
-				//打开输出流，将图片数据填入文件中
+			try {
+				// 打开输出流，将图片数据填入文件中
 				fos = new FileOutputStream(file);
 				photo.compress(Bitmap.CompressFormat.PNG, 99, fos);
-				try{
+				try {
 					fos.flush();
 					fos.close();
-				}catch(Exception e){
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}catch(FileNotFoundException e){
+			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
 		}
@@ -382,8 +390,8 @@ IMAGE_FILE_NAME)));
 	// 检查设备是否存在SDCardz的工具方法
 	/**
 	 * 检查设备是否存在SDCardz的工具方法
-	 * @return
-	 * 是否存在
+	 * 
+	 * @return 是否存在
 	 */
 	public static boolean hasSdcard() {
 		String state = Environment.getExternalStorageState();
@@ -447,12 +455,9 @@ IMAGE_FILE_NAME)));
 		startActivity(intent);
 	}
 
-	/** * 
-=======
-	/** 
->>>>>>> feature/guoyumin
-	 * 加载本地图片
-	 */ 
+	/**
+	 * * ======= /** >>>>>>> feature/guoyumin 加载本地图片
+	 */
 	public static Bitmap getLoacalBitmap(String url) {
 		try {
 			FileInputStream fis = new FileInputStream(url);

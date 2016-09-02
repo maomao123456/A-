@@ -115,5 +115,13 @@
     <!-- 更换头像  -->
     <string name="take_photo">拍照</string>
     <string name="from_album">从相册中选择</string>
+    <!-- 密保设置  -->
+    <string name="question_one">问题一：</string>
+    <string name="question_two">问题二：</string>
+    <string name="question_three">问题三：</string>
+    <!-- 密保设置 答案 -->
+    <string name="answer_one">答案一：</string>
+    <string name="answer_two">答案二：</string>
+    <string name="answer_three">答案三：</string>
 
 </resources>

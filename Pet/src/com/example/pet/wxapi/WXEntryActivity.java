@@ -27,6 +27,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
 		if(resp instanceof SendAuth.Resp){
 			SendAuth.Resp newResp = (SendAuth.Resp) resp;
 			//获取微信传回的code
+			@SuppressWarnings("unused")
 			String token = newResp.token;
 		}
 	}

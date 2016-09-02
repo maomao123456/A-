@@ -1,4 +1,3 @@
-
 package com.example.pet;
 
 import java.io.IOException;
@@ -52,12 +51,11 @@ import cn.smssdk.SMSSDK;
 import com.example.pet.classes.SysApplication;
 import com.example.pet.lei.PhoneTy;
 
-
 public class RegisterActivity extends Activity implements OnClickListener {
 	TextView denglu, getYangzhengma, xieyiNeirong, comeing;
 	LinearLayout backQuyu, xieyiQuyu;
 	EditText shoujihao, yanzhengma, shezhimima, yaoqingma;
-	CheckBox xieyiCb,showMima;
+	CheckBox xieyiCb, showMima;
 	ScrollView sc;
 	/**
 	 * 获得用户输入的手机号
@@ -75,26 +73,29 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	 * 获得用户输的邀请码
 	 */
 	String inviteCd;
-	Thread thread=null;
-	private int time=60;
-	private boolean tag=true;
-	private static final String APPKEY = "168b024d49944";    
-	private static final String APPSECRETE = "3554d93a1086b52572d38877fa651526"; 
+	Thread thread = null;
+	private int time = 60;
+	private boolean tag = true;
+	private static final String APPKEY = "168b024d49944";
+	private static final String APPSECRETE = "3554d93a1086b52572d38877fa651526";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN|
-				WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+		getWindow().setSoftInputMode(
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
+						| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		setContentView(R.layout.activity_register);
 		SysApplication.getInstance().addActivity(this);
 		initView();
 	}
+
 	/**
 	 * 通过id找到控件
 	 */
 	public void initView() {
-		sc=(ScrollView)findViewById(R.id.register_scroll);
+		sc = (ScrollView) findViewById(R.id.register_scroll);
 		denglu = (TextView) findViewById(R.id.register_denglu);
 		getYangzhengma = (TextView) findViewById(R.id.register_huoquyanzhengma);
 		xieyiNeirong = (TextView) findViewById(R.id.register_xieyi_neirong);
@@ -106,7 +107,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		shezhimima = (EditText) findViewById(R.id.register_shezhimima);
 		yaoqingma = (EditText) findViewById(R.id.register_yaoqingma);
 		xieyiCb = (CheckBox) findViewById(R.id.register_xieyi_cb);
-		showMima=(CheckBox)findViewById(R.id.register_show_mima);
+		showMima = (CheckBox) findViewById(R.id.register_show_mima);
 		showMima.setOnClickListener(this);
 		denglu.setOnClickListener(this);
 		getYangzhengma.setOnClickListener(this);
@@ -118,34 +119,38 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		shoujihao.setOnFocusChangeListener(focusChangeListener);
 		yanzhengma.setOnFocusChangeListener(focusChangeListener);
 		shezhimima.setOnFocusChangeListener(focusChangeListener);
-        	 // 启动短信验证sdk  
-    		SMSSDK.initSDK(RegisterActivity.this, APPKEY, APPSECRETE);    
-            EventHandler eventHandler = new EventHandler(){    
-                @Override    
-                public void afterEvent(int event, int result, Object data) {    
-                    Message msg = new Message();    
-                    msg.arg1 = event;    
-                    msg.arg2 = result;    
-                    msg.obj = data;
-                    msg.what=1;
-                    handler.sendMessage(msg);   
-                }    
-            };
-        	//注册回调监听接口    
-            SMSSDK.registerEventHandler(eventHandler);
+		// 启动短信验证sdk
+		SMSSDK.initSDK(RegisterActivity.this, APPKEY, APPSECRETE);
+		EventHandler eventHandler = new EventHandler() {
+			@Override
+			public void afterEvent(int event, int result, Object data) {
+				Message msg = new Message();
+				msg.arg1 = event;
+				msg.arg2 = result;
+				msg.obj = data;
+				msg.what = 1;
+				handler.sendMessage(msg);
+			}
+		};
+		// 注册回调监听接口
+		SMSSDK.registerEventHandler(eventHandler);
 	}
-	
+
 	/**
 	 * 布局尺寸的调整
 	 */
-	public void changeSize(){
-		Handler mHandler = new Handler(); 
+	public void changeSize() {
+		Handler mHandler = new Handler();
 		mHandler.postDelayed(new Runnable() {
-			 @Override public void run() { 
-			sc.fullScroll(ScrollView.FOCUS_DOWN); } },300); 
+			@Override
+			public void run() {
+				sc.fullScroll(ScrollView.FOCUS_DOWN);
+			}
+		}, 300);
 	}
-	public final String format = "^([A-Za-z]|[0-9])+$";//密码格式
-	public final String format2 = "^([A-Za-z0-9])+$";//密码格式
+
+	public final String format = "^([A-Za-z]|[0-9])+$";// 密码格式
+	public final String format2 = "^([A-Za-z0-9])+$";// 密码格式
 	/**
 	 * editText的聚焦监听
 	 */
@@ -159,19 +164,19 @@ public class RegisterActivity extends Activity implements OnClickListener {
 				inviteCd = yaoqingma.getText().toString();
 				switch (v.getId()) {
 				case R.id.register_shoujihao:
-					if(!phone){
+					if (!phone) {
 						toast("请输入正确的手机号！");
 					}
 					break;
 				case R.id.register_yanzhengma:
-					if(yanzhengCd.length()!=4){
+					if (yanzhengCd.length() != 4) {
 						toast("验证码长度为4位数");
-					} 
+					}
 					break;
 				case R.id.register_shezhimima:
-					if(password.length()<6||password.length()>20){
+					if (password.length() < 6 || password.length() > 20) {
 						toast("密码为6-20位数字或字母!");
-					}else if(!password.matches(format2)){
+					} else if (!password.matches(format2)) {
 						toast("密码为6-20位数字或字母!");
 					}
 					break;
@@ -181,49 +186,54 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			}
 		}
 	};
+
 	/**
 	 * 检查用户输入
 	 */
-	public boolean checked(){
-		phoneNumb=shoujihao.getText().toString();
-		boolean phone=PhoneTy.isPhoneNb(phoneNumb);
-		yanzhengCd=yanzhengma.getText().toString();
-		password=shezhimima.getText().toString();
-		inviteCd=yaoqingma.getText().toString();
-		if(!phone){
+	public boolean checked() {
+		phoneNumb = shoujihao.getText().toString();
+		boolean phone = PhoneTy.isPhoneNb(phoneNumb);
+		yanzhengCd = yanzhengma.getText().toString();
+		password = shezhimima.getText().toString();
+		inviteCd = yaoqingma.getText().toString();
+		if (!phone) {
 			toast("请输入正确的手机号！");
 			return false;
-		}else if(yanzhengCd.length()!=4){
+		} else if (yanzhengCd.length() != 4) {
 			toast("格式错误：验证码长度为4位");
 			return false;
-		}else if(password.length()<6||password.length()>20){
+		} else if (password.length() < 6 || password.length() > 20) {
 			toast("密码只能是6-20位数字或字母!");
 			return false;
-		}else if(!password.matches(format2)){
+		} else if (!password.matches(format2)) {
 			toast("密码只能是数字或字母!");
 			return false;
-		}else if(yaoqingma.getText()==null||yaoqingma.getText().toString().trim().length()!=0){
+		} else if (yaoqingma.getText() == null
+				|| yaoqingma.getText().toString().trim().length() != 0) {
 			toast("邀请码不正确！");
 			return false;
-		}else{
+		} else {
 			return true;
 		}
 	}
+
 	/**
 	 * 普通控件的点击事件
 	 */
 	public void onClick(View v) {
-		final String phoneNums=shoujihao.getText().toString();
-		String yzm=yanzhengma.getText().toString();
+		final String phoneNums = shoujihao.getText().toString();
+		String yzm = yanzhengma.getText().toString();
 		switch (v.getId()) {
 		case R.id.register_shoujihao:
 			changeSize();
 			break;
-		case R.id.register_show_mima://是否显示密码图标
-			if(showMima.isChecked()){
-				shezhimima.setInputType(EditorInfo.TYPE_CLASS_TEXT |EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-			}else{
-				shezhimima.setInputType(EditorInfo.TYPE_CLASS_TEXT |EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD);
+		case R.id.register_show_mima:// 是否显示密码图标
+			if (showMima.isChecked()) {
+				shezhimima.setInputType(EditorInfo.TYPE_CLASS_TEXT
+						| EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+			} else {
+				shezhimima.setInputType(EditorInfo.TYPE_CLASS_TEXT
+						| EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD);
 			}
 			break;
 		case R.id.register_back_quyu:// 返回区域
@@ -238,12 +248,12 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			RegisterActivity.this.finish();
 			break;
 		case R.id.register_huoquyanzhengma:// 获取验证码(按钮)
-			boolean phone=PhoneTy.isPhoneNb(phoneNums);
-			if(!phone){
+			boolean phone = PhoneTy.isPhoneNb(phoneNums);
+			if (!phone) {
 				toast("请输入正确的手机号！");
 				break;
 			}
-			if(!checkNetwork()){
+			if (!checkNetwork()) {
 				toast("网络未连接，无法获取验证码！");
 				break;
 			}
@@ -261,13 +271,14 @@ public class RegisterActivity extends Activity implements OnClickListener {
 							})
 					.setNegativeButton("好",
 							new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							// 2. 通过sdk发送短信验证
-							SMSSDK.getVerificationCode("86", phoneNums);
-							changeTime();
-						}
-					}).create().show();
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									// 2. 通过sdk发送短信验证
+									SMSSDK.getVerificationCode("86", phoneNums);
+									changeTime();
+								}
+							}).create().show();
 			break;
 		case R.id.register_tongyixieyi_quyu:// 同意协议区域
 			if (xieyiCb.isChecked()) {
@@ -277,10 +288,10 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			}
 			break;
 		case R.id.register_xieyi_neirong:// 协议内容 展示；
-			intent=new Intent(getApplicationContext(), XieYiActivity.class);
+			intent = new Intent(getApplicationContext(), XieYiActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.register_lijijiaru://立即加入
+		case R.id.register_lijijiaru:// 立即加入
 			if (!checkNetwork()) {
 				toast("网络未连接，请检查网络设置！");
 			} else {
@@ -288,7 +299,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 					// 自动检测 错误 不用再调用方法
 				} else {
 					if (xieyiCb.isChecked()) {
-							SMSSDK.submitVerificationCode("86", phoneNums, yzm); 
+						SMSSDK.submitVerificationCode("86", phoneNums, yzm);
 					} else {
 						Builder builder = new AlertDialog.Builder(
 								RegisterActivity.this);
@@ -308,7 +319,9 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			break;
 		}
 	}
-	int tiaozhuan=0;
+
+	int tiaozhuan = 0;
+
 	/**
 	 * 用户信息存到数据库中
 	 */
@@ -317,16 +330,16 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		new Thread(new Runnable() {
 			@SuppressWarnings("unused")
 			public void run() {
-				String httpUrl = "http://192.168.1.192/index.php/Home/Api/add";//PHP接口地址
-				HttpPost httpRequest = new HttpPost(httpUrl);//http用post方法请求数据
-				List<NameValuePair> params = new ArrayList<NameValuePair>();//建立一个列表用于添加数据
+				String httpUrl = "http://192.168.1.192/index.php/Home/Api/add";// PHP接口地址
+				HttpPost httpRequest = new HttpPost(httpUrl);// http用post方法请求数据
+				List<NameValuePair> params = new ArrayList<NameValuePair>();// 建立一个列表用于添加数据
 				params.add(new BasicNameValuePair("useraccount", shoujihao
-						.getText().toString().trim()));//添加用户的用户名
+						.getText().toString().trim()));// 添加用户的用户名
 				params.add(new BasicNameValuePair("userpassword", shezhimima
-						.getText().toString().trim()));//添加用户的密码
+						.getText().toString().trim()));// 添加用户的密码
 				HttpEntity httpentity = null;
 				try {
-					httpentity = new UrlEncodedFormEntity(params, "utf8");//设置用户字符集的格式
+					httpentity = new UrlEncodedFormEntity(params, "utf8");// 设置用户字符集的格式
 				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -355,8 +368,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					threeTz(2, shoujihao.getText().toString(), shoujihao.getText().toString(),
-							"无", "无", "无");
+					threeTz(2, shoujihao.getText().toString(), shoujihao
+							.getText().toString(), "无", "无", "无");
 					Looper.prepare();
 					toast("注册成功！启宠资源大门以为你敞开。");
 					Looper.loop();
@@ -368,6 +381,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			}
 		}).start();
 	}
+
 	/**
 	 * 验证网络状态
 	 */
@@ -378,75 +392,80 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		}
 		return false;
 	}
+
 	/**
 	 * 提示全局通用
 	 */
 	public void toast(String string) {
-		Toast toast=Toast.makeText(RegisterActivity.this, string, Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(RegisterActivity.this, string,
+				Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
-	public void changeTime(){
-		 thread = new Thread() { 
-		      @SuppressWarnings("unused")
-			public void run() { 
-		        if (tag) { 
-		          while (time > 0) { 
-		            time--; 
-		            if (RegisterActivity.this == null) { 
-		              break; 
-		            }   
-		            RegisterActivity.this .runOnUiThread(new Runnable() { 
-		                  public void run() { 
-		                	  getYangzhengma.setText("重新发送("
-		                        + time + ")"); 
-		                    getYangzhengma .setClickable(false); } }); 
-		            try { 
-		              Thread.sleep(1000); 
-		            } catch (InterruptedException e) { 
-		              throw new RuntimeException(e); 
-		            } 
-		          } 
-		          tag = false; 
-		        } 
-		        time = 60; 
-		        tag = true; 
-		        if (RegisterActivity.this != null) { 
-		          RegisterActivity.this.runOnUiThread(new Runnable() { 
-		            @Override
-		            public void run() { 
-		              getYangzhengma.setText("获取验证码"); 
-		              getYangzhengma.setClickable(true); 
-		              handler.sendEmptyMessage(3);
-		            } 
-		          }); 
-		        } 
-		      }; 
-		    }; 
-		    thread.start(); 
+
+	public void changeTime() {
+		thread = new Thread() {
+			@SuppressWarnings("unused")
+			public void run() {
+				if (tag) {
+					while (time > 0) {
+						time--;
+						if (RegisterActivity.this == null) {
+							break;
+						}
+						RegisterActivity.this.runOnUiThread(new Runnable() {
+							public void run() {
+								getYangzhengma.setText("重新发送(" + time + ")");
+								getYangzhengma.setClickable(false);
+							}
+						});
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							throw new RuntimeException(e);
+						}
+					}
+					tag = false;
+				}
+				time = 60;
+				tag = true;
+				if (RegisterActivity.this != null) {
+					RegisterActivity.this.runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							getYangzhengma.setText("获取验证码");
+							getYangzhengma.setClickable(true);
+							handler.sendEmptyMessage(3);
+						}
+					});
+				}
+			};
+		};
+		thread.start();
 	}
+
 	@SuppressLint("HandlerLeak")
-	Handler handler = new Handler() {    
-        public void handleMessage(Message msg) {    
-            if(msg.what==3){ 
-            	
-            }else if(msg.what==1){ 
-            		int event = msg.arg1;    
-                    int result = msg.arg2;    
-                    Object data = msg.obj;    
-                    Log.e("event", "event=" + event);    
-                    if (result == SMSSDK.RESULT_COMPLETE) {    
-                        // 短信注册成功后，返回MainActivity,然后提示    
-                        if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {// 提交验证码成功    
-                            toast("验证码校验成功！");
-                            complete();
-                        } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {    
-                            toast("正在发送验证码....");
-                        } else {
-                        	Throwable throwable = (Throwable) data;
-    						throwable.printStackTrace();
-                        }    
-                    }else if (result == SMSSDK.RESULT_ERROR) {
+	Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			if (msg.what == 3) {
+
+			} else if (msg.what == 1) {
+				int event = msg.arg1;
+				int result = msg.arg2;
+				Object data = msg.obj;
+				Log.e("event", "event=" + event);
+				if (result == SMSSDK.RESULT_COMPLETE) {
+					// 短信注册成功后，返回MainActivity,然后提示
+					if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {// 提交验证码成功
+						toast("验证码校验成功！");
+						complete();
+					} else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+						toast("正在发送验证码....");
+					} else {
+						Throwable throwable = (Throwable) data;
+						throwable.printStackTrace();
+					}
+				} else if (result == SMSSDK.RESULT_ERROR) {
 					try {
 						Throwable throwable = (Throwable) data;
 						throwable.printStackTrace();
@@ -455,52 +474,53 @@ public class RegisterActivity extends Activity implements OnClickListener {
 						String des = object.optString("detail");// 错误描述
 						int status = object.optInt("status");// 错误代码
 						if (status > 0 && !TextUtils.isEmpty(des)) {
-							toast(""+des);
+							toast("" + des);
 							return;
 						}
 					} catch (Exception e) {
 						toast("验证码校验失败！ 请重试");
 					}
-				}else{
-					
+				} else {
+
 				}
-            }     
-        }    
-    };	
-	protected void onDestroy() {
-        super.onDestroy();
-        SMSSDK.unregisterAllEventHandler();  
+			}
+		}
 	};
+
+	protected void onDestroy() {
+		super.onDestroy();
+		SMSSDK.unregisterAllEventHandler();
+	};
+
 	/**
-	 * 保存用户登录方式
-	 * 第三方登录成功后 进行跳转并保存第三方用户信息
+	 * 保存用户登录方式 第三方登录成功后 进行跳转并保存第三方用户信息
+	 * 
 	 * @param numb
-	 * numb=1:用自己的账号登录的
-	 * numb=2刚注册的用户
-	 * numb=3为第三方登录的
+	 *            numb=1:用自己的账号登录的 numb=2刚注册的用户 numb=3为第三方登录的
 	 * @param nickName
-	 * 用户的昵称
+	 *            用户的昵称
 	 * @param ID
-	 * 用户的id
+	 *            用户的id
 	 * @param six
-	 * 用户的性别
+	 *            用户的性别
 	 * @param touxiang
-	 * 用户的头像 为一个网址
+	 *            用户的头像 为一个网址
 	 * @param city
-	 * 用户所在地
+	 *            用户所在地
 	 */
-	public void threeTz(int numb,String nickName,String ID,String six,String touxiang,String city){
-		Editor editor=getSharedPreferences("pet_user", MODE_PRIVATE).edit();
+	public void threeTz(int numb, String nickName, String ID, String six,
+			String touxiang, String city) {
+		Editor editor = getSharedPreferences("pet_user", MODE_PRIVATE).edit();
 		editor.putInt("disanfang", numb);
 		editor.putString("nicheng", nickName);
-    	editor.putString("id", ID);
-    	editor.putString("six", six);
-    	editor.putString("tongxiang", touxiang);
-    	editor.putString("city", city);
+		editor.putString("id", ID);
+		editor.putString("six", six);
+		editor.putString("tongxiang", touxiang);
+		editor.putString("city", city);
 		editor.commit();
-		Intent intent =new Intent(RegisterActivity.this, MainActivity.class);
+		Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
 		startActivity(intent);
 		RegisterActivity.this.finish();
-	} 
-	
+	}
+
 }
