@@ -92,6 +92,7 @@ public class ResetSecuritySetActivity extends Activity {
 			promptQuestion.setText("问题字数不超过20个字");
 			return false;
 		} else {
+			promptQuestion.setText("");
 			return true;
 		}			
 	}
