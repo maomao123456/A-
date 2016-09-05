@@ -16,11 +16,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import com.example.pet.classes.SysApplication;
-import com.example.pet.classes.Utils;
-
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
@@ -33,6 +33,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
+
+import com.example.pet.classes.SysApplication;
+import com.example.pet.classes.Utils;
 
 public class DataInformationActivity extends Activity {
 	
@@ -69,6 +72,18 @@ public class DataInformationActivity extends Activity {
 		gender = (RadioGroup) findViewById(R.id.gender);
 		boy = (RadioButton) findViewById(R.id.boy);
 		girl = (RadioButton) findViewById(R.id.girl);
+		//缓存数据
+		SharedPreferences sp = getSharedPreferences("data", Context.MODE_PRIVATE);
+		nickname.setText(sp.getString("nickname", ""));
+		birthday.setText(sp.getString("birthday", ""));
+		star.setText(sp.getString("star", ""));
+		occupation.setText(sp.getString("occupation", ""));
+		company.setText(sp.getString("company", ""));
+		address.setText(sp.getString("address", ""));
+		hometown.setText(sp.getString("hometown", ""));
+		email.setText(sp.getString("email", ""));
+		remark.setText(sp.getString("remark", ""));
+		//gender.set
 		//触发点击
 		backMine.setOnClickListener(clickListener);
 		gender.setOnCheckedChangeListener(changeListener);
@@ -90,6 +105,7 @@ public class DataInformationActivity extends Activity {
 					return;
 				}
 				saveData();
+				cacheDataInformation();
 				break;
 
 			default:
@@ -103,6 +119,33 @@ public class DataInformationActivity extends Activity {
 		Intent intent = new Intent();
 		intent.setClass(DataInformationActivity.this, MainActivity.class);
 		startActivity(intent);
+	}
+	
+	//缓存用户信息数据
+	private void cacheDataInformation(){
+		SharedPreferences preferences = getSharedPreferences("data", Context.MODE_PRIVATE);
+		String nickName = nickname.getText().toString();
+		String sex = temp;
+		String birth = birthday.getText().toString();
+		String constellation = star.getText().toString();
+		String caree = occupation.getText().toString();
+		String firm = company.getText().toString();
+		String location = address.getText().toString();
+		String birthland = hometown.getText().toString();
+		String e_mail = email.getText().toString();
+		String person = remark.getText().toString();
+		Editor edit = preferences.edit();
+		edit.putString("nickname", nickName);
+		edit.putString("gender", sex);
+		edit.putString("birthday", birth);
+		edit.putString("star", constellation);
+		edit.putString("occupation", caree);
+		edit.putString("company", firm);
+		edit.putString("address", location);
+		edit.putString("hometown", birthland);
+		edit.putString("email", e_mail);
+		edit.putString("remark", person);
+		edit.commit();
 	}
 	
 	//保存数据时昵称不能为空

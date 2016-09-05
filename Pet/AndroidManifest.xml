@@ -50,6 +50,7 @@
             android:name=".MainActivity"
             android:launchMode="singleTask"
             android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -90,12 +91,14 @@
         <activity android:name="com.example.pet.SetPasswordQuestionAnswerActivity" />
         <!-- 关于萌宠界面 -->
         <activity
-            android:name="com.example.pet.AboutPetsActivity"
-            android:launchMode="singleTop" />
+            android:name="com.example.pet.AboutPetsActivity" />
+        <!-- 举报与投诉界面  -->
+        <activity android:name="com.example.pet.ReportComplaintActivity" />
         <!-- 功能介绍页面  -->
         <activity android:name="com.example.pet.FunctionGuideActivity" />
         <!-- 设置界面 -->
          <activity android:name="com.example.pet.SetActivity"/>
+         
         <!--意见反馈界面 -->
         <activity
             android:name="com.example.pet.FeedbackActivity"

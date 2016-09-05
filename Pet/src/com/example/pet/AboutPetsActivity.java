@@ -12,8 +12,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import update.UpdateInfo;
-import update.UpdateInfoService;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -37,6 +35,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pet.classes.SysApplication;
+import com.example.pet.updateversion.UpdateInfo;
+import com.example.pet.updateversion.UpdateInfoService;
 
 public class AboutPetsActivity extends Activity {
 
@@ -65,6 +65,7 @@ public class AboutPetsActivity extends Activity {
 		backMine.setOnClickListener(clickListener);
 		rating.setOnClickListener(clickListener);
 		function.setOnClickListener(clickListener);
+		report.setOnClickListener(clickListener);
 		version.setOnClickListener(clickListener);
 	}
 
@@ -86,6 +87,10 @@ public class AboutPetsActivity extends Activity {
 			// 功能介绍
 			case R.id.function_next:
 				goToFunction();
+				break;
+			// 举报与投诉
+			case R.id.report_complaint_next:
+				goToReport();
 				break;
 			// 检查新版本
 			case R.id.check_new_version_next:
@@ -118,6 +123,13 @@ public class AboutPetsActivity extends Activity {
 	public void goToFunction() {
 		Intent intent = new Intent();
 		intent.setClass(getApplicationContext(), FunctionGuideActivity.class);
+		startActivity(intent);
+	}
+	
+	//跳转到举报与投诉界面
+	public void goToReport(){
+		Intent intent = new Intent();
+		intent.setClass(getApplicationContext(), ReportComplaintActivity.class);
 		startActivity(intent);
 	}
 

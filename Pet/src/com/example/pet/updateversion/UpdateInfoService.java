@@ -1,4 +1,4 @@
-package update;
+package com.example.pet.updateversion;
 
 import java.io.BufferedReader;
 import java.io.IOException;
