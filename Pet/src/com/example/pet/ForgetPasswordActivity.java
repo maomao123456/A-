@@ -1,5 +1,16 @@
 package com.example.pet;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+import java.util.Map;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -229,7 +240,20 @@ public class ForgetPasswordActivity extends Activity implements OnClickListener{
 	}
 	Handler handler = new Handler() {    
         public void handleMessage(Message msg) {    
-            if(msg.what==3){ 
+            if(msg.what==4){//判断修改密码是否成功 
+            	try {
+					JSONObject jsonObject =new JSONObject(str);
+					int status = jsonObject.getInt("status");
+					String message = jsonObject.getString("message");
+					if(status==1){//账号不存在 修改失败！
+						toast(message);
+					}else if(status==2){//修改成功！
+						toast(message);
+						threeTz(1, phoneNumb, phoneNumb, "", "", "");
+					}
+            	} catch (JSONException e) {
+					e.printStackTrace();
+				}	
             }else if(msg.what==1){ 
             		int event = msg.arg1;    
                     int result = msg.arg2;    
@@ -239,7 +263,7 @@ public class ForgetPasswordActivity extends Activity implements OnClickListener{
                         // 短信注册成功后，返回MainActivity,然后提示    
                         if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {// 提交验证码成功    
                             toast("验证码校验成功！");
-                           // complete();
+                           resetPassword(phoneNumb, password);
                         } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {    
                             toast("正在发送验证码....");
                         } else {
@@ -271,15 +295,65 @@ public class ForgetPasswordActivity extends Activity implements OnClickListener{
         }    
     };
     /**
-     * 修改密码的接口
-     */
-    public void changePassword(){
-    	new Thread(new Runnable() {
+	 * 转换数据方便解析
+	 */
+	String str="";
+	/**
+	 * 数据库中根据用户的账号来修改密码
+	 */
+	public void resetPassword(final String userName, final String password) {
+		new Thread(new Runnable() {
 			public void run() {
-				
+				StringBuilder builder = new StringBuilder();
+				try {
+					String httpHost = "http://192.168.1.192/index.php/Home/Api/forgetpassword";// php接口
+					String name = "useraccount=" + userName + "&userpassword="
+							+ password;
+					String urlName = httpHost + "?" + name;
+					URL url = new URL(urlName);
+					HttpURLConnection connection = (HttpURLConnection) url
+							.openConnection();
+					connection.setConnectTimeout(5000);
+					connection.setRequestProperty("accept", "*/*");// 设置客户端接受那些类型的信息，通配符代表接收所有类型的数据
+					connection.setRequestProperty("connection", "Keep-Alive");// 保持长链接
+					connection
+							.setRequestProperty("user-agent",
+									"Mozilla/4.0(compatible;MSIE 6.0;Windows NT5.1;SV1)");// 设置浏览器代理
+					connection
+							.setRequestProperty("accept-charset", "utf-8;GBK");// 客户端接受的字符集
+					connection.connect();// 建立连接
+					InputStream inputStream = connection.getInputStream();
+					Map<String, List<String>> headers = connection
+							.getHeaderFields();
+					for (String key : headers.keySet()) {
+						System.out.println(key + "----" + headers.get(key));
+					}
+					BufferedReader bufferedReader = new BufferedReader(
+							new InputStreamReader(inputStream));
+					String line = bufferedReader.readLine();
+					while (line != null && line.length() > 0) {
+						builder.append(line);
+						line = bufferedReader.readLine();
+					}
+					bufferedReader.close();
+					inputStream.close();
+					str = builder.toString();
+					Message msg = new Message();
+					// 发送登录验证消息
+					msg.what = 4;
+					handler.sendMessage(msg);
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
-		});
-    }
+		}).start();
+	}
+    
+    
+    
+    
     public void changeTime(){
 		 thread = new Thread() { 
 		      @SuppressWarnings("unused")

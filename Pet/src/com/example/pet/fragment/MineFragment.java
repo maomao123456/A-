@@ -66,7 +66,11 @@ public class MineFragment extends Fragment {
 		initView();
 		getUserIfon();
 		//根据用户id获取头像
-		user_icon.setImageBitmap(SaveAndOutImg.outImg(id));
+		if(SaveAndOutImg.outImg(id)==null){//判断用户是否已存在头像
+			user_icon.setImageResource(R.drawable.logo);
+		}else{
+			user_icon.setImageBitmap(SaveAndOutImg.outImg(id));
+		}
 		return view;
 	}
 	/**
