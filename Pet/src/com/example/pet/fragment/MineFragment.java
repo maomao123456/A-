@@ -63,8 +63,12 @@ public class MineFragment extends Fragment {
 		windView = windInflater.inflate(R.layout.activity_update_icon, null);
 		initView();
 		getUserIfon();
-		// 根据用户id获取头像
-		user_icon.setImageBitmap(SaveAndOutImg.outImg(id));
+		//根据用户id获取头像
+		if(SaveAndOutImg.outImg(id)==null){//判断用户是否已存在头像
+			user_icon.setImageResource(R.drawable.logo);
+		}else{
+			user_icon.setImageBitmap(SaveAndOutImg.outImg(id));
+		}
 		return view;
 	}
 
