@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import android.annotation.SuppressLint;
+import android.app.Instrumentation.ActivityResult;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager.OnActivityResultListener;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -264,20 +266,10 @@ public class MineFragment extends Fragment {
 	private void takePhotot() {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		// 指定调用相机拍照后的照片储存的路径
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(
-				Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(
+		/*intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(
 				Environment.getExternalStorageDirectory(),
-
-				IMAGE_FILE_NAME)));
+				IMAGE_FILE_NAME)));*/
 		startActivityForResult(intent, CAMERA_REQUEST_CODE);
-		// 判断储存卡是否可用，储存照片文件
-		if (hasSdcard()) {
-			intent.putExtra(MediaStore.EXTRA_OUTPUT,
-					Uri.fromFile(new File(Environment
-							.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
-
-		}
 	}
 
 	// 从本地相册选取图片作为头像
@@ -293,6 +285,10 @@ public class MineFragment extends Fragment {
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		// 用户没有进行有效的设置操作，返回
+		if (resultCode ==getActivity().RESULT_CANCELED) {
+			return;
+		}
 		switch (requestCode) {
 		case IMAGE_REQUEST_CODE:
 			if (intent != null) {
