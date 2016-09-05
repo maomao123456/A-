@@ -10,9 +10,9 @@
 
     <!-- 退出账号的权限 -->
     <uses-permission android:name="android.permission.RESTART_PACKAGES" />
-    <!-- 分享权限  -->
+    <!-- 分享权限 -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <!-- 更改头像权限  -->
+    <!-- 更改头像权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
@@ -40,32 +40,34 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    
-	<application
+
+    <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTask"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent"
-            android:screenOrientation="portrait" >
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-       <!-- 进程被杀死后再进入的开启动画 -->
-        <activity android:name="com.example.pet.KaiQiActivity"/>
-        <activity android:name="com.example.pet.LoginActivity"/>
+        <!-- 进程被杀死后再进入的开启动画 -->
+        <activity android:name="com.example.pet.KaiQiActivity" />
+        <activity android:name="com.example.pet.LoginActivity" />
         <activity android:name="com.example.pet.RegisterActivity" />
         <activity android:name="com.example.pet.XieYiActivity" />
-        <activity android:name="com.example.pet.ForgetPasswordActivity"/>
-        <!--主页面  -->
-        <activity android:name="com.example.pet.GuideActivity"
-            android:launchMode="singleTask"/>
+        <activity android:name="com.example.pet.ForgetPasswordActivity" />
+        <!-- 主页面 -->
+        <activity
+            android:name="com.example.pet.GuideActivity"
+            android:launchMode="singleTask" />
         <!-- 我的界面 -->
         <activity android:name="com.example.pet.MineActivity" />
 
@@ -78,36 +80,40 @@
             android:name="com.example.pet.AccountManagerActivity"
             android:launchMode="singleTop" />
         <!-- 修改密码界面 -->
-        <activity android:name="com.example.pet.ResetPasswordActivity"
-             android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity
+            android:name="com.example.pet.ResetPasswordActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <!-- 修改手机号界面 -->
-        <activity android:name="com.example.pet.ResetTelephoneActivity"
+        <activity
+            android:name="com.example.pet.ResetTelephoneActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <!-- 修改邮箱界面 -->
-        <activity android:name="com.example.pet.ResetEmailActivity"
+        <activity
+            android:name="com.example.pet.ResetEmailActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <!-- 修改密保设置界面 -->
         <activity android:name="com.example.pet.ResetSecuritySetActivity" />
         <activity android:name="com.example.pet.SetPasswordQuestionAnswerActivity" />
         <!-- 关于萌宠界面 -->
-        <activity
-            android:name="com.example.pet.AboutPetsActivity" />
-        <!-- 举报与投诉界面  -->
+        <activity android:name="com.example.pet.AboutPetsActivity" />
+        <!-- 举报与投诉界面 -->
         <activity android:name="com.example.pet.ReportComplaintActivity" />
-        <!-- 功能介绍页面  -->
+        <!-- 功能介绍页面 -->
         <activity android:name="com.example.pet.FunctionGuideActivity" />
         <!-- 设置界面 -->
-         <activity android:name="com.example.pet.SetActivity"/>
-         
-        <!--意见反馈界面 -->
+        <activity android:name="com.example.pet.SetActivity" />
+
+        <!-- 意见反馈界面 -->
         <activity
             android:name="com.example.pet.FeedbackActivity"
             android:launchMode="singleTop" />
-        <!-- 用户帮助界面  -->
-        <activity android:name="com.example.pet.UserHelpActivity" />"
+        <!-- 用户帮助界面 -->
+        <activity android:name="com.example.pet.UserHelpActivity" />
+"
         <!-- 广场详情页面 -->
-        <activity android:name="com.example.pet.SquareDetailsActivity" 
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name="com.example.pet.SquareDetailsActivity"
+            android:windowSoftInputMode="adjustPan" />
         <!-- 相册动态详情页面 -->
         <activity android:name="com.example.pet.DongtaiAlbumDetailsActivity" />
         <!-- 动态   时光轴页面 -->
@@ -119,8 +125,9 @@
         <!-- 宠物达人  宠物详情页面 -->
         <activity android:name="com.example.pet.PetDetailsActivity" />
         <!-- 宠物达人  发布宠物页面 -->
-        <activity android:name="com.example.pet.PublishPetActivity" 
-            android:launchMode="singleTop"/>
+        <activity
+            android:name="com.example.pet.PublishPetActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name="com.example.pet.DianpingActivity"
             android:launchMode="singleTop" />
@@ -142,6 +149,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" >
         </activity>
+
         <service
             android:name="com.sina.weibo.sdk.net.DownloadService"
             android:exported="false" >
@@ -180,6 +188,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-</application>
+    </application>
 
 </manifest>

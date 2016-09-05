@@ -4,9 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.app.admin.DevicePolicyManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
@@ -30,7 +27,6 @@ import android.widget.Toast;
 
 import com.example.pet.classes.DataClearManager;
 import com.example.pet.classes.SysApplication;
-import com.example.pet.receiver.LockReceiver;
 
 public class SetActivity extends Activity {
 
@@ -91,9 +87,10 @@ public class SetActivity extends Activity {
 					state = true;
 				} else if (state == true) {
 					lockScreen.setImageDrawable(getResources().getDrawable(
-							R.drawable.off));
-					lock();
+							R.drawable.off));				
 					state = false;
+					//lock();
+					Toast.makeText(getApplicationContext(), "因权限问题，锁屏功能暂无法实现", Toast.LENGTH_SHORT).show();
 				}
 				break;
 			case R.id.share_next:
@@ -132,17 +129,15 @@ public class SetActivity extends Activity {
 		}
 	};
 
-	/**
-	 * 锁屏功能的实现
-	 */
-	private DevicePolicyManager policyManager;
-	private ComponentName componentName;
-	private void lock(){
+
+	//锁屏功能的实现
+//	private DevicePolicyManager policyManager;
+//	private ComponentName componentName;
+	/*private void lock(){
 		policyManager  = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
 		componentName = new ComponentName(SetActivity.this, LockReceiver.class);
-		/**
-		 * 判断是否有权限激活设备管理器
-		 */
+		
+		// 判断是否有权限激活设备管理器
 		if(policyManager.isAdminActive(componentName)){
 			policyManager.lockNow();//直接锁屏
 			android.os.Process.killProcess(android.os.Process.myPid());
@@ -152,9 +147,7 @@ public class SetActivity extends Activity {
 		}
 	}
 	
-	/**
-	 * 重写此方法用来在第一次激活设备管理器之后锁定屏幕
-	 */
+	// 重写此方法用来在第一次激活设备管理器之后锁定屏幕
 	protected void onResume(){
 		if(policyManager.isAdminActive(componentName)){
 			policyManager.lockNow();
@@ -162,17 +155,15 @@ public class SetActivity extends Activity {
 		}
 		super.onResume();
 	}
-	
-	/**
-	 * 激活设备管理器获取锁屏的权限
-	 */
+		
+	 // 激活设备管理器获取锁屏的权限	 
 	private void activeManager(){
 		//使用隐式意图调用系统方法来激活指定的设备管理器
 		Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
 		intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
 		intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "一键锁屏");
 		startActivity(intent);
-	}
+	}*/
 	
 	// 清除缓存提示
 	public void toastClearCache() {

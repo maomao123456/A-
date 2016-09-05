@@ -112,7 +112,7 @@ public class AboutPetsActivity extends Activity {
 
 	// 启动应用市场去评分
 	public void goToRating() {
-		// 只能跳转到手机上安装的应用商店，若没有，则无法跳转
+		// 只能跳转到手机上安装的应用商店上注册过的应用，若没有注册，则会跳转到相同包名的APP上;若手机上没有安装应用商店，则无法跳转
 		Uri uri = Uri.parse("market://details?id=" + getPackageName());
 		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -125,9 +125,9 @@ public class AboutPetsActivity extends Activity {
 		intent.setClass(getApplicationContext(), FunctionGuideActivity.class);
 		startActivity(intent);
 	}
-	
-	//跳转到举报与投诉界面
-	public void goToReport(){
+
+	// 跳转到举报与投诉界面
+	public void goToReport() {
 		Intent intent = new Intent();
 		intent.setClass(getApplicationContext(), ReportComplaintActivity.class);
 		startActivity(intent);
@@ -199,6 +199,7 @@ public class AboutPetsActivity extends Activity {
 
 	/**
 	 * 判断是否需要更新
+	 * 
 	 * @return
 	 */
 	private boolean isNeedUpdate() {
@@ -214,6 +215,7 @@ public class AboutPetsActivity extends Activity {
 
 	/**
 	 * 获得当前版本的版本号
+	 * 
 	 * @return
 	 */
 	private String getVersion() {
@@ -230,7 +232,7 @@ public class AboutPetsActivity extends Activity {
 
 	private void downFile(final String url) {
 		pBar = new ProgressDialog(AboutPetsActivity.this);// 进度条，在下载的时候实时更新进度，提高用户友好度
-		pBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);//进度条的样式
+		pBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);// 进度条的样式
 		pBar.setTitle("正在下载");
 		pBar.setMessage("请稍后...");
 		pBar.setProgress(0);
