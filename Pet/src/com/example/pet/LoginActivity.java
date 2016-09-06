@@ -641,6 +641,7 @@ public class LoginActivity extends Activity  implements OnClickListener{
 					JSONObject jsonObject =new JSONObject(str);
 					int status = jsonObject.getInt("status");
 					String message = jsonObject.getString("message");
+					
 					if (status == 2) {
 						// 密码错误，提示用户名或密码错误
 						//跳转到忘记密码界面

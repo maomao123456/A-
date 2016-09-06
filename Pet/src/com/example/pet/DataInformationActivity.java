@@ -72,6 +72,7 @@ public class DataInformationActivity extends Activity {
 		setContentView(R.layout.activity_data_information);
 		SysApplication.getInstance().addActivity(this);
 		initView();
+		getId();
 		getUserData(id);
 	}
 
@@ -173,7 +174,7 @@ public class DataInformationActivity extends Activity {
 		gender = (RadioGroup) findViewById(R.id.gender);
 		boy = (RadioButton) findViewById(R.id.boy);
 		girl = (RadioButton) findViewById(R.id.girl);
-		// 触发点击
+		//触发点击
 		backMine.setOnClickListener(clickListener);
 		gender.setOnCheckedChangeListener(changeListener);
 		saveData.setOnClickListener(clickListener);
@@ -207,9 +208,9 @@ public class DataInformationActivity extends Activity {
 		intent.setClass(DataInformationActivity.this, MainActivity.class);
 		startActivity(intent);
 	}
-
-	// 保存数据时昵称不能为空
-	public boolean checkEdit() {
+	
+	//保存数据时昵称不能为空
+	public boolean checkEdit(){
 		String nickName = nickname.getText().toString();
 		String e_mail = email.getText().toString();
 		boolean rightEmail = Utils.isRightEmail(e_mail);
