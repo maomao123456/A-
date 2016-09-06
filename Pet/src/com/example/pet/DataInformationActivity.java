@@ -59,7 +59,6 @@ public class DataInformationActivity extends Activity {
 		SysApplication.getInstance().addActivity(this);
 		initView();
 		getId();
-		getInfo(id);
 	}
 	
 	//初始化视图
@@ -78,18 +77,6 @@ public class DataInformationActivity extends Activity {
 		gender = (RadioGroup) findViewById(R.id.gender);
 		boy = (RadioButton) findViewById(R.id.boy);
 		girl = (RadioButton) findViewById(R.id.girl);
-		//缓存数据
-		/*SharedPreferences sp = getSharedPreferences("data", Context.MODE_PRIVATE);
-		nickname.setText(sp.getString("nickname", ""));
-		birthday.setText(sp.getString("birthday", ""));
-		star.setText(sp.getString("star", ""));
-		occupation.setText(sp.getString("occupation", ""));
-		company.setText(sp.getString("company", ""));
-		address.setText(sp.getString("address", ""));
-		hometown.setText(sp.getString("hometown", ""));
-		email.setText(sp.getString("email", ""));
-		remark.setText(sp.getString("remark", ""));*/
-		//gender.set
 		//触发点击
 		backMine.setOnClickListener(clickListener);
 		gender.setOnCheckedChangeListener(changeListener);
@@ -127,33 +114,6 @@ public class DataInformationActivity extends Activity {
 		Intent intent = new Intent();
 		intent.setClass(DataInformationActivity.this, MainActivity.class);
 		startActivity(intent);
-	}
-	
-	//缓存用户信息数据
-	private void cacheDataInformation(){
-		SharedPreferences preferences = getSharedPreferences("data", Context.MODE_PRIVATE);
-		String nickName = nickname.getText().toString();
-		String sex = temp;
-		String birth = birthday.getText().toString();
-		String constellation = star.getText().toString();
-		String caree = occupation.getText().toString();
-		String firm = company.getText().toString();
-		String location = address.getText().toString();
-		String birthland = hometown.getText().toString();
-		String e_mail = email.getText().toString();
-		String person = remark.getText().toString();
-		Editor edit = preferences.edit();
-		edit.putString("nickname", nickName);
-		edit.putString("gender", sex);
-		edit.putString("birthday", birth);
-		edit.putString("star", constellation);
-		edit.putString("occupation", caree);
-		edit.putString("company", firm);
-		edit.putString("address", location);
-		edit.putString("hometown", birthland);
-		edit.putString("email", e_mail);
-		edit.putString("remark", person);
-		edit.commit();
 	}
 	
 	//保存数据时昵称不能为空
@@ -201,48 +161,6 @@ public class DataInformationActivity extends Activity {
 			}
 		}
 	};	
-	String str2;
-	/**
-	 * 获得用户信息
-	 */
-	public void getInfo(final String id){
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				str2=JieXiShuJu.doGet("http://192.168.1.192/index.php/Home/Pet/getuserinfo"
-						, new String[]{"id"}, new String[]{id});
-				Message msg=new Message();
-				msg.what=0;
-				handler.sendMessage(msg);
-				
-			}
-		}).start();
-	}
-	Handler handler=new Handler(){
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case 0:
-				try {
-					JSONObject jsonObject=new JSONObject(str2);
-					String nickName=jsonObject.getString("nickname");
-					nickname.setText(nickName);
-					String sex=jsonObject.getString("sex");
-					if(sex.equals("男")){
-						boy.setChecked(true);
-					}else{
-						girl.setChecked(true);
-					}
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				break;
-
-			default:
-				break;
-			}
-		};
-	};
 	String id;
 	/**
 	 * 获得用户 登录后的id
