@@ -331,12 +331,14 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		new Thread(new Runnable() {
 			@SuppressWarnings("unused")
 			public void run() {
-				String httpUrl = "http://192.168.1.192/index.php/Home/Api/add";// PHP接口地址
+				String httpUrl = "http://192.168.1.192/index.php/Home/Pet/add";// PHP接口地址
 				HttpPost httpRequest = new HttpPost(httpUrl);// http用post方法请求数据
 				List<NameValuePair> params = new ArrayList<NameValuePair>();// 建立一个列表用于添加数据
-				params.add(new BasicNameValuePair("useraccount", shoujihao
+				params.add(new BasicNameValuePair("phonenumber", shoujihao
 						.getText().toString().trim()));// 添加用户的用户名
-				params.add(new BasicNameValuePair("userpassword", shezhimima
+				params.add(new BasicNameValuePair("id", shoujihao
+						.getText().toString().trim()));//根据手机号创建用户的ID
+				params.add(new BasicNameValuePair("password", shezhimima
 						.getText().toString().trim()));// 添加用户的密码
 				HttpEntity httpentity = null;
 				try {
@@ -369,10 +371,10 @@ public class RegisterActivity extends Activity implements OnClickListener {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					threeTz(2, shoujihao.getText().toString(), shoujihao
+					threeTz(2, "", shoujihao
 							.getText().toString(), "无", "无", "无");
 					Looper.prepare();
-					toast("注册成功！启宠资源大门以为你敞开。");
+					toast("注册成功！启宠资源大门已为你敞开。");
 					Looper.loop();
 				} else {
 					Looper.prepare();

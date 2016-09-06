@@ -102,8 +102,10 @@ public class DataInformationActivity extends Activity {
 				break;
 			case R.id.save_user:
 				if(!checkEdit()){
+					Toast.makeText(getApplicationContext(), "未保存", Toast.LENGTH_SHORT).show();
 					return;
 				}
+				Toast.makeText(getApplicationContext(), "正在保存.....", Toast.LENGTH_SHORT).show();
 				saveData();
 				cacheDataInformation();
 				break;
@@ -193,16 +195,24 @@ public class DataInformationActivity extends Activity {
 			}
 		}
 	};	
-	
+	String id;
+	/**
+	 * 获得用户 登录后的id
+	 */
+	public void getId(){
+		SharedPreferences pf=getSharedPreferences("pet_user", MODE_PRIVATE);
+		id=pf.getString("id", "");
+	}
 	//添加我的信息
 	private void saveData(){
+		getId();
 		new Thread(new Runnable(){
 			public void run(){
-				String httpUrl = "http://192.168.1.182/index.php/Home/Pet/userinfo";//php接口地址
+				String httpUrl = "http://192.168.1.192/index.php/Home/Pet/update";//php接口地址
 				HttpPost httpRequest = new HttpPost(httpUrl);//http用post方法请求数据
 				List<NameValuePair> params = new ArrayList<NameValuePair>();//建立一个列表用于添加数据
-				params.add(new BasicNameValuePair("userid", userid));//添加获得的用户的账号
-				params.add(new BasicNameValuePair("password", password));//添加获得的用户的密码
+				params.add(new BasicNameValuePair("userid", id));//添加获得的用户的账号
+				//params.add(new BasicNameValuePair("password", password));//添加获得的用户的密码
 				params.add(new BasicNameValuePair("nickname", nickname.getText().toString()));//添加用户的昵称
 				params.add(new BasicNameValuePair("gender", temp));//添加用户的性别
 				params.add(new BasicNameValuePair("birthday", birthday.getText().toString()));//添加用户的生日
