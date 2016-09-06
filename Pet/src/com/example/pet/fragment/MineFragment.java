@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import android.annotation.SuppressLint;
-import android.app.Instrumentation.ActivityResult;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -17,7 +16,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceManager.OnActivityResultListener;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -194,7 +192,6 @@ public class MineFragment extends Fragment {
 		}
 	};
 
-	// 更改头像
 	/**
 	 * 更改头像
 	 */
@@ -269,10 +266,12 @@ public class MineFragment extends Fragment {
 		/*intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(
 				Environment.getExternalStorageDirectory(),
 				IMAGE_FILE_NAME)));*/
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(
+				Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
+		
 		startActivityForResult(intent, CAMERA_REQUEST_CODE);
 	}
 
-	// 从本地相册选取图片作为头像
 	/**
 	 * 从本地相册选取图片作为头像
 	 */
@@ -284,6 +283,7 @@ public class MineFragment extends Fragment {
 		startActivityForResult(intent, IMAGE_REQUEST_CODE);
 	}
 
+	@SuppressWarnings("static-access")
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		// 用户没有进行有效的设置操作，返回
 		if (resultCode ==getActivity().RESULT_CANCELED) {
@@ -322,12 +322,9 @@ public class MineFragment extends Fragment {
 		super.onActivityResult(requestCode, resultCode, intent);
 	};
 
-	// 剪裁原始图片
 	/**
 	 * 剪裁原始图片
-	 * 
-	 * @param uri
-	 *            图片来源
+	 * @param uri图片来源
 	 */
 	public void cropRawPhoto(Uri uri) {
 		Intent intent = new Intent("com.android.camera.action.CROP");
@@ -348,12 +345,9 @@ public class MineFragment extends Fragment {
 			"icon.jpg");
 	File file;
 
-	// 提取保存剪裁之后的图片数据，并设置头像部分的View
 	/**
-	 * 提取保存剪裁之后的图片数据，并设置头像部分的View
-	 * 
-	 * @param intent
-	 *            保存到的路径
+	 * 提取保存剪裁之后的图片数据，并设置头像部分的View 
+	 * @param intent保存到的路径
 	 */
 	private void setIconView(Intent intent) {
 		Bundle extras = intent.getExtras();
@@ -387,11 +381,8 @@ public class MineFragment extends Fragment {
 		}
 	}
 
-	// 检查设备是否存在SDCardz的工具方法
 	/**
 	 * 检查设备是否存在SDCardz的工具方法
-	 * 
-	 * @return 是否存在
 	 */
 	public static boolean hasSdcard() {
 		String state = Environment.getExternalStorageState();
@@ -456,7 +447,7 @@ public class MineFragment extends Fragment {
 	}
 
 	/**
-	 * * ======= /** >>>>>>> feature/guoyumin 加载本地图片
+	 * 加载本地图片
 	 */
 	public static Bitmap getLoacalBitmap(String url) {
 		try {
