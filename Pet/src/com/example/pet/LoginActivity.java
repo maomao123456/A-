@@ -209,8 +209,8 @@ public class LoginActivity extends Activity  implements OnClickListener{
 			public void run() {
 				StringBuilder builder = new StringBuilder();
 				try {
-					String httpHost = "http://192.168.1.192/index.php/Home/Api/login";// php接口
-					String name = "useraccount=" + userName + "&userpassword="
+					String httpHost = "http://192.168.1.192/index.php/Home/Pet/login";// php接口
+					String name = "phonenumber=" + userName + "&password="
 							+ password;
 					String urlName = httpHost + "?" + name;
 					URL url = new URL(urlName);
@@ -668,7 +668,7 @@ public class LoginActivity extends Activity  implements OnClickListener{
 					} else {
 						toast("登录成功！");
 						saveLogin();
-						threeTz(1, userName.getText().toString(), 
+						threeTz(1, "", 
 								userName.getText().toString(),
 								"无", "无", "无");;
 					}

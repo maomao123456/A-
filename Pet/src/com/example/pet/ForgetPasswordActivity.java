@@ -249,7 +249,7 @@ public class ForgetPasswordActivity extends Activity implements OnClickListener{
 						toast(message);
 					}else if(status==2){//修改成功！
 						toast(message);
-						threeTz(1, phoneNumb, phoneNumb, "", "", "");
+						threeTz(1, "", phoneNumb, "", "", "");
 					}
             	} catch (JSONException e) {
 					e.printStackTrace();
@@ -306,8 +306,8 @@ public class ForgetPasswordActivity extends Activity implements OnClickListener{
 			public void run() {
 				StringBuilder builder = new StringBuilder();
 				try {
-					String httpHost = "http://192.168.1.192/index.php/Home/Api/forgetpassword";// php接口
-					String name = "useraccount=" + userName + "&userpassword="
+					String httpHost = "http://192.168.1.192/index.php/Home/Pet/forgetpassword";// php接口
+					String name = "phonenumber=" + userName + "&password="
 							+ password;
 					String urlName = httpHost + "?" + name;
 					URL url = new URL(urlName);
