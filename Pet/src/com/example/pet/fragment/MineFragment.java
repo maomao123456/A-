@@ -192,7 +192,6 @@ public class MineFragment extends Fragment {
 		}
 	};
 
-	// 更改头像
 	/**
 	 * 更改头像
 	 */
@@ -266,10 +265,7 @@ public class MineFragment extends Fragment {
 		// 指定调用相机拍照后的照片储存的路径
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(
 				Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(
-				Environment.getExternalStorageDirectory(),
-
-				IMAGE_FILE_NAME)));
+		
 		startActivityForResult(intent, CAMERA_REQUEST_CODE);
 		// 判断储存卡是否可用，储存照片文件
 		if (hasSdcard()) {
