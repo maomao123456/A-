@@ -15,6 +15,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,7 +24,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -36,11 +41,10 @@ import android.widget.Toast;
 
 import com.example.pet.classes.SysApplication;
 import com.example.pet.classes.Utils;
+import com.example.pet.lei.JieXiShuJu;
 
 public class DataInformationActivity extends Activity {
-	
-	String userid = "123223";
-	String password = "123123";
+
 	ImageButton backMine;
 	Button saveData;
 	EditText nickname, birthday, star, occupation, company, address, hometown, email, remark;
@@ -54,6 +58,8 @@ public class DataInformationActivity extends Activity {
 		setContentView(R.layout.activity_data_information);
 		SysApplication.getInstance().addActivity(this);
 		initView();
+		getId();
+		getInfo(id);
 	}
 	
 	//初始化视图
@@ -73,7 +79,7 @@ public class DataInformationActivity extends Activity {
 		boy = (RadioButton) findViewById(R.id.boy);
 		girl = (RadioButton) findViewById(R.id.girl);
 		//缓存数据
-		SharedPreferences sp = getSharedPreferences("data", Context.MODE_PRIVATE);
+		/*SharedPreferences sp = getSharedPreferences("data", Context.MODE_PRIVATE);
 		nickname.setText(sp.getString("nickname", ""));
 		birthday.setText(sp.getString("birthday", ""));
 		star.setText(sp.getString("star", ""));
@@ -82,7 +88,7 @@ public class DataInformationActivity extends Activity {
 		address.setText(sp.getString("address", ""));
 		hometown.setText(sp.getString("hometown", ""));
 		email.setText(sp.getString("email", ""));
-		remark.setText(sp.getString("remark", ""));
+		remark.setText(sp.getString("remark", ""));*/
 		//gender.set
 		//触发点击
 		backMine.setOnClickListener(clickListener);
@@ -107,7 +113,7 @@ public class DataInformationActivity extends Activity {
 				}
 				Toast.makeText(getApplicationContext(), "正在保存.....", Toast.LENGTH_SHORT).show();
 				saveData();
-				cacheDataInformation();
+				//cacheDataInformation();
 				break;
 
 			default:
@@ -195,6 +201,48 @@ public class DataInformationActivity extends Activity {
 			}
 		}
 	};	
+	String str2;
+	/**
+	 * 获得用户信息
+	 */
+	public void getInfo(final String id){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				str2=JieXiShuJu.doGet("http://192.168.1.192/index.php/Home/Pet/getuserinfo"
+						, new String[]{"id"}, new String[]{id});
+				Message msg=new Message();
+				msg.what=0;
+				handler.sendMessage(msg);
+				
+			}
+		}).start();
+	}
+	Handler handler=new Handler(){
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 0:
+				try {
+					JSONObject jsonObject=new JSONObject(str2);
+					String nickName=jsonObject.getString("nickname");
+					nickname.setText(nickName);
+					String sex=jsonObject.getString("sex");
+					if(sex.equals("男")){
+						boy.setChecked(true);
+					}else{
+						girl.setChecked(true);
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+
+			default:
+				break;
+			}
+		};
+	};
 	String id;
 	/**
 	 * 获得用户 登录后的id

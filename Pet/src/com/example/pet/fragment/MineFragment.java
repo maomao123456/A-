@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -37,6 +40,7 @@ import com.example.pet.DataInformationActivity;
 import com.example.pet.R;
 import com.example.pet.SetActivity;
 import com.example.pet.lei.CircularImage;
+import com.example.pet.lei.JieXiShuJu;
 import com.example.pet.lei.SaveAndOutImg;
 
 public class MineFragment extends Fragment {
@@ -114,26 +118,52 @@ public class MineFragment extends Fragment {
 		SharedPreferences pf = getActivity().getSharedPreferences("pet_user",
 				getActivity().MODE_PRIVATE);
 		numb = pf.getInt("disanfang", 0);
-		city = pf.getString("city", "无");
 		name = pf.getString("nicheng", "无");
 		id = pf.getString("id", "");
 		tongxiang = pf.getString("tongxiang", "无地址");
-		user_nickname.setText(name);
+		//判断用户是否为第三方登录
+		if(numb!=3){//不是第三方登录
+			getInfo(id);
+		}else{
+			user_nickname.setText(name);
+		}
 		user_id.setText(id);
+	}
+	/**
+	 * 获得用户的Json数据
+	 */
+	String str2;
+	/**
+	 * 获得用户信息
+	 */
+	public void getInfo(final String id){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				str2=JieXiShuJu.doGet("http://192.168.1.192/index.php/Home/Pet/getuserinfo"
+						, new String[]{"id"}, new String[]{id});
+				Message msg=new Message();
+				msg.what=1;
+				handler.sendMessage(msg);
+			}
+		}).start();
 	}
 
 	/**
 	 * 根据用户登录的状况来刷新UI
 	 */
-	@SuppressLint("HandlerLeak")
 	Handler handler = new Handler() {
-		@SuppressWarnings("unused")
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 1:
-				Bitmap bitmap = (Bitmap) msg.obj;
-				// user_icon.setImageBitmap(bitmap);
-
+				try {
+					JSONObject object=new JSONObject(str2);
+					String name1=object.getString("nickname");
+					user_nickname.setText(name1);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			default:
 				break;
@@ -263,12 +293,8 @@ public class MineFragment extends Fragment {
 	private void takePhotot() {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		// 指定调用相机拍照后的照片储存的路径
-		/*intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(
-				Environment.getExternalStorageDirectory(),
-				IMAGE_FILE_NAME)));*/
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(
 				Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
-		
 		startActivityForResult(intent, CAMERA_REQUEST_CODE);
 	}
 
@@ -380,7 +406,6 @@ public class MineFragment extends Fragment {
 			}
 		}
 	}
-
 	/**
 	 * 检查设备是否存在SDCardz的工具方法
 	 */

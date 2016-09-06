@@ -18,7 +18,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
  */
 public class JieXiShuJu{
 	/**
-     * GET请求
+     * GET请求 返回Json.toString
      * @param path 网页路径
      * @param params 参数
      * @param values 参数的值
@@ -31,18 +31,24 @@ public class JieXiShuJu{
             HttpGet httpGet = new HttpGet(url);//创建GET对象
             HttpResponse httpResponse = httpClient.execute(httpGet);//开始访问,用HttpResponse来收返回的数据
             //如果连接成功，读取数据
+            System.out.println("等待连接。。。。。。。《》》》》》");
             if(httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
+            	 System.out.println("连接成功！《》》》》》");
                 return JieXiShuJu.readData(httpResponse.getEntity().getContent());//通过HttpResponse来获得对应的输出流
+            }else{
+            	 System.out.println("连接失败！《》》》》》");
+            	return null;
             }
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("连接成功！返回空《135465《》》》》》");
         return null;
     }
     /**
-     * 解析URL
+     * 组合URL 返回url
      * @param path 路径
      * @param params 参数
      * @param values 值
@@ -53,6 +59,7 @@ public class JieXiShuJu{
         //如果params和values为空就返回path
         if(params==null||values==null){
             url = path;
+            System.out.println("//如果params和values为空就返回path");
         }
         //如果参数和值的大小不同，抛出异常
         else if(params.length != values.length){
@@ -61,6 +68,7 @@ public class JieXiShuJu{
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            System.out.println("参数异常！！！！《》》《《《》");
         }
         //正常解析情况
         else{
@@ -71,6 +79,7 @@ public class JieXiShuJu{
             //截取最后的一个字符"&"
             url = url.substring(0, url.length()-1);
         }
+        System.out.println("完整路径---------"+url);
         return url;
     }
     /**
@@ -92,6 +101,7 @@ public class JieXiShuJu{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(sb.toString());
         return sb.toString();
     }
 }
