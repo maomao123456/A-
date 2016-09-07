@@ -22,16 +22,16 @@ public class ResetSecuritySetActivity extends Activity {
 	Button saveSecuritySet;
 	EditText questionOne, questionTwo, questionThree;
 	TextView promptQuestion;
-	
+
 	/**
 	 * 获得用户 登录后的id 获得当前用户id的方法
 	 */
 	String id;
+
 	public void getId() {
 		SharedPreferences pf = getSharedPreferences("pet_user", MODE_PRIVATE);
 		id = pf.getString("id", "");
 	}
-
 
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -49,7 +49,8 @@ public class ResetSecuritySetActivity extends Activity {
 		questionTwo = (EditText) findViewById(R.id.question_two);
 		questionThree = (EditText) findViewById(R.id.question_three);
 		promptQuestion = (TextView) findViewById(R.id.prompt_question);
-		SharedPreferences preference = getSharedPreferences(id, Context.MODE_PRIVATE);
+		SharedPreferences preference = getSharedPreferences(id,
+				Context.MODE_PRIVATE);
 		questionOne.setText(preference.getString("q1", ""));
 		questionTwo.setText(preference.getString("q2", ""));
 		questionThree.setText(preference.getString("q3", ""));
@@ -69,9 +70,11 @@ public class ResetSecuritySetActivity extends Activity {
 				backAccountManager();
 				break;
 			case R.id.save_security_set:
-				if(!checkEdit()){
+				if (!checkEdit()) {
+					Toast.makeText(getApplicationContext(), "save file", Toast.LENGTH_SHORT).show();
 					return;
 				}
+				Toast.makeText(getApplicationContext(), "save success", Toast.LENGTH_SHORT).show();
 				cacheQuestion();
 				toAnswer();
 				break;
@@ -89,28 +92,29 @@ public class ResetSecuritySetActivity extends Activity {
 		startActivity(intent);
 		ResetSecuritySetActivity.this.finish();
 	}
-	
+
 	// 问题输入框
-	private boolean checkEdit(){
+	private boolean checkEdit() {
 		String qOne = questionOne.getText().toString();
 		String qTwo = questionTwo.getText().toString();
 		String qThree = questionThree.getText().toString();
-		if(qOne.isEmpty() && qTwo.isEmpty() && qThree.isEmpty()){
+		if (qOne.isEmpty() && qTwo.isEmpty() && qThree.isEmpty()) {
 			promptQuestion.setText("至少输入一个问题");
 			return false;
-		} else if(qOne.length() > 20 || qTwo.length() > 20 || qThree.length() > 20){
+		} else if (qOne.length() > 20 || qTwo.length() > 20
+				|| qThree.length() > 20) {
 			promptQuestion.setText("问题字数不超过20个字");
 			return false;
 		} else {
 			promptQuestion.setText("");
 			return true;
-		}			
+		}
 	}
-	
+
 	/**
 	 * 问题缓存
 	 */
-	private void cacheQuestion(){
+	public void cacheQuestion() {
 		String q1 = questionOne.getText().toString();
 		String q2 = questionTwo.getText().toString();
 		String q3 = questionThree.getText().toString();
@@ -120,13 +124,15 @@ public class ResetSecuritySetActivity extends Activity {
 		editor.putString("q2", q2);
 		editor.putString("q3", q3);
 		editor.commit();
-		Toast.makeText(getApplicationContext(), "保存成功", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "保存成功", Toast.LENGTH_SHORT)
+				.show();
 	}
-	
-	//跳转到设置问题答案的页面
-	private void toAnswer(){
+
+	// 跳转到设置问题答案的页面
+	private void toAnswer() {
 		Intent intent = new Intent();
-		intent.setClass(getApplicationContext(), SetPasswordQuestionAnswerActivity.class);
+		intent.setClass(getApplicationContext(),
+				SetPasswordQuestionAnswerActivity.class);
 		startActivity(intent);
 	}
 

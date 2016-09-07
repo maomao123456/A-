@@ -216,25 +216,15 @@ public class DataInformationActivity extends Activity {
 
 	// 保存数据时昵称不能为空
 	public boolean checkEdit() {
-		String nickName = nickname.getText().toString();
 		String e_mail = email.getText().toString();
 		boolean rightEmail = Utils.isRightEmail(e_mail);
-		if (nickName.isEmpty()) {
-			Toast.makeText(getApplicationContext(), "保存失败，请输入昵称",
-					Toast.LENGTH_SHORT).show();
-		} else if (!nickName.isEmpty()) {
-			if (!e_mail.isEmpty()) {
-				if (rightEmail == false) {
-					Toast.makeText(getApplicationContext(), "请输入正确的邮箱地址",
-							Toast.LENGTH_SHORT).show();
-				} else {
-					Toast.makeText(getApplicationContext(), "保存成功",
-							Toast.LENGTH_SHORT).show();
-					return true;
-				}
-			}
+		if(!e_mail.isEmpty()&&rightEmail == false){
+				Toast.makeText(getApplicationContext(), "请输入正确的邮箱地址",
+						Toast.LENGTH_SHORT).show();
+				return false;
+		}else{
+			return true;
 		}
-		return false;
 	}
 
 	// 性别的选择

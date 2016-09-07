@@ -6,7 +6,7 @@ package com.example.pet.updateversion;
  */
 public class GetServerUrl {
 
-	static String url = "http://192.168.1.182";
+	static String url = "https://github.com/maomao123456/Pet.git";
 	public static String getUrl(){
 		return url;
 	}

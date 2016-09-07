@@ -38,9 +38,9 @@ public class SetActivity extends Activity {
 	RelativeLayout share, feedback, help, annoouncement, clear, exitLogin;
 	ImageView lockScreen;
 	boolean state = false;// 锁屏密码是否打开，默认不打开
-	PopupWindow popupWindowExitLogin, popupWindowShare;// 自定义对话框
-	View exitLoginWindView, shareWindView;
-	LayoutInflater exitLoginInflater, shareInflater;
+	PopupWindow popupWindowExitLogin;// 自定义对话框
+	View exitLoginWindView;
+	LayoutInflater exitLoginInflater;
 
 	@SuppressLint("InflateParams")
 	public void onCreate(Bundle savedInstanceState) {
@@ -52,9 +52,6 @@ public class SetActivity extends Activity {
 		//退出登录
 		exitLoginInflater = this.getLayoutInflater();
 		exitLoginWindView = exitLoginInflater.inflate(R.layout.activity_exit, null);
-		//分享
-		shareInflater = this.getLayoutInflater();
-		shareWindView = shareInflater.inflate(R.layout.activity_share, null);
 		initView();
 	}
 
@@ -179,43 +176,6 @@ public class SetActivity extends Activity {
 
 	}
 	
-	@SuppressWarnings("deprecation")
-	public void createSharePopupWindow(){
-		popupWindowShare = new PopupWindow(shareWindView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
-		popupWindowShare.setBackgroundDrawable(new BitmapDrawable());
-		popupWindowShare.setOutsideTouchable(true);
-		popupWindowShare.setTouchable(true);
-		popupWindowShare.setTouchInterceptor(new OnTouchListener() {
-			@SuppressLint("ClickableViewAccessibility")
-			public boolean onTouch(View v, MotionEvent event) {
-				return false;
-			}
-		});
-		popupWindowShare.showAtLocation(shareWindView, Gravity.FILL, 0, 0);
-		TextView shareCancel = (TextView) shareWindView.findViewById(R.id.cancel_share);
-		TextView shareSend = (TextView) shareWindView.findViewById(R.id.send_share);
-		TextView linkPet = (TextView) shareWindView.findViewById(R.id.link_pet);
-		TextView youFriends = (TextView) shareWindView.findViewById(R.id.you_friends);
-		
-		/**
-		 * 取消分享
-		 */
-		shareCancel.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				popupWindowShare.dismiss();
-			}
-		});
-		
-		/**
-		 * 发送分享
-		 */
-		shareSend.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				
-			}
-		});
-	}
-
 	/**
 	 * 安装包地址
 	 */
