@@ -50,10 +50,9 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         <activity
-            android:name=".MainActivity"
-            android:launchMode="singleTask"
+            android:name=".GuideActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -67,15 +66,14 @@
         <activity android:name="com.example.pet.XieYiActivity" />
         <activity android:name="com.example.pet.ForgetPasswordActivity"/>
         <!--主页面  -->
-        <activity android:name="com.example.pet.GuideActivity"
+        <activity android:name="com.example.pet.MainActivity"
             android:launchMode="singleTask"/>
-        <!-- 我的界面 -->
-        <activity android:name="com.example.pet.MineActivity" />
 
         <!-- 资料信息界面 -->
         <activity
             android:name="com.example.pet.DataInformationActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <!-- 账户管理界面 -->
         <activity
             android:name="com.example.pet.AccountManagerActivity"

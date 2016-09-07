@@ -67,12 +67,6 @@ public class MineFragment extends Fragment {
 		windView = windInflater.inflate(R.layout.activity_update_icon, null);
 		initView();
 		getUserIfon();
-		//根据用户id获取头像
-		if(SaveAndOutImg.outImg(id)==null){//判断用户是否已存在头像
-			user_icon.setImageResource(R.drawable.logo);
-		}else{
-			user_icon.setImageBitmap(SaveAndOutImg.outImg(id));
-		}
 		return view;
 	}
 
@@ -160,6 +154,12 @@ public class MineFragment extends Fragment {
 					JSONObject object=new JSONObject(str2);
 					String name1=object.getString("nickname");
 					user_nickname.setText(name1);
+					//根据用户id获取头像
+					if(SaveAndOutImg.outImg(id)==null){//判断用户是否已存在头像
+						user_icon.setImageResource(R.drawable.logo);
+					}else{
+						user_icon.setImageBitmap(SaveAndOutImg.outImg(id));
+					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
