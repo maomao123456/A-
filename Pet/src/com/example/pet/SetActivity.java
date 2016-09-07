@@ -1,13 +1,17 @@
 package com.example.pet;
 
+import java.io.File;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -34,9 +38,9 @@ public class SetActivity extends Activity {
 	RelativeLayout share, feedback, help, annoouncement, clear, exitLogin;
 	ImageView lockScreen;
 	boolean state = false;// 锁屏密码是否打开，默认不打开
-	PopupWindow popupWindow;// 自定义对话框
-	View windView;
-	LayoutInflater inflater;
+	PopupWindow popupWindowExitLogin, popupWindowShare;// 自定义对话框
+	View exitLoginWindView, shareWindView;
+	LayoutInflater exitLoginInflater, shareInflater;
 
 	@SuppressLint("InflateParams")
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,8 +49,12 @@ public class SetActivity extends Activity {
 		setContentView(R.layout.activity_set);
 		SysApplication.getInstance().addActivity(this);
 
-		inflater = this.getLayoutInflater();
-		windView = inflater.inflate(R.layout.activity_exit, null);
+		//退出登录
+		exitLoginInflater = this.getLayoutInflater();
+		exitLoginWindView = exitLoginInflater.inflate(R.layout.activity_exit, null);
+		//分享
+		shareInflater = this.getLayoutInflater();
+		shareWindView = shareInflater.inflate(R.layout.activity_share, null);
 		initView();
 	}
 
@@ -94,6 +102,7 @@ public class SetActivity extends Activity {
 				}
 				break;
 			case R.id.share_next:
+				//createSharePopupWindow();
 				share();
 				break;
 			case R.id.feedback_next:
@@ -169,15 +178,83 @@ public class SetActivity extends Activity {
 		}, 3000);
 
 	}
+	
+	@SuppressWarnings("deprecation")
+	public void createSharePopupWindow(){
+		popupWindowShare = new PopupWindow(shareWindView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
+		popupWindowShare.setBackgroundDrawable(new BitmapDrawable());
+		popupWindowShare.setOutsideTouchable(true);
+		popupWindowShare.setTouchable(true);
+		popupWindowShare.setTouchInterceptor(new OnTouchListener() {
+			@SuppressLint("ClickableViewAccessibility")
+			public boolean onTouch(View v, MotionEvent event) {
+				return false;
+			}
+		});
+		popupWindowShare.showAtLocation(shareWindView, Gravity.FILL, 0, 0);
+		TextView shareCancel = (TextView) shareWindView.findViewById(R.id.cancel_share);
+		TextView shareSend = (TextView) shareWindView.findViewById(R.id.send_share);
+		TextView linkPet = (TextView) shareWindView.findViewById(R.id.link_pet);
+		TextView youFriends = (TextView) shareWindView.findViewById(R.id.you_friends);
+		
+		/**
+		 * 取消分享
+		 */
+		shareCancel.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				popupWindowShare.dismiss();
+			}
+		});
+		
+		/**
+		 * 发送分享
+		 */
+		shareSend.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				
+			}
+		});
+	}
 
+	/**
+	 * 安装包地址
+	 */
+	String linkPath = "https://github.com/maomao123456/Pet.git";
 	// 分享
 	public void share() {
 		Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("image/*");
-		intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
-		intent.putExtra(Intent.EXTRA_TEXT, "New Message");
+		intent.setType("text/plain");
+		intent.putExtra(Intent.EXTRA_SUBJECT, linkPath);
+		intent.putExtra(Intent.EXTRA_TEXT, linkPath);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(Intent.createChooser(intent, getTitle()));
+	}
+	
+	/**   
+	  * 分享功能   
+	  * @param context 上下文   
+	  * @param activityTitle Activity的名字   
+	  * @param msgTitle 消息标题   
+	  * @param msgText 消息内容   
+	  * @param imgPath 图片路径，不分享图片则传null   
+	  */  
+	public void shareMsg(Context context, Bundle activityTitle, String msgTitle, String msgText, String imgPath){
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		if(imgPath == null || imgPath.equals("")){
+			intent.setType("text/plain");//chun wen ben
+		} else {
+			File file = new File(imgPath);
+			if(file != null && file.exists() && file.isFile()){
+				intent.setType("image/*");
+				Uri uri = Uri.fromFile(file);
+				intent.putExtra(Intent.EXTRA_STREAM, uri);
+			}
+			intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
+			intent.putExtra(Intent.EXTRA_TEXT, msgText);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			context.startActivity(Intent.createChooser(intent, getTitle()));
+		}
 	}
 
 	// 跳转到意见反馈界面
@@ -201,29 +278,29 @@ public class SetActivity extends Activity {
 		startActivity(intent);
 	}
 
-	// popupwindow
+	// popupwindowExitLogin
 	@SuppressLint("ClickableViewAccessibility")
 	@SuppressWarnings("deprecation")
 	public void createExitLoginPopupWindow() {
 		// 初始化一个popupWindow的对象并给以长和宽
-		popupWindow = new PopupWindow(windView, LayoutParams.WRAP_CONTENT,
+		popupWindowExitLogin = new PopupWindow(exitLoginWindView, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, true);
 		// 设置popupWindow背景，不设置则无法监听(背景设置为全透明)
-		popupWindow.setBackgroundDrawable(new BitmapDrawable());
+		popupWindowExitLogin.setBackgroundDrawable(new BitmapDrawable());
 		// 设置popupWindow窗口外布局是否可以点击
-		popupWindow.setOutsideTouchable(true);
-		popupWindow.setTouchable(true);
+		popupWindowExitLogin.setOutsideTouchable(true);
+		popupWindowExitLogin.setTouchable(true);
 		// 设置是否可以点击
-		popupWindow.setTouchInterceptor(new OnTouchListener() {
+		popupWindowExitLogin.setTouchInterceptor(new OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				return false;
 			}
 		});
-		popupWindow.showAtLocation(windView, Gravity.FILL, 0, 0);
-		TextView exitAccount = (TextView) windView
+		popupWindowExitLogin.showAtLocation(exitLoginWindView, Gravity.FILL, 0, 0);
+		TextView exitAccount = (TextView) exitLoginWindView
 				.findViewById(R.id.exit_login_account);
-		TextView closePet = (TextView) windView.findViewById(R.id.close_pet);
-		View textBg = (View) windView.findViewById(R.id.exit_bg);
+		TextView closePet = (TextView) exitLoginWindView.findViewById(R.id.close_pet);
+		View textBg = (View) exitLoginWindView.findViewById(R.id.exit_bg);
 		exitAccount.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				exitAccount();
@@ -236,7 +313,7 @@ public class SetActivity extends Activity {
 		});
 		textBg.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				popupWindow.dismiss();
+				popupWindowExitLogin.dismiss();
 			}
 		});
 	}
@@ -248,7 +325,7 @@ public class SetActivity extends Activity {
 				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whitch) {
 						// 点击"确定"后操作
-						popupWindow.dismiss();
+						popupWindowExitLogin.dismiss();
 						saveLoginOut();
 						Intent intent = new Intent();
 						intent.setClass(getApplicationContext(),
@@ -261,7 +338,7 @@ public class SetActivity extends Activity {
 				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whitch) {
 						// 点击"取消"后操作，在这里不做任何操作
-						popupWindow.dismiss();
+						popupWindowExitLogin.dismiss();
 					}
 				}).show();
 	}
@@ -284,7 +361,7 @@ public class SetActivity extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int whitch) {
 						// 点击"确定"后操作
-						popupWindow.dismiss();
+						popupWindowExitLogin.dismiss();
 						saveLoginOut();// 请勿屏蔽此方法 下次进入时需要登录
 						SysApplication.getInstance().exit();
 					}
@@ -292,7 +369,7 @@ public class SetActivity extends Activity {
 				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int witch) {
 						// 点击"取消"后操作，在这里不做任何操作
-						popupWindow.dismiss();
+						popupWindowExitLogin.dismiss();
 					}
 				}).show();
 
