@@ -123,5 +123,9 @@
     <string name="answer_one">答案一：</string>
     <string name="answer_two">答案二：</string>
     <string name="answer_three">答案三：</string>
+    <!-- 分享  -->
+    <string name="send_to">发送给：</string>
+    <string name="link">链接》宠物APP</string>
+    <string name="send">发送</string>
 
 </resources>
