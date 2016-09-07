@@ -6,7 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -26,6 +28,7 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -59,7 +62,7 @@ public class PublishPetActivity extends Activity {
 	 * 头像地址转图片
 	 */
 	Bitmap bitmap = null;
-	String id = "1234";
+	String id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,7 @@ public class PublishPetActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_publish_pet);
 		SysApplication.getInstance().addActivity(this);
+		getId();
 		init();
 	}
 
@@ -86,6 +90,14 @@ public class PublishPetActivity extends Activity {
 		bitmap = getLoacalBitmap(file2.getAbsolutePath());
 	}
 
+	/**
+	 * 获得用户 登录后的id
+	 */
+	public void getId() {
+		SharedPreferences pf = getSharedPreferences("pet_user", MODE_PRIVATE);
+		id = pf.getString("id", "");
+	}
+
 	private static int output_X = 720;
 	private static int output_Y = 526;
 
@@ -102,8 +114,6 @@ public class PublishPetActivity extends Activity {
 				break;
 			case R.id.publish_publish_pet:
 				saveData();
-				// startActivity(new
-				// Intent(PublishPetActivity.this,MainActivity.class));
 				startActivity(new Intent(PublishPetActivity.this,
 						PublishPetActivity.class));
 				toast("发布成功!");
@@ -116,12 +126,6 @@ public class PublishPetActivity extends Activity {
 				break;
 			case R.id.album_head_pop:
 				fromGallery();
-				/*
-				 * CameraAndAlbum cameraAndAlbum=new CameraAndAlbum();
-				 * cameraAndAlbum.which(1, output_X, output_Y); Bitmap
-				 * bitmap=cameraAndAlbum.getPath();
-				 * image.setImageBitmap(bitmap);
-				 */
 				popWindow.dismiss();
 				break;
 			case R.id.camera_head_pop:
@@ -129,18 +133,6 @@ public class PublishPetActivity extends Activity {
 				popWindow.dismiss();
 				break;
 			case R.id.cancel_head_pop:
-				popWindow.dismiss();
-				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-				intent.addCategory(Intent.CATEGORY_OPENABLE);
-				intent.setType("image/*");
-				intent.putExtra("crop", "true");
-				intent.putExtra("aspectX", 1);
-				intent.putExtra("aspectY", 1);
-				intent.putExtra("outputX", 80);
-				intent.putExtra("outputY", 80);
-				intent.putExtra("return-data", true);
-
-				startActivityForResult(intent, 0);
 				popWindow.dismiss();
 				break;
 
@@ -152,6 +144,9 @@ public class PublishPetActivity extends Activity {
 
 	@SuppressLint("ClickableViewAccessibility")
 	@SuppressWarnings("deprecation")
+	/**
+	 * 创建一个popupWindow
+	 */
 	public void creatPopupWindow() {
 		popWindow = new PopupWindow(popview, LayoutParams.MATCH_PARENT,
 				LayoutParams.MATCH_PARENT, true);
@@ -188,25 +183,32 @@ public class PublishPetActivity extends Activity {
 		toast.show();
 	}
 
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	Date date = new Date();
+	String time = simpleDateFormat.format(date);
+
 	/**
 	 * 存入数据库中
 	 */
 	private void saveData() {
 		new Thread(new Runnable() {
-			@SuppressWarnings("unused")
 			public void run() {
 				String httpUrl = "http://192.168.1.197/index.php/Home/Api/uploadPetMessage";// php接口地址
 				HttpPost httpRequest = new HttpPost(httpUrl);// http用post方法请求数据
 				List<NameValuePair> params = new ArrayList<NameValuePair>();// 建立一个列表用于添加数据
 				params.add(new BasicNameValuePair("id", id));// 添加获得的用户的账号
-				// params.add(new
-				// BasicNameValuePair("image",bitmap.toString()));//宠物图片
+				if (bitmap != null) {
+					params.add(new BasicNameValuePair("image", bitmap
+							.toString()));// 宠物图片
+					saveImage();
+				}
 				params.add(new BasicNameValuePair("describe", describe
 						.getText().toString()));// 宠物描述
 				params.add(new BasicNameValuePair("name", name.getText()
 						.toString()));// 宠物名字
 				params.add(new BasicNameValuePair("type", type.getText()
 						.toString()));// 宠物类型
+				params.add(new BasicNameValuePair("time", time));// 时间
 				try {
 					HttpEntity httpEntity = new UrlEncodedFormEntity(params,
 							"utf-8");// 设置用户的字符集格式
@@ -393,6 +395,35 @@ public class PublishPetActivity extends Activity {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+
+	/**
+	 * 点击发布后储存图片
+	 */
+	public void saveImage() {
+		File nfile = new File(Environment.getExternalStorageDirectory()
+				+ "/pet_publish");
+		if (!nfile.exists()) {
+			nfile.mkdir();
+		}
+		// 在根目录下面的pet文件夹下，创建image.jpg文件
+		file = new File(Environment.getExternalStorageDirectory()
+				+ "/pet_publish", id + " " + time + "pet" + ".jpg");
+
+		FileOutputStream fos = null;
+		try {
+			// 打开输出流，将图片数据填入文件中
+			fos = new FileOutputStream(file);
+			bitmap.compress(Bitmap.CompressFormat.PNG, 99, fos);
+			try {
+				fos.flush();
+				fos.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 }
