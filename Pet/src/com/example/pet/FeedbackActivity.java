@@ -18,6 +18,7 @@ import org.apache.http.util.EntityUtils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Looper;
 import android.text.Editable;
@@ -37,13 +38,23 @@ import com.example.pet.classes.Utils;
 
 public class FeedbackActivity extends Activity {
 
-	String userId = "1235833";
+	
 	ImageButton backSet;// 返回设置页面
 	Button closeFeedback, submitFeedback;// 关闭意见反馈页面，提交反馈的意见
 	EditText inputFeedback, contantPhone;// 输入反馈的意见和电话联系方式
 	ImageView addImage;// 添加图片	
 	TextView textPrompt, num, promptImage;// 提示用户输入正确的电话号码，还可以输入的字符数，图片添加说明文字
 	private final int MaxNum = 400;// 输入文字显示的最大数字
+	
+	/**
+	 * 获得用户 登录后的id 获得当前用户id的方法
+	 */
+	String id;
+	public void getId() {
+		SharedPreferences pf = getSharedPreferences("pet_user", MODE_PRIVATE);
+		id = pf.getString("id", "");
+	}
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -178,7 +189,7 @@ public class FeedbackActivity extends Activity {
 				HttpPost httpRequest = new HttpPost(httpUrl);// http用post方法请求数据
 				List<NameValuePair> params = new ArrayList<NameValuePair>();// 建立一个列表用于添加数据
 				// params.add(new BasicNameValuePair("id", ))
-				params.add(new BasicNameValuePair("userid", userId));// 添加用户ID
+				params.add(new BasicNameValuePair("userid", id));// 添加用户ID
 				params.add(new BasicNameValuePair("feedback", inputFeedback
 						.getText().toString().trim()));// 添加用户反馈的意见或遇到的问题
 				params.add(new BasicNameValuePair("conphone", contantPhone

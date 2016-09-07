@@ -22,6 +22,16 @@ public class ResetSecuritySetActivity extends Activity {
 	Button saveSecuritySet;
 	EditText questionOne, questionTwo, questionThree;
 	TextView promptQuestion;
+	
+	/**
+	 * 获得用户 登录后的id 获得当前用户id的方法
+	 */
+	String id;
+	public void getId() {
+		SharedPreferences pf = getSharedPreferences("pet_user", MODE_PRIVATE);
+		id = pf.getString("id", "");
+	}
+
 
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -39,7 +49,7 @@ public class ResetSecuritySetActivity extends Activity {
 		questionTwo = (EditText) findViewById(R.id.question_two);
 		questionThree = (EditText) findViewById(R.id.question_three);
 		promptQuestion = (TextView) findViewById(R.id.prompt_question);
-		SharedPreferences preference = getSharedPreferences("question", Context.MODE_PRIVATE);
+		SharedPreferences preference = getSharedPreferences(id, Context.MODE_PRIVATE);
 		questionOne.setText(preference.getString("q1", ""));
 		questionTwo.setText(preference.getString("q2", ""));
 		questionThree.setText(preference.getString("q3", ""));
@@ -104,7 +114,7 @@ public class ResetSecuritySetActivity extends Activity {
 		String q1 = questionOne.getText().toString();
 		String q2 = questionTwo.getText().toString();
 		String q3 = questionThree.getText().toString();
-		SharedPreferences sp = getSharedPreferences("question", MODE_PRIVATE);
+		SharedPreferences sp = getSharedPreferences(id, MODE_PRIVATE);
 		Editor editor = sp.edit();
 		editor.putString("q1", q1);
 		editor.putString("q2", q2);
