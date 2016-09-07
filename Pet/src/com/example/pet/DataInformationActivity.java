@@ -84,8 +84,8 @@ public class DataInformationActivity extends Activity {
 			public void run() {
 				StringBuilder builder = new StringBuilder();
 				try {
-					String httpPost = "http://192.168.1.182/index.php/Home/Api/getuserdata";
-					String name = "userid=" + userid;
+					String httpPost = "http://192.168.1.192/index.php/Home/Pet/getuserinfo";
+					String name = "id=" + userid;
 					String urlName = httpPost + "?" + name;
 					URL url = new URL(urlName);
 					HttpURLConnection conn = (HttpURLConnection) url
@@ -112,6 +112,7 @@ public class DataInformationActivity extends Activity {
 					bufferedReader.close();
 					inputStream.close();
 					Log.i("builder", builder.toString());
+					str=builder.toString();
 					Message msg = new Message();
 					handler.sendMessage(msg);
 				} catch (MalformedURLException e) {
@@ -258,7 +259,7 @@ public class DataInformationActivity extends Activity {
 	private void saveData() {
 		new Thread(new Runnable() {
 			public void run() {
-				String httpUrl = "http://192.168.1.182/index.php/Home/Pet/update";// php接口地址
+				String httpUrl = "http://192.168.1.192/index.php/Home/Pet/update";// php接口地址
 				HttpPost httpRequest = new HttpPost(httpUrl);// http用post方法请求数据
 				List<NameValuePair> params = new ArrayList<NameValuePair>();// 建立一个列表用于添加数据
 				params.add(new BasicNameValuePair("userid", id));// 添加获得的用户的账号

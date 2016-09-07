@@ -15,7 +15,14 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.widget.Toast;
 
-public class CameraAndAlbum extends Activity {
+import com.example.pet.R;
+
+/**
+ * 一个可以调用系统相册和照相机的类
+ * @author Administrator
+ *
+ */
+public class CameraAndAlbum extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -41,37 +48,32 @@ public class CameraAndAlbum extends Activity {
 	 * 头像地址转图片
 	 */
 	static Bitmap bitmap = null;
-
-	/**
-	 * 判断调用哪个方法 numb,1为相册，2为拍照
-	 */
-	public void which(int numb, int output_X, int output_Y) {
-		this.output_X = output_X;
-		this.output_Y = output_Y;
-		if (numb == 1) {
-			fromGallery();
-		} else if (numb == 2) {
-			takePhoto();
+		public void which(int numb,int output_X ,int output_Y){
+			this.output_X=output_X;
+			this.output_Y=output_Y;
+			if(numb==1){
+				fromGallery();
+			}else if(numb==2){
+				takePhoto();
+			}
 		}
-	}
 
-	/**
-	 * 拍照
-	 */
-	private void takePhoto() {
-		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		// 指定调用相机拍照后的照片储存的路径
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(
-				Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
-		startActivityForResult(intent, CAMERA_REQUEST_CODE);
-		// 判断储存卡是否可用，储存照片文件
-		if (hasSdcard()) {
-			intent.putExtra(MediaStore.EXTRA_OUTPUT,
-					Uri.fromFile(new File(Environment
-							.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
-
+		/**
+		 * 拍照
+		 */
+		public void takePhoto() {
+			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			//指定调用相机拍照后的照片储存的路径
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(
+					new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
+			startActivityForResult(intent, CAMERA_REQUEST_CODE);	
+			// 判断储存卡是否可用，储存照片文件
+			if (hasSdcard()) {
+				intent.putExtra(MediaStore.EXTRA_OUTPUT,
+						Uri.fromFile(new File(Environment
+								.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
+			}
 		}
-	}
 
 	/**
 	 * 从本地相册选取图片作为头像
@@ -84,37 +86,35 @@ public class CameraAndAlbum extends Activity {
 		startActivityForResult(intent, IMAGE_REQUEST_CODE);
 	}
 
-	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		switch (requestCode) {
-		case IMAGE_REQUEST_CODE:
-			cropRawPhoto(intent.getData());
-			break;
-		case CAMERA_REQUEST_CODE:
-			if (hasSdcard()) {
-				File tempFile = new File(
-						Environment.getExternalStorageDirectory(),
-						IMAGE_FILE_NAME);
-				cropRawPhoto(Uri.fromFile(tempFile));
-			} else {
-				Toast.makeText(CameraAndAlbum.this, "没有SDcard",
-						Toast.LENGTH_SHORT).show();
-			}
-			break;
-		case RESULT_REQUEST_CODE:
-			if (intent != null) {
-				setIconView(intent);
-				bitmap = getLoacalBitmap(file.getAbsolutePath());
-				// image.setImageBitmap(bitmap);
-			} else {
-				// image.setImageResource(R.drawable.add_big);
-			}
-			break;
+			
+		public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+			switch (requestCode) {
+			case IMAGE_REQUEST_CODE:
+				cropRawPhoto(intent.getData());
+				break;
+			case CAMERA_REQUEST_CODE:
+				if (hasSdcard()) {
+					File tempFile = new File(
+							Environment.getExternalStorageDirectory(),
+							IMAGE_FILE_NAME);
+					cropRawPhoto(Uri.fromFile(tempFile));
+				} else {
+					Toast.makeText(CameraAndAlbum.this, "没有SDcard", Toast.LENGTH_SHORT)
+							.show();
+				}
+				break;
+			case RESULT_REQUEST_CODE:
+				if (intent != null) {
+					setIconView(intent);
+				}
+				break;
 
-		default:
-			break;
-		}
-		super.onActivityResult(requestCode, resultCode, intent);
-	};
+			default:
+				break;
+			}
+			super.onActivityResult(requestCode, resultCode, intent);
+		};
+
 
 	/**
 	 * 剪裁原始图片
