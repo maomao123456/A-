@@ -129,7 +129,7 @@ public class DataInformationActivity extends Activity {
 				JSONObject jsonObject = new JSONObject(str);
 				String nickName = jsonObject.getString("nickname");
 				nickname.setText(nickName);
-				String sex = jsonObject.getString("sex");
+				String sex = jsonObject.getString("gender");
 				if (sex.equals("男")) {
 					boy.setChecked(true);
 				} else {

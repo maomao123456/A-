@@ -18,6 +18,7 @@ import org.apache.http.util.EntityUtils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
@@ -38,7 +39,15 @@ public class ResetEmailActivity extends Activity {
 	Button saveNewEmail;
 	EditText newEmail, confirmEmail;
 	TextView promptNewEmail, promptEnsureEmail;
-	String userId = "123";// 用户的账号
+	
+	/**
+	 * 获得用户 登录后的id 获得当前用户id的方法
+	 */
+	String id;
+	public void getId() {
+		SharedPreferences pf = getSharedPreferences("pet_user", MODE_PRIVATE);
+		id = pf.getString("id", "");
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -127,7 +136,7 @@ public class ResetEmailActivity extends Activity {
 				String httpUrl = "http://192.168.1.182/index.php/Home/Pet/resetemail";// php接口地址
 				HttpPost httpRequest = new HttpPost(httpUrl);// http用post方法请求数据
 				List<NameValuePair> params = new ArrayList<NameValuePair>();// 建立一个列表用于添加数据
-				params.add(new BasicNameValuePair("userid", userId));// 添加获得的用户的账号
+				params.add(new BasicNameValuePair("userid", id));// 添加获得的用户的账号
 				params.add(new BasicNameValuePair("email", newEmail.getText()
 						.toString()));// 添加用户的邮箱地址
 				try {

@@ -20,6 +20,16 @@ public class SetPasswordQuestionAnswerActivity extends Activity {
 	TextView forQuestionOne, forQuestionTwo, forQuestionThree;
 	EditText questionOneAnswer, questionTwoAnswer, questionThreeAnswer;
 	Button saveAnswer, backQuestion;
+	
+	/**
+	 * 获得用户 登录后的id 获得当前用户id的方法
+	 */
+	String id;
+	public void getId() {
+		SharedPreferences pf = getSharedPreferences("pet_user", MODE_PRIVATE);
+		id = pf.getString("id", "");
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -37,7 +47,7 @@ public class SetPasswordQuestionAnswerActivity extends Activity {
 		questionTwoAnswer = (EditText) findViewById(R.id.question_two_answer);
 		questionThreeAnswer = (EditText) findViewById(R.id.question_three_answer);
 		saveAnswer = (Button) findViewById(R.id.save_question_answer);
-		SharedPreferences sp = getSharedPreferences("question", Context.MODE_PRIVATE);
+		SharedPreferences sp = getSharedPreferences(id, Context.MODE_PRIVATE);
 		backQuestion = (Button) findViewById(R.id.back_reset_security_set);
 		forQuestionOne.setText(sp.getString("q1", ""));
 		forQuestionTwo.setText(sp.getString("q2", ""));
@@ -69,7 +79,7 @@ public class SetPasswordQuestionAnswerActivity extends Activity {
 	};
 	
 	private void cacheAnswer(){
-		SharedPreferences preferences = getSharedPreferences("question", Context.MODE_PRIVATE);
+		SharedPreferences preferences = getSharedPreferences(id, Context.MODE_PRIVATE);
 		String answer1 = questionOneAnswer.getText().toString();
 		String answer2 = questionTwoAnswer.getText().toString();
 		String answer3 = questionThreeAnswer.getText().toString();
