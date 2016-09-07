@@ -52,7 +52,8 @@ public class DataInformationActivity extends Activity {
 
 	ImageButton backMine;
 	Button saveData;
-	EditText nickname, birthday, star, occupation, company, address, hometown, email, remark;
+	EditText nickname, birthday, star, occupation, company, address, hometown,
+			email, remark;
 	RadioGroup gender;
 	RadioButton boy, girl;
 	String temp = "男";
@@ -61,6 +62,7 @@ public class DataInformationActivity extends Activity {
 	 * 获得用户 登录后的id 获得当前用户id的方法
 	 */
 	String id;
+
 	public void getId() {
 		SharedPreferences pf = getSharedPreferences("pet_user", MODE_PRIVATE);
 		id = pf.getString("id", "");
@@ -112,7 +114,7 @@ public class DataInformationActivity extends Activity {
 					bufferedReader.close();
 					inputStream.close();
 					Log.i("builder", builder.toString());
-					str=builder.toString();
+					str = builder.toString();
 					Message msg = new Message();
 					handler.sendMessage(msg);
 				} catch (MalformedURLException e) {
@@ -175,7 +177,7 @@ public class DataInformationActivity extends Activity {
 		gender = (RadioGroup) findViewById(R.id.gender);
 		boy = (RadioButton) findViewById(R.id.boy);
 		girl = (RadioButton) findViewById(R.id.girl);
-		//触发点击
+		// 触发点击
 		backMine.setOnClickListener(clickListener);
 		gender.setOnCheckedChangeListener(changeListener);
 		saveData.setOnClickListener(clickListener);
@@ -189,11 +191,13 @@ public class DataInformationActivity extends Activity {
 				backMine();
 				break;
 			case R.id.save_user:
-				if(!checkEdit()){
-					Toast.makeText(getApplicationContext(), "未保存", Toast.LENGTH_SHORT).show();
+				if (!checkEdit()) {
+					Toast.makeText(getApplicationContext(), "未保存",
+							Toast.LENGTH_SHORT).show();
 					return;
 				}
-				Toast.makeText(getApplicationContext(), "正在保存.....", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "正在保存.....",
+						Toast.LENGTH_SHORT).show();
 				saveData();
 				break;
 
@@ -209,22 +213,26 @@ public class DataInformationActivity extends Activity {
 		intent.setClass(DataInformationActivity.this, MainActivity.class);
 		startActivity(intent);
 	}
-	
-	//保存数据时昵称不能为空
-	public boolean checkEdit(){
+
+	// 保存数据时昵称不能为空
+	public boolean checkEdit() {
 		String nickName = nickname.getText().toString();
 		String e_mail = email.getText().toString();
 		boolean rightEmail = Utils.isRightEmail(e_mail);
 		if (nickName.isEmpty()) {
 			Toast.makeText(getApplicationContext(), "保存失败，请输入昵称",
 					Toast.LENGTH_SHORT).show();
-		} else if (!e_mail.isEmpty()) {
-			if (rightEmail == false) {
-				Toast.makeText(getApplicationContext(), "请输入正确的邮箱地址",
-						Toast.LENGTH_SHORT).show();
+		} else if (!nickName.isEmpty()) {
+			if (!e_mail.isEmpty()) {
+				if (rightEmail == false) {
+					Toast.makeText(getApplicationContext(), "请输入正确的邮箱地址",
+							Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(getApplicationContext(), "保存成功",
+							Toast.LENGTH_SHORT).show();
+					return true;
+				}
 			}
-		} else {
-			return true;
 		}
 		return false;
 	}
@@ -254,7 +262,7 @@ public class DataInformationActivity extends Activity {
 			}
 		}
 	};
-		
+
 	// 添加我的信息
 	private void saveData() {
 		new Thread(new Runnable() {
@@ -316,4 +324,3 @@ public class DataInformationActivity extends Activity {
 		}).start();
 	}
 }
-
