@@ -115,12 +115,7 @@ public class MineFragment extends Fragment {
 		name = pf.getString("nicheng", "无");
 		id = pf.getString("id", "");
 		tongxiang = pf.getString("tongxiang", "无地址");
-		//判断用户是否为第三方登录
-		if(numb!=3){//不是第三方登录
-			getInfo(id);
-		}else{
-			user_nickname.setText(name);
-		}
+		getInfo(id);
 		user_id.setText(id);
 	}
 	/**
@@ -153,7 +148,12 @@ public class MineFragment extends Fragment {
 				try {
 					JSONObject object=new JSONObject(str2);
 					String name1=object.getString("nickname");
-					user_nickname.setText(name1);
+					//判断用户是否为第三方登录
+					if(numb!=3){//不是第三方登录
+						user_nickname.setText(name1);
+					}else{
+						user_nickname.setText(name);
+					}
 					//根据用户id获取头像
 					if(SaveAndOutImg.outImg(id)==null){//判断用户是否已存在头像
 						user_icon.setImageResource(R.drawable.logo);

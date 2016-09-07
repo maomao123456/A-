@@ -401,6 +401,7 @@ public class LoginActivity extends Activity  implements OnClickListener{
 				// 调用用户信息类
 				SharedPreferences pf=getSharedPreferences("pet_user", MODE_PRIVATE);
 				Editor editor=pf.edit();
+				saveDisanfangInfo(ID, nickName, touxiang, "重庆", "男");
 				if(pf.getString(ID, "无").equals("无")){
 					editor.putString(ID, ID);
 					SaveAndOutImg.saveImg(touxiang, ID);
@@ -542,15 +543,16 @@ public class LoginActivity extends Activity  implements OnClickListener{
 				Log.i("qq用户信息", jsonObject.toString());
 				// 处理自己需要的信息
 				String name = jsonObject.getString("nickname");
-				String six = jsonObject.getString("gender");
+				String sex = jsonObject.getString("gender");
 				String city = jsonObject.getString("city");
 				String touxiang = jsonObject.getString("figureurl_qq_2");
 				loName.setText(name);
+				saveDisanfangInfo(qqID, name, touxiang, "重庆", sex);
 				if(!hasDL){
 					SaveAndOutImg.saveImg(touxiang, qqID);
 				}
 				saveLogin();
-				threeTz(3, name, qqID, six, touxiang, city);
+				threeTz(3, name, qqID, sex, touxiang, city);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -791,5 +793,18 @@ public class LoginActivity extends Activity  implements OnClickListener{
 		Editor editor2=getSharedPreferences("pet", MODE_PRIVATE).edit();
     	editor2.putInt("login", 1);
     	editor2.commit();
+	}
+	/**
+	 * 存储第三方信息到数据库
+	 */
+	public void saveDisanfangInfo(final String id ,final String nickname,
+			final String touxiang,final String address,final String sex){
+		new Thread(new Runnable() {
+			public void run() {
+				JieXiShuJu.doGet("http://192.168.1.192/index.php/Home/Pet/adddisanfang",
+						new String[]{"id","nickname","sex","address","touxiang"},
+						new String[]{id,nickname,sex,address,touxiang});
+			}
+		}).start();
 	}
 }
