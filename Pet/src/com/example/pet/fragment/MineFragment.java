@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -39,7 +38,6 @@ import com.example.pet.R;
 import com.example.pet.SetActivity;
 import com.example.pet.lei.CircularImage;
 import com.example.pet.lei.SaveAndOutImg;
-import com.example.pet.qq.Util;
 
 public class MineFragment extends Fragment {
 
@@ -447,10 +445,7 @@ IMAGE_FILE_NAME)));
 		startActivity(intent);
 	}
 
-	/** * 
-=======
 	/** 
->>>>>>> feature/guoyumin
 	 * 加载本地图片
 	 */ 
 	public static Bitmap getLoacalBitmap(String url) {

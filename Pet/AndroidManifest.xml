@@ -47,7 +47,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         <activity
-            android:name=".MainActivity"
+            android:name=".GuideActivity"
             android:launchMode="singleTask"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
@@ -63,7 +63,7 @@
         <activity android:name="com.example.pet.XieYiActivity" />
         <activity android:name="com.example.pet.ForgetPasswordActivity"/>
         <!--主页面  -->
-        <activity android:name="com.example.pet.GuideActivity"
+        <activity android:name="com.example.pet.MainActivity"
             android:launchMode="singleTask"/>
         <!-- 我的界面 -->
         <activity android:name="com.example.pet.MineActivity" />

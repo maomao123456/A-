@@ -23,7 +23,8 @@
             android:layout_centerInParent="true"
             android:text="写说说"
             android:textColor="@color/text_33"
-            android:textSize="20sp" />
+            android:textSize="20sp" 
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,22 +41,32 @@
 	    android:layout_height="wrap_content"
 	    android:orientation="vertical"
 	    android:background="@color/white">
-	    <TextView 
+	    <EditText 
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:id="@+id/content_publish_content"
 	        android:layout_marginLeft="18dp"
 	        android:layout_marginTop="19dp"
 	        android:layout_marginRight="18dp"
 	        android:textColor="@color/text_68"
+	        android:background="@null"
 	        android:textSize="18sp"
-	        android:text="说点什么吧..."/>
-	    <ImageView 
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="56dp"
-	        android:layout_marginLeft="15dp"
-	        android:layout_marginBottom="15dp"
-	        android:src="@drawable/add_photo"/>
+	        android:hint="说点什么吧..."/>
+	    <GridView  
+                android:id="@+id/gridView_publish_state"  
+                android:layout_width="match_parent"  
+                android:focusableInTouchMode="true"
+                android:layout_height="200dp"  
+                android:layout_marginTop="56dp"  
+                android:layout_marginLeft="10dp"
+	        	android:layout_marginBottom="15dp"
+	        	android:layout_marginRight="10dp"
+                android:background="@color/white"  
+                android:horizontalSpacing="4dp"  
+                android:verticalSpacing="4dp"  
+                android:numColumns="3"  
+                android:stretchMode="columnWidth"  
+                android:gravity="center"/>  
 	    <View 
 	        android:layout_width="match_parent"
 	        android:layout_height="1dp"
@@ -64,6 +75,7 @@
 	    <TextView 
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
+	        android:id="@+id/address_publish_content"
 	        android:layout_marginLeft="15dp"
 	        android:layout_marginTop="15dp"
 	        android:layout_marginRight="12dp"

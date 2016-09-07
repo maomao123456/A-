@@ -18,6 +18,11 @@ import android.widget.Toast;
 
 import com.example.pet.R;
 
+/**
+ * 一个可以调用系统相册和照相机的类
+ * @author Administrator
+ *
+ */
 public class CameraAndAlbum extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +66,7 @@ public class CameraAndAlbum extends Activity{
 		/**
 		 * 拍照
 		 */
-		private void takePhoto() {
+		public void takePhoto() {
 			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			//指定调用相机拍照后的照片储存的路径
 			intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(
@@ -79,7 +84,7 @@ public class CameraAndAlbum extends Activity{
 		/**
 		 * 从本地相册选取图片作为头像
 		 */
-		private void fromGallery() {
+		public void fromGallery() {
 			Intent intent = new Intent(Intent.ACTION_PICK, null);
 			//调用相机拍照后的照片储存
 			intent.setType("image/*");
@@ -106,10 +111,6 @@ public class CameraAndAlbum extends Activity{
 			case RESULT_REQUEST_CODE:
 				if (intent != null) {
 					setIconView(intent);
-					bitmap=getLoacalBitmap(file.getAbsolutePath());
-					//image.setImageBitmap(bitmap);
-				}else{
-					//image.setImageResource(R.drawable.add_big);
 				}
 				break;
 
@@ -136,52 +137,25 @@ public class CameraAndAlbum extends Activity{
 			intent.putExtra("return-data", true);
 			startActivityForResult(intent, RESULT_REQUEST_CODE);
 		}
-//		File file2 = new File(Environment.getExternalStorageDirectory() + "/ask", "icon.jpg");
-		File file;
 		/**
 		 *  提取保存剪裁之后的图片数据，并设置头像部分的View
 		 */
-		private void setIconView(Intent intent) {
+		public void setIconView(Intent intent) {
 			Bundle extras = intent.getExtras();
 			if (extras != null) {
 				bitmap = extras.getParcelable("data");
-				//image.setImageBitmap(photo);
-				//新建文件夹 
-				File nfile = new File(Environment.getExternalStorageDirectory() + "/ask");
-				nfile.mkdir();
-				//在根目录下面的ask文件夹下，创建temp_head_image.jpg文件
-				file = new File(Environment.getExternalStorageDirectory() + "/ask", "icon.jpg");
-				FileOutputStream fos = null;
-				try{
-					//打开输出流，将图片数据填入文件中
-					fos = new FileOutputStream(file);
-					bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-					try{
-						fos.flush();
-						fos.close();
-					}catch(Exception e){
-						e.printStackTrace();
-					}
-				}catch(FileNotFoundException e){
-					e.printStackTrace();
-				}
+				
 			}
+			bitmap();
 		}
-		
 		/**
-		 * 返回本地图片的路径
+		 * 返回一个bitmap
 		 * @return
-		 * 图片路径
 		 */
-		public static String getLujing(){
-			File file2 = new File(Environment.getExternalStorageDirectory() + "/ask", "icon.jpg");
-			
-			return file2.getAbsolutePath();
-		}
-
-		public Bitmap getPath(){
+		public Bitmap bitmap(){
 			return bitmap;
 		}
+		
 		/**
 		 *  检查设备是否存在SDCardz的工具方法
 		 */
@@ -193,17 +167,5 @@ public class CameraAndAlbum extends Activity{
 				return false;
 			}
 
-		}
-		/** 
-		 * 加载本地图片
-		 */ 
-		public static Bitmap getLoacalBitmap(String url) {
-			try {
-				FileInputStream fis = new FileInputStream(url);
-				return BitmapFactory.decodeStream(fis);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				return null;
-			}
 		}
 }
