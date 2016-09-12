@@ -164,6 +164,8 @@ public class AboutPetsActivity extends Activity {
 			// 如果有更新就提示
 			if (isNeedUpdate()) {
 				showUpdateDialog();
+			} else {
+				Toast.makeText(getApplicationContext(), "这已是最新版本，无需更新", Toast.LENGTH_SHORT).show();
 			}
 		}
 	};
