@@ -193,6 +193,7 @@ public class SquareDetailsActivity extends Activity {
 	/**
 	 * 发表评论的事件点击监听
 	 */
+	@SuppressWarnings("unused")
 	private final class ClickListener implements OnClickListener{
 		public void onClick(View v) {
 			switch (v.getId()) {

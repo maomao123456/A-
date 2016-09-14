@@ -141,6 +141,7 @@ public class MineFragment extends Fragment {
 	/**
 	 * 根据用户登录的状况来刷新UI
 	 */
+	@SuppressLint("HandlerLeak")
 	Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -425,7 +426,9 @@ public class MineFragment extends Fragment {
 		concern = 0;
 		fans = 0;
 		collection = 0;
-		SharedPreferences share = getActivity().getSharedPreferences("count",
+		SharedPreferences shareCollection = getActivity().getSharedPreferences("pet_shoucang",
+				getActivity().MODE_PRIVATE);
+		SharedPreferences share = getActivity().getSharedPreferences("pet_shoucang",
 				getActivity().MODE_PRIVATE);
 		for (int numb = 1; numb < 5; numb++) {
 			String str = numb + "关注";
@@ -436,7 +439,7 @@ public class MineFragment extends Fragment {
 		}
 		for (int numb = 1; numb < 5; numb++) {
 			String str = numb + "收藏";
-			String str2 = share.getString(str, "1");
+			String str2 = shareCollection.getString(str, "1");
 			if (str2.equals("已收藏")) {
 				collection++;
 			}
