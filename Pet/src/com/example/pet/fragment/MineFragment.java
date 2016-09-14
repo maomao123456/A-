@@ -172,6 +172,7 @@ public class MineFragment extends Fragment {
 		};
 	};
 
+
 	// 初始化视图
 	private void initView() {
 		user_icon = (CircularImage) view.findViewById(R.id.mine_user_icon);
