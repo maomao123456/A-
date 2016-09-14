@@ -3,19 +3,22 @@ package com.example.pet;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pet.classes.SysApplication;
 
 public class XianqingActivity extends Activity {
 	ImageView imageview;
-	TextView tetview;
+	TextView tetview,dogName;
 	CheckBox textview1;
+	int numba=0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,20 +26,48 @@ public class XianqingActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_xiangqing);
 		SysApplication.getInstance().addActivity(this);
-		
+		if(getIntent().getExtras()!=null){
+			numba=getIntent().getExtras().getInt("dogName");
+		}else{
+		}
+		dogName=(TextView)findViewById(R.id.dog_name);
 		imageview=(ImageView)findViewById(R.id.imageview);
 		textview1=(CheckBox)findViewById(R.id.sc);
 		imageview.setOnClickListener(onClickListener);
 		tetview=(TextView) findViewById(R.id.dianping111);
 		tetview.setOnClickListener(onClickListener);
 		textview1.setOnClickListener(onClickListener);
-		SharedPreferences pf = getSharedPreferences("pet_shoucang",
-				MODE_PRIVATE);
-		boolean cdSc = pf.getBoolean("shoucang", false);
-		if (cdSc) {
+		getDogName();
+		SharedPreferences pf=getSharedPreferences("pet_shoucang", MODE_PRIVATE);
+		boolean ifSc=pf.getBoolean("shoucang"+numba, false);
+		if(ifSc){
 			textview1.setChecked(true);
-		} else {
+		}else{
 			textview1.setChecked(false);
+		}
+		
+	}
+
+	public void getDogName() {
+		switch (numba) {
+		case 1:
+			dogName.setText("金毛寻回犬");
+			break;
+		case 2:
+			dogName.setText("西伯利亚雪橇犬");
+			break;
+		case 3:
+			dogName.setText("萨摩耶犬");
+			break;
+		case 4:
+			dogName.setText("贵宾犬");
+			break;
+		case 5:
+			dogName.setText("比雄犬");
+			break;
+
+		default:
+			break;
 		}
 	}
 	OnClickListener onClickListener=new OnClickListener() {
@@ -58,42 +89,28 @@ public class XianqingActivity extends Activity {
 				break;
 				
 			case R.id.sc:
-				//isColleation();
-				/*Editor editor=getSharedPreferences("pet_shoucang", MODE_PRIVATE).edit();
+				SharedPreferences pf=getSharedPreferences("pet_shoucang", MODE_PRIVATE);
+				Editor editor=getSharedPreferences("pet_shoucang", MODE_PRIVATE).edit();
 				if(textview1.isChecked()){
-					editor.putBoolean("shoucang", true);
-					Toast.makeText(getApplicationContext(), "已收藏", Toast.LENGTH_SHORT).show();
+					int a=1;
+					int b=pf.getInt("shoucang", 0);
+					editor.putInt("shoucang", b+a);
+					editor.putBoolean("shoucang"+numba, true);
+					Toast.makeText(XianqingActivity.this, "收藏+1", Toast.LENGTH_SHORT).show();
 				}else{
-					editor.putBoolean("shoucang", false);
-					Toast.makeText(getApplicationContext(), "取消收藏", Toast.LENGTH_SHORT).show();
-				}editor.commit();*/
-				break;
+					int a=-1;
+					int b=pf.getInt("shoucang", 0);
+					editor.putInt("shoucang", b+a);
+					editor.putBoolean("shoucang"+numba, false);
+					Toast.makeText(XianqingActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
+				}
+				editor.commit();
 				
-
+				break;
 			default:
 				break;
-				
 			}
-			
-			
 		}
 	};
 	
-	/*boolean state = false;// 是否收藏，默认不收藏
-	private void isColleation(){
-		Drawable collection = getResources().getDrawable(R.drawable.ratingbarshixin);
-		Drawable notCollection = getResources().getDrawable(R.drawable.ratingbarshixin);
-		if(state == false){
-			
-			collection.setBounds(collection.getMinimumWidth(), collection.getMinimumHeight(), 50, 50);
-			textview1.setCompoundDrawables(collection, null, null, null);
-			state = true;
-			Toast.makeText(XianqingActivity.this, "收藏+1", Toast.LENGTH_SHORT).show();
-		} else {
-			notCollection.setBounds(collection.getMinimumWidth(), collection.getMinimumHeight(), 50, 50);
-			textview1.setCompoundDrawables(notCollection, null, null, null);
-			state = false;
-			Toast.makeText(XianqingActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
-		}
-	}*/
 }

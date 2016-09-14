@@ -38,6 +38,7 @@
         android:src="@drawable/jinmao2" />
 
     <TextView
+        android:id="@+id/dog_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -123,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:button="@null"
-                android:drawableLeft="@drawable/xiangqing_shoucang_selector"
+                android:drawableLeft="@drawable/dog_shoucang_selector"
                 android:textColor="#ffffff"
                 android:textSize="12sp"
                 android:drawablePadding="5dp"

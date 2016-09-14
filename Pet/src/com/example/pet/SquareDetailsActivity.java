@@ -28,6 +28,7 @@ import com.example.pet.baseadapter.SquareDetailsListviewAdapter;
 import com.example.pet.classes.SysApplication;
 import com.example.pet.lei.SquareDetailsListview;
 
+
 public class SquareDetailsActivity extends Activity {
 	LayoutInflater inflater;
 	View headview;

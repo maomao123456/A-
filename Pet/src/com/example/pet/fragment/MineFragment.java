@@ -67,6 +67,9 @@ public class MineFragment extends Fragment {
 		windView = windInflater.inflate(R.layout.activity_update_icon, null);
 		initView();
 		getUserIfon();
+			SharedPreferences pf=getActivity().getSharedPreferences("pet_shoucang", getActivity().MODE_PRIVATE);
+			int b=pf.getInt("shoucang", 0);
+			collection_num.setText(b+"");
 		return view;
 	}
 

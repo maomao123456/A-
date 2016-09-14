@@ -133,7 +133,7 @@ public class ResetPasswordActivity extends Activity {
 	private void resetPassword() {
 		new Thread(new Runnable() {
 			public void run() {
-				String httpUrl = "http://192.168.1.182/index.php/Home/Pet/resetpassword";// php接口地址
+				String httpUrl = "http://192.168.1.192/index.php/Home/Pet/resetpassword";// php接口地址
 				HttpPost httpRequest = new HttpPost(httpUrl);// http用post方法请求数据
 				List<NameValuePair> params = new ArrayList<NameValuePair>();// 建立一个列表用于添加数据
 				params.add(new BasicNameValuePair("userid", id));// 添加获得的用户的账号
