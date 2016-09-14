@@ -99,6 +99,27 @@ public class GonglueFragment extends Fragment {
 			switch (position) {
 			case 1:
 				Intent intent=new Intent(getActivity(), XianqingActivity.class);
+				intent.putExtra("dogName", 1);
+				startActivity(intent);
+				break;
+			case 2:
+				intent=new Intent(getActivity(), XianqingActivity.class);
+				intent.putExtra("dogName", 2);
+				startActivity(intent);
+				break;
+			case 3:
+				intent=new Intent(getActivity(), XianqingActivity.class);
+				intent.putExtra("dogName", 3);
+				startActivity(intent);
+				break;
+			case 4:
+				intent=new Intent(getActivity(), XianqingActivity.class);
+				intent.putExtra("dogName", 4);
+				startActivity(intent);
+				break;
+			case 5:
+				intent=new Intent(getActivity(), XianqingActivity.class);
+				intent.putExtra("dogName", 5);
 				startActivity(intent);
 				break;
 

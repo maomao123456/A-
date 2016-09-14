@@ -38,6 +38,7 @@
         android:src="@drawable/jinmao2" />
 
     <TextView
+        android:id="@+id/dog_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -118,11 +119,12 @@
             android:layout_weight="1"
             android:background="#E8988B" >
 
-            <TextView
+            <CheckBox
                 android:id="@+id/sc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ratingbarshixin"
+                android:button="@null"
+                android:drawableLeft="@drawable/dog_shoucang_selector"
                 android:textColor="#ffffff"
                 android:textSize="12sp"
                 android:drawablePadding="5dp"

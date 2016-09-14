@@ -198,9 +198,32 @@ public class LoginActivity extends Activity  implements OnClickListener{
 		}
 	}
 	/**
+	 * 获得宠物的信息
+	 */
+	public void getPetInfo(){
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				str=JieXiShuJu.doGet("http://192.168.1.192/index.php/Home/Pet/getpetinfo",
+						new String[]{"name"}, new String[]{"贵宾犬"});
+			}
+		}).start();
+		
+		try {
+			JSONObject object=new JSONObject(str);
+			String[] str2;
+			String name=object.getString("name");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	/**
 	 * 转换数据方便解析
 	 */
-	String str="";
+	String str = "";
 	/**
 	 * 远程判断用户账号 数据库账号比对
 	 */
@@ -504,10 +527,10 @@ public class LoginActivity extends Activity  implements OnClickListener{
 				if(!pf.getString(openID, "无").equals("无")){
 					qqID=pf.getString(openID, "无");
 				}else{
-					String	qd=pf.getString("openID", "20160000");
-					int qqid= Integer.parseInt(qd)+1;
-					editor.putString("openID", qqid+"");
-					qqID=qqid+"";
+					String nb=""+(int)(Math.random()*10)+(int)(Math.random()*10)+(int)(Math.random()*10)
+							+(int)(Math.random()*10)+(int)(Math.random()*10)+(int)(Math.random()*10)
+							+(int)(Math.random()*10)+(int)(Math.random()*10)+"";
+					qqID=nb;
 					editor.putString(openID, qqID);
 					editor.commit();
 					hasDL=false;
