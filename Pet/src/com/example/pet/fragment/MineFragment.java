@@ -421,9 +421,8 @@ public class MineFragment extends Fragment {
 	}
 
 	// 保存用户的关注、粉丝、收藏等信息
-	@SuppressWarnings("static-access")
 	public void toSave() {
-		concern = 0;
+		/*concern = 0;
 		fans = 0;
 		collection = 0;
 		SharedPreferences shareCollection = getActivity().getSharedPreferences("pet_shoucang",
@@ -443,7 +442,7 @@ public class MineFragment extends Fragment {
 			if (str2.equals("已收藏")) {
 				collection++;
 			}
-		}
+		}*/
 	}
 
 	// 跳转到资料信息界面
